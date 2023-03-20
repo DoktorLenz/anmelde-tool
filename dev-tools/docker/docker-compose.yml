@@ -1,0 +1,16 @@
+#
+# Starts shared infrastructure required for running certain services of the Movie-DB.
+#
+version: "3.9"
+services:
+
+  db:
+    container_name: anmelde-tool-dev_database
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=anmelde_tool
+      - POSTGRES_PASSWORD=anmelde_tool
+      - POSTGRES_DB=anmelde_tool
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
