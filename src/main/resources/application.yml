@@ -1,0 +1,59 @@
+server:
+  port: 8443
+
+spring:
+  application:
+    name: "ANMELDE_TOOL_BACKEND"
+
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/anmelde_tool?useSSL=false&serverTimezone=Europe/Berlin"
+    username: "anmelde_tool"
+    password: "anmelde_tool"
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    change-log: "classpath:/db/liquibase-changelog_testdata.xml"
+    drop-first: true
+
+  mail:
+    host: "smtp.mail.yahoo.com"
+    port: 587
+    username: "laurenz.stinner@ymail.com"
+    password: "ctxhitfwsrgpahtv"
+    templates:
+      path: "mail/templates"
+    properties:
+      mail:
+        debug: false
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+anmelde-tool:
+  logging:
+    file:
+      size-limit: 5MB
+    directory: logs
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        mail: INFO
+    jakarta:
+      mail: INFO
+    com:
+      sun:
+        mail: INFO

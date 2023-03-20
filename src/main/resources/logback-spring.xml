@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <springProperty scope="context" name="LOG_DIRECTORY" source="title-service.logging.directory"/>
-    <springProperty scope="context" name="LOG_FILE_SIZE_LIMIT" source="title-service.logging.file.size-limit"/>
+    <springProperty scope="context" name="LOG_DIRECTORY" source="anmelde-tool.logging.directory"/>
+    <springProperty scope="context" name="LOG_FILE_SIZE_LIMIT" source="anmelde-tool.logging.file.size-limit"/>
 
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
@@ -26,14 +26,14 @@
     </logger>
 
     <appender name="custom-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIRECTORY}/title-service.log</file>
+        <file>${LOG_DIRECTORY}/anmelde-tool.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${CUSTOM_FILE_LOG_PATTERN}</pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${LOG_DIRECTORY}/archived/title-service-%d{yyyy-MM-dd}.%i.zip
+                ${LOG_DIRECTORY}/archived/anmelde-tool-%d{yyyy-MM-dd}.%i.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${LOG_FILE_SIZE_LIMIT}</maxFileSize>
