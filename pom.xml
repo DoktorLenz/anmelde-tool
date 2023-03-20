@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.4</version>
+        <version>3.0.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.stinner</groupId>
@@ -19,7 +19,7 @@
         <org.postgres.jdbc-driver.version>42.3.3</org.postgres.jdbc-driver.version>
         <org.lombok.version>1.18.22</org.lombok.version>
         <hibernate.jpamodelgen.version>5.6.0.Final</hibernate.jpamodelgen.version>
-        <org.liquibase.version>4.5.0</org.liquibase.version>
+        <org.liquibase.version>4.20.0</org.liquibase.version>
         <com.vladmihalcea.hibernate-types-52.version>2.14.0</com.vladmihalcea.hibernate-types-52.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <org.springdoc.version>1.5.12</org.springdoc.version>
@@ -31,6 +31,12 @@
         <org.springframework.cloud.wiremock.version>3.1.0</org.springframework.cloud.wiremock.version>
         <org.jacoco.version>0.8.8</org.jacoco.version>
         <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+        <org.keycloak.version>21.0.1</org.keycloak.version>
+        <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
+        <org.thymeleaf.version>3.1.1.RELEASE</org.thymeleaf.version>
+
+        <!-- non-dependencies -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -74,18 +80,21 @@
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
 
-        <!--        Documentation        -->
+        <!--Mail-->
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${org.springdoc.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-security</artifactId>
-            <version>${org.springdoc.version}</version>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+            <version>${org.thymeleaf.version}</version>
         </dependency>
+
+
+        <!--        Documentation        -->
+
 
         <!--Database-->
         <dependency>
@@ -183,9 +192,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <executable>true</executable>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -251,5 +257,6 @@
 
         </plugins>
     </build>
+
 
 </project>
