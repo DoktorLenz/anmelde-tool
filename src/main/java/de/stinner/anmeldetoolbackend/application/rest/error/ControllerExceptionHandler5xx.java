@@ -1,30 +1,26 @@
 package de.stinner.anmeldetoolbackend.application.rest.error;
 
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 @Slf4j
 public class ControllerExceptionHandler5xx {
 
-    @ApiResponse(
-            description = "When the request is malformed in a way the backend can not (yet) handle, "
-                    + "or the backend is not running properly.",
-            responseCode = "500",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class)
-            )
-    )
+    //    @ApiResponse(
+//            description = "When the request is malformed in a way the backend can not (yet) handle, "
+//                    + "or the backend is not running properly.",
+//            responseCode = "500",
+//            content = @Content(
+//                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+//                    schema = @Schema(implementation = ErrorResponse.class)
+//            )
+//    )
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(
             Exception e,
