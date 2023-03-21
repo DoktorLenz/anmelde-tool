@@ -5,16 +5,13 @@
 create table users_
 (
     id                  uuid primary key,
-    email               varchar(255) not null,
-    password            varchar(72)  not null,
-    account_locked      boolean      not null default true,
-    credentials_expired boolean      not null default false,
-    enabled             boolean      not null default false,
-    authorities         varchar(30)[] null
+    email               varchar(255)    not null,
+    password            varchar(72)     not null,
+    account_locked      boolean         not null default true,
+    credentials_expired boolean         not null default false,
+    enabled             boolean         not null default false,
+    authorities         authority array null,
+    created_at          timestamptz     not null,
+    firstname           varchar(255)    null,
+    lastname            varchar(255)    null
 );
-
-
--- Custom data for user
-alter table users_
-    add column firstname varchar(255) null,
-add column lastname varchar(255) null;

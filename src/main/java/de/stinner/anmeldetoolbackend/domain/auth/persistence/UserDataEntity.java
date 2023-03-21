@@ -6,10 +6,12 @@ import io.hypersistence.utils.hibernate.type.array.internal.AbstractArrayType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
+import java.time.Instant;
 import java.util.UUID;
 
 
@@ -45,6 +47,10 @@ public class UserDataEntity {
             columnDefinition = "authority[]"
     )
     private Authority[] authorities;
+
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
+    private Instant createdAt;
 
     // Custom user data
     private String firstname;
