@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthenticationService authenticationService;
 
-    @GetMapping(ApiEndpoints.V1.LOGIN)
+    @GetMapping(ApiEndpoints.V1.Auth.LOGIN)
     public ResponseEntity<Void> login() {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(ApiEndpoints.V1.LOGOUT)
+    @GetMapping(ApiEndpoints.V1.Auth.LOGOUT)
     public ResponseEntity<Void> logout() {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
-    @PostMapping(ApiEndpoints.V1.REGISTER)
+    @PostMapping(ApiEndpoints.V1.Auth.REGISTER)
     public ResponseEntity<Void> register(@RequestBody RegistrationRequestDto registerRequestDto) {
         authenticationService.register(RegistrationEntity.of(registerRequestDto));
         return new ResponseEntity<>(HttpStatus.CREATED);
