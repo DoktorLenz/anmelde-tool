@@ -46,14 +46,3 @@ management:
       enabled: true
     readinessState:
       enabled: true
-
-logging:
-  level:
-    org:
-      springframework:
-        mail: INFO
-    jakarta:
-      mail: INFO
-    com:
-      sun:
-        mail: INFO
