@@ -30,12 +30,12 @@ public class WebSecurityConfiguration {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 
-        http.logout().logoutUrl(ApiEndpoints.V1.LOGOUT);
+        http.logout().logoutUrl(ApiEndpoints.V1.Auth.LOGOUT);
 
         http.authorizeHttpRequests()
                 .anyRequest()
                 .authenticated();
-        
+
         return http.build();
     }
 

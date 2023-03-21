@@ -24,9 +24,14 @@ public final class ApiEndpoints {
     public static class V1 {
         private static final String BASE_V1 = BASE + "/v1";
 
-        public static final String AUTH = BASE_V1 + "/auth";
-        public static final String LOGIN = AUTH + "/login";
-        public static final String LOGOUT = AUTH + "/logout";
-        public static final String REGISTER = AUTH + "/register";
+        @UtilityClass
+        public static class Auth {
+            private static final String AUTH = BASE_V1 + "/auth";
+            public static final String LOGIN = AUTH + "/login";
+            public static final String LOGOUT = AUTH + "/logout";
+            public static final String REGISTER = AUTH + "/register";
+        }
+
+
     }
 }
