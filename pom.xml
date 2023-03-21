@@ -16,12 +16,11 @@
     <properties>
         <version>local</version>
         <java.version>17</java.version>
-        <org.postgres.jdbc-driver.version>42.3.3</org.postgres.jdbc-driver.version>
+        <org.postgres.jdbc-driver.version>42.6.0</org.postgres.jdbc-driver.version>
         <org.lombok.version>1.18.22</org.lombok.version>
-        <hibernate.jpamodelgen.version>5.6.0.Final</hibernate.jpamodelgen.version>
+        <hibernate.jpamodelgen.version>6.1.7.Final</hibernate.jpamodelgen.version>
         <org.liquibase.version>4.20.0</org.liquibase.version>
-        <com.vladmihalcea.hibernate-types-52.version>2.14.0</com.vladmihalcea.hibernate-types-52.version>
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <io.hypersistence.version>3.2.0</io.hypersistence.version>
         <org.springdoc.version>1.5.12</org.springdoc.version>
         <org.springframework.security.test.version>5.5.3</org.springframework.security.test.version>
         <org.mockito.version>4.2.0</org.mockito.version>
@@ -31,7 +30,6 @@
         <org.springframework.cloud.wiremock.version>3.1.0</org.springframework.cloud.wiremock.version>
         <org.jacoco.version>0.8.8</org.jacoco.version>
         <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
-        <org.keycloak.version>21.0.1</org.keycloak.version>
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.thymeleaf.version>3.1.1.RELEASE</org.thymeleaf.version>
 
@@ -115,9 +113,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.vladmihalcea</groupId>
-            <artifactId>hibernate-types-52</artifactId>
-            <version>${com.vladmihalcea.hibernate-types-52.version}</version>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-60</artifactId>
+            <version>${io.hypersistence.version}</version>
         </dependency>
 
         <!--Validation-->
@@ -125,14 +123,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-
-        <!--Mapping-->
-
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
         </dependency>
 
         <!--Test-dependencies-->
@@ -219,12 +209,6 @@
                             <groupId>org.springframework.boot</groupId>
                             <artifactId>spring-boot-configuration-processor</artifactId>
                             <version>${project.parent.version}</version>
-                        </path>
-
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${org.mapstruct.version}</version>
                         </path>
 
                     </annotationProcessorPaths>
