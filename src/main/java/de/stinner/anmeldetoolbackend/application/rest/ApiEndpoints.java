@@ -5,7 +5,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class ApiEndpoints {
 
-    private static final String BASE = "/api/title-service";
+    private static final String BASE = "/api";
 
     /* Swagger */
     public static final String SWAGGER_UI_RESOURCE = BASE + "/swagger-ui.html";
@@ -24,12 +24,9 @@ public final class ApiEndpoints {
     public static class V1 {
         private static final String BASE_V1 = BASE + "/v1";
 
-        public static final String TITLES = BASE_V1 + "/titles";
-        public static final String TITLES_FILTER_CONSTRAINTS = TITLES + "/filter-constraints";
-
-        public static final String MOVIES = BASE_V1 + "/movies";
-        public static final String MOVIE_ID = MOVIES + "/{movieId}";
-
-        public static final String TITLES_ON_DISK = BASE_V1 + "/titles-on-disk";
+        public static final String AUTH = BASE_V1 + "/auth";
+        public static final String LOGIN = AUTH + "/login";
+        public static final String LOGOUT = AUTH + "/logout";
+        public static final String REGISTER = AUTH + "/register";
     }
 }
