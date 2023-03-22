@@ -2,6 +2,7 @@ package de.stinner.anmeldetoolbackend.application.auth;
 
 import de.stinner.anmeldetoolbackend.application.rest.ApiEndpoints;
 import de.stinner.anmeldetoolbackend.domain.auth.service.AuthenticationService;
+import de.stinner.anmeldetoolbackend.domain.auth.service.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
@@ -18,6 +20,10 @@ import javax.sql.DataSource;
 public class WebSecurityConfiguration {
     private final AuthenticationService authenticationService;
     private final DataSource dataSource;
+
+    public static PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,18 +39,19 @@ public class WebSecurityConfiguration {
         http.logout().logoutUrl(ApiEndpoints.V1.Auth.LOGOUT);
 
         http.authorizeHttpRequests()
+                .requestMatchers(ApiEndpoints.V1.Auth.REGISTER, ApiEndpoints.V1.Auth.FINISH_REGISTRATION)
+                .anonymous()
                 .anyRequest()
-                .authenticated();
+                .hasAuthority(Authority.ROLE_USER.toString());
 
         return http.build();
     }
-
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(authenticationService);
-        authenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        authenticationProvider.setPasswordEncoder(encoder());
         return authenticationProvider;
     }
 

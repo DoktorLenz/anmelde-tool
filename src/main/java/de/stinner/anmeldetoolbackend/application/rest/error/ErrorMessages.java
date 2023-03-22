@@ -9,7 +9,8 @@ public class ErrorMessages {
     public static class C400 {
         public static final String BAD_REQUEST = "Bad request";
         public static final String MALFORMED_REQUEST_BODY = "Request body was malformed.";
-        public static final String MALFORMED_REQUEST_URL = "Request URL was malformed";
+        public static final String MALFORMED_REQUEST_URL = "Request URL was malformed.";
+        public static final String EXPIRED_REGISTRATION_ID = "The registration id has expired.";
     }
 
     @UtilityClass

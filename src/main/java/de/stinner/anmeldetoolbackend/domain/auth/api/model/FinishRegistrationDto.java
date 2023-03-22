@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class ConfirmRegisterDto {
+public class FinishRegistrationDto {
     @NotEmpty
     private UUID id;
     @Size(min = 8, max = 56)
