@@ -34,7 +34,7 @@ public class AuthenticationService implements UserDetailsService {
     private final UserDataRepository userDataRepository;
     private final RegistrationRepository registrationRepository;
     private final MailServiceImpl mailService;
-    @Value("#{new Long('${anmelde-tool.registration.lifespan}')}")
+    @Value("#{new Long('${anmelde-tool.registration.cleanup.lifespan}')}")
     private Long registrationLifespanInMinutes;
 
     @Override
