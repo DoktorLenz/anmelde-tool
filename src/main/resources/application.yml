@@ -31,6 +31,12 @@ spring:
             enable: true
 
 anmelde-tool:
+  registration:
+    # Lifespan in minutes
+    lifespan: 60
+    cleanup-cron: "* * */2 * * *"
+    mail:
+      pending-cron: "* */10 * * * *"
   logging:
     file:
       size-limit: 5MB

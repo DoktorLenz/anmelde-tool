@@ -7,5 +7,6 @@ create table registrations
     firstname       varchar(255) not null,
     lastname        varchar(255) not null,
     email           varchar(255) not null,
-    created_at      timestamptz  not null
+    created_at      timestamptz  not null,
+    email_sent      timestamptz  not null
 );
