@@ -1,5 +1,6 @@
 package de.stinner.anmeldetoolbackend.domain.auth.persistence;
 
+import de.stinner.anmeldetoolbackend.application.auth.WebSecurityConfiguration;
 import de.stinner.anmeldetoolbackend.domain.auth.service.Authority;
 import io.hypersistence.utils.hibernate.type.array.EnumArrayType;
 import io.hypersistence.utils.hibernate.type.array.internal.AbstractArrayType;
@@ -55,4 +56,24 @@ public class UserDataEntity {
     // Custom user data
     private String firstname;
     private String lastname;
+
+    /**
+     * Creates a new enabled User with no authorities
+     *
+     * @param registrationEntity
+     * @param password           Clear text password - Will be encoded by the encoder provided by WebSecurityConfiguration
+     * @return
+     */
+    public static UserDataEntity create(RegistrationEntity registrationEntity, String password) {
+        UserDataEntity entity = new UserDataEntity();
+        entity.email = registrationEntity.getEmail();
+        entity.password = WebSecurityConfiguration.encoder().encode(password);
+        entity.accountLocked = false;
+        entity.credentialsExpired = false;
+        entity.enabled = true;
+        entity.authorities = new Authority[]{};
+        entity.firstname = registrationEntity.getFirstname();
+        entity.lastname = registrationEntity.getLastname();
+        return entity;
+    }
 }

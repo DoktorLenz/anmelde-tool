@@ -1,8 +1,10 @@
 package de.stinner.anmeldetoolbackend.domain.auth.api;
 
 import de.stinner.anmeldetoolbackend.application.rest.ApiEndpoints;
+import de.stinner.anmeldetoolbackend.domain.auth.api.model.FinishRegistrationDto;
 import de.stinner.anmeldetoolbackend.domain.auth.api.model.RegistrationRequestDto;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationEntity;
+import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataEntity;
 import de.stinner.anmeldetoolbackend.domain.auth.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,16 @@ public class AuthController {
     @PostMapping(ApiEndpoints.V1.Auth.REGISTER)
     public ResponseEntity<Void> register(@RequestBody RegistrationRequestDto registerRequestDto) {
         authenticationService.register(RegistrationEntity.of(registerRequestDto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(ApiEndpoints.V1.Auth.FINISH_REGISTRATION)
+    public ResponseEntity<Void> finishRegistration(@RequestBody FinishRegistrationDto finishRegistrationDto) {
+        UserDataEntity entity = authenticationService.finishRegistration(
+                finishRegistrationDto.getId(),
+                finishRegistrationDto.getPassword()
+        );
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

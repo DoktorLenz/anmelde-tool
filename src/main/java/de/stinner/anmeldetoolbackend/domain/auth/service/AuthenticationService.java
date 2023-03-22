@@ -1,5 +1,6 @@
 package de.stinner.anmeldetoolbackend.domain.auth.service;
 
+import de.stinner.anmeldetoolbackend.application.rest.error.ErrorMessages;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationEntity;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationRepository;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataEntity;
@@ -22,10 +23,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -118,5 +116,24 @@ public class AuthenticationService implements UserDetailsService {
         registrationRepository.deleteByCreatedAtBeforeAndEmailSentIsNotNull(
                 Instant.now().minusSeconds(60 * registrationLifespanInMinutes)
         );
+    }
+
+    @Transactional()
+    public UserDataEntity finishRegistration(UUID id, String password) {
+        RegistrationEntity registrationEntity = registrationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                                HttpStatus.BAD_REQUEST,
+                                ErrorMessages.C400.EXPIRED_REGISTRATION_ID
+                        )
+                );
+
+        if (null == registrationEntity.getEmailSent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessages.C400.EXPIRED_REGISTRATION_ID);
+        }
+
+        UserDataEntity entity = UserDataEntity.create(registrationEntity, password);
+
+        registrationRepository.deleteById(id);
+        return userDataRepository.save(entity);
     }
 }
