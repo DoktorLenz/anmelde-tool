@@ -38,6 +38,8 @@ public class RegistrationEntity {
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private Instant createdAt;
+    
+    private Instant emailSent;
 
     public static RegistrationEntity of(RegistrationRequestDto dto) {
         RegistrationEntity entity = new RegistrationEntity();
