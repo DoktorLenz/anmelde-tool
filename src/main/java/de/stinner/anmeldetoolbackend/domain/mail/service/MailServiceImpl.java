@@ -1,9 +1,11 @@
 package de.stinner.anmeldetoolbackend.domain.mail.service;
 
+import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationEntity;
+import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -11,28 +13,34 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import java.io.File;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map;
 
 
+@EnableAsync
 @Service("MailService")
 @Slf4j
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
     private static final String NOREPLY_ADDRESS = "laurenz.stinner@ymail.com";
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-    @Autowired
-    private SimpleMailMessage template;
+    private final SimpleMailMessage template;
 
-    @Autowired
-    private SpringTemplateEngine thymeleafTemplateEngine;
+    private final SpringTemplateEngine thymeleafTemplateEngine;
+
+    private final RegistrationRepository registrationRepository;
 
     @Value("classpath:/mail/assets/mail-logo.jpg")
     private Resource logo;
@@ -107,5 +115,39 @@ public class MailServiceImpl implements MailService {
         helper.addInline("instagram.png", instagramLogo);
         helper.addInline("google.png", googleLogo);
         mailSender.send(message);
+    }
+
+    public void sendPendingRegistrationEmails() {
+        registrationRepository.findByEmailSentIsNull().forEach(this::sendRegistrationEmail);
+    }
+
+
+    @Transactional()
+    protected void registrationEmailSent(RegistrationEntity registration) {
+        registration.setEmailSent(Instant.now());
+        registrationRepository.save(registration);
+    }
+
+    @Async
+    public void sendRegistrationEmail(RegistrationEntity registration) {
+        Map<String, Object> templateModel = new HashMap<>();
+        String recipientName = String.format("%s %s", registration.getFirstname(), registration.getLastname());
+        String registrationLink = String.format(
+                "https://anmeldung.dpsgkolbermoor.de/auth/finish-registration?id=%s",
+                registration.getRegistrationId()
+        );
+        templateModel.put("recipientName", recipientName);
+        templateModel.put("registrationLink", registrationLink);
+        try {
+            sendMessageUsingThymeleafTemplate(
+                    registration.getEmail(),
+                    "Registrierung Abschließen",
+                    "template-registration.html",
+                    templateModel
+            );
+            registrationEmailSent(registration);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

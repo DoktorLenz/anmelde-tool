@@ -6,12 +6,10 @@ import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationReposit
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataEntity;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataRepository;
 import de.stinner.anmeldetoolbackend.domain.mail.service.MailServiceImpl;
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +21,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -62,52 +62,18 @@ public class AuthenticationService implements UserDetailsService {
     public void register(RegistrationEntity registration) {
         if (findByEmail(registration.getEmail()).isPresent()) {
             // Request should return 201, but must not add a new registration entry
-            log.info("Registration for already existing user was tried: {}. Response has been artificially slowed", registration.getEmail());
+            log.info("Registration for already existing user was tried: {}. No email has been sent.", registration.getEmail());
             return;
         }
 
         registrationRepository.save(registration);
-        sendRegistrationEmail(registration);
+        mailService.sendRegistrationEmail(registration);
     }
 
 
     @Transactional(readOnly = true)
     protected Optional<UserDataEntity> findByEmail(final String email) {
         return userDataRepository.findByEmail(email);
-    }
-
-    public void sendPendingRegistrationEmails() {
-        registrationRepository.findByEmailSentIsNull().forEach(this::sendRegistrationEmail);
-    }
-
-
-    @Transactional()
-    protected void registrationEmailSent(RegistrationEntity registration) {
-        registration.setEmailSent(Instant.now());
-        registrationRepository.save(registration);
-    }
-
-    @Async
-    protected void sendRegistrationEmail(RegistrationEntity registration) {
-        Map<String, Object> templateModel = new HashMap<>();
-        String recipientName = String.format("%s %s", registration.getFirstname(), registration.getLastname());
-        String registrationLink = String.format(
-                "https://anmeldung.dpsgkolbermoor.de/auth/finish-registration?id=%s",
-                registration.getRegistrationId()
-        );
-        templateModel.put("recipientName", recipientName);
-        templateModel.put("registrationLink", registrationLink);
-        try {
-            mailService.sendMessageUsingThymeleafTemplate(
-                    registration.getEmail(),
-                    "Registrierung Abschließen",
-                    "template-registration.html",
-                    templateModel
-            );
-            registrationEmailSent(registration);
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
