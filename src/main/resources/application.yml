@@ -32,11 +32,12 @@ spring:
 
 anmelde-tool:
   registration:
-    # Lifespan in minutes
-    lifespan: 60
-    cleanup-cron: "* * */2 * * *"
+    cleanup:
+      # Lifespan in minutes
+      lifespan: 60
+      cron: "0 0 * * * *"
     mail:
-      pending-cron: "* */10 * * * *"
+      pending-cron: "0 */10 * * * *"
   logging:
     file:
       size-limit: 5MB

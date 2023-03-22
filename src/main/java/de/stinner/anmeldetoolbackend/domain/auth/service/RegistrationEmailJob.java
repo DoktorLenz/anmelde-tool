@@ -16,7 +16,7 @@ public class RegistrationEmailJob {
         authenticationService.sendPendingRegistrationEmails();
     }
 
-    @Scheduled(cron = "${anmelde-tool.registration.cleanup-cron}")
+    @Scheduled(cron = "${anmelde-tool.registration.cleanup.cron}")
     void cleanupOldRegistrations() {
         authenticationService.cleanupOldRegistrations();
     }
