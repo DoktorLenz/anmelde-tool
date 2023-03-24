@@ -1,16 +1,16 @@
 package de.stinner.anmeldetoolbackend.domain.auth.api.model;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import de.stinner.anmeldetoolbackend.application.constraints.Password;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
 public class FinishRegistrationDto {
-    @NotEmpty
-    private UUID id;
-    @Size(min = 8, max = 56)
+    @NotNull
+    private UUID registrationId;
+    @Password
     private String password;
 
 }
