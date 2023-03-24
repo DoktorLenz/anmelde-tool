@@ -21,10 +21,6 @@ public class WebSecurityConfiguration {
     private final AuthenticationService authenticationService;
     private final DataSource dataSource;
 
-    public static PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -39,7 +35,12 @@ public class WebSecurityConfiguration {
         http.logout().logoutUrl(ApiEndpoints.V1.Auth.LOGOUT);
 
         http.authorizeHttpRequests()
-                .requestMatchers(ApiEndpoints.V1.Auth.REGISTER, ApiEndpoints.V1.Auth.FINISH_REGISTRATION)
+                .requestMatchers(
+                        ApiEndpoints.V1.Auth.REGISTER,
+                        ApiEndpoints.V1.Auth.FINISH_REGISTRATION,
+                        ApiEndpoints.V1.Auth.FORGOT_PASSWORD,
+                        ApiEndpoints.V1.Auth.RESET_PASSWORD
+                )
                 .anonymous()
                 .anyRequest()
                 .hasAuthority(Authority.ROLE_USER.toString());
@@ -53,6 +54,10 @@ public class WebSecurityConfiguration {
         authenticationProvider.setUserDetailsService(authenticationService);
         authenticationProvider.setPasswordEncoder(encoder());
         return authenticationProvider;
+    }
+
+    public static PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
