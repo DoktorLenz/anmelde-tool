@@ -31,6 +31,8 @@ public final class ApiEndpoints {
             public static final String LOGOUT = AUTH + "/logout";
             public static final String REGISTER = AUTH + "/register";
             public static final String FINISH_REGISTRATION = AUTH + "/finish-registration";
+            public static final String FORGOT_PASSWORD = AUTH + "/forgot-password";
+            public static final String RESET_PASSWORD = AUTH + "/reset-password";
         }
 
 
