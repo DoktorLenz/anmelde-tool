@@ -11,5 +11,5 @@ public interface RegistrationRepository extends JpaRepository<RegistrationEntity
 
     Optional<RegistrationEntity> findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsTrue(UUID registrationId, Instant after);
 
-    void deleteAllByCreatedAtIsBeforeAndEmailSentIsNotNull(Instant before);
+    void deleteAllByEmailSentIsBefore(Instant before);
 }
