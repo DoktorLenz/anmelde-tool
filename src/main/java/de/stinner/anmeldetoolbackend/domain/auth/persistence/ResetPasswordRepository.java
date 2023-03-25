@@ -14,4 +14,8 @@ public interface ResetPasswordRepository extends JpaRepository<ResetPasswordEnti
     Optional<ResetPasswordEntity> findByResetIdAndEmailSentAfter(UUID resetId, Instant after);
 
     void deleteAllByUserEquals(UserDataEntity entity);
+
+    Iterable<ResetPasswordEntity> findAllByEmailSentIsNull();
+
+    void deleteAllByCreatedAtIsBefore(Instant before);
 }

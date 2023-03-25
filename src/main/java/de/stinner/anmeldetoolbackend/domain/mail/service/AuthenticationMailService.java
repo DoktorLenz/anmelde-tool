@@ -57,6 +57,10 @@ public class AuthenticationMailService {
         registrationRepository.save(registration);
     }
 
+    public void sendPendingResetPasswordEmails() {
+        resetPasswordRepository.findAllByEmailSentIsNull().forEach(this::sendResetPasswordEmail);
+    }
+
     @Async
     public void sendResetPasswordEmail(ResetPasswordEntity resetPasswordEntity) {
         Map<String, Object> templateModel = new HashMap<>();

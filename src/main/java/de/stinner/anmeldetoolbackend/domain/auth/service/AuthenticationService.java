@@ -144,4 +144,11 @@ public class AuthenticationService implements UserDetailsService {
         userDataRepository.save(userDataEntity);
         resetPasswordRepository.deleteAllByUserEquals(userDataEntity);
     }
+
+    @Transactional
+    public void cleanupOldResetPasswordRequests() {
+        resetPasswordRepository.deleteAllByCreatedAtIsBefore(
+                Instant.now().minusSeconds(60 * resetPasswordLifespanInMinutes)
+        );
+    }
 }
