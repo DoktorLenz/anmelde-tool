@@ -13,9 +13,13 @@ public class PasswordConstraintValidator implements ConstraintValidator<Password
     public boolean isValid(final String password, final ConstraintValidatorContext context) {
         // Min & Max are defined by BCrypt
         if (password.length() < 8) {
-            context.buildConstraintViolationWithTemplate("Password must be at least 8 characters.");
+            context
+                    .buildConstraintViolationWithTemplate("Password must be at least 8 characters.")
+                    .addConstraintViolation();
         } else if (password.length() > 56) {
-            context.buildConstraintViolationWithTemplate("Password must be at most 56 characters.");
+            context
+                    .buildConstraintViolationWithTemplate("Password must be at most 56 characters.")
+                    .addConstraintViolation();
         } else {
             return true;
         }
