@@ -1,10 +1,7 @@
 package de.stinner.anmeldetoolbackend.domain.auth.api;
 
 import de.stinner.anmeldetoolbackend.application.rest.ApiEndpoints;
-import de.stinner.anmeldetoolbackend.domain.auth.api.model.FinishRegistrationDto;
-import de.stinner.anmeldetoolbackend.domain.auth.api.model.ForgotPasswordRequestDto;
-import de.stinner.anmeldetoolbackend.domain.auth.api.model.RegistrationRequestDto;
-import de.stinner.anmeldetoolbackend.domain.auth.api.model.ResetPasswordDto;
+import de.stinner.anmeldetoolbackend.domain.auth.api.model.*;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationEntity;
 import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataEntity;
 import de.stinner.anmeldetoolbackend.domain.auth.service.AuthenticationService;
@@ -58,6 +55,12 @@ public class AuthController {
     @PostMapping(ApiEndpoints.V1.Auth.RESET_PASSWORD)
     public ResponseEntity<Void> resetPassword(@Valid @RequestBody ResetPasswordDto resetPasswordRequestDto) {
         authenticationService.resetPassword(resetPasswordRequestDto.getResetId(), resetPasswordRequestDto.getPassword());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(ApiEndpoints.V1.Auth.CHANGE_PASSWORD)
+    public ResponseEntity<Void> changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto) {
+        authenticationService.changePassword(changePasswordDto.getOldPassword(), changePasswordDto.getNewPassword());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

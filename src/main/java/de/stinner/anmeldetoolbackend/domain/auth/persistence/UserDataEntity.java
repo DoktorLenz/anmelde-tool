@@ -1,6 +1,7 @@
 package de.stinner.anmeldetoolbackend.domain.auth.persistence;
 
 import de.stinner.anmeldetoolbackend.application.auth.WebSecurityConfiguration;
+import de.stinner.anmeldetoolbackend.application.rest.error.ErrorMessages;
 import de.stinner.anmeldetoolbackend.domain.auth.service.Authority;
 import io.hypersistence.utils.hibernate.type.array.EnumArrayType;
 import io.hypersistence.utils.hibernate.type.array.internal.AbstractArrayType;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -76,6 +79,13 @@ public class UserDataEntity {
         entity.firstname = registrationEntity.getFirstname();
         entity.lastname = registrationEntity.getLastname();
         return entity;
+    }
+
+    public void changePassword(String oldPassword, String newPassword) {
+        if (!WebSecurityConfiguration.encoder().matches(oldPassword, this.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessages.C400.WRONG_PASSWORD);
+        }
+        this.setPassword(newPassword);
     }
 
     /**

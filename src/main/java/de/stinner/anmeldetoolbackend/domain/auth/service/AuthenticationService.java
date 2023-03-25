@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -150,5 +152,17 @@ public class AuthenticationService implements UserDetailsService {
         resetPasswordRepository.deleteAllByCreatedAtIsBefore(
                 Instant.now().minusSeconds(60 * resetPasswordLifespanInMinutes)
         );
+    }
+
+    @Transactional
+    public void changePassword(String oldPassword, String newPassword) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserDataEntity userDataEntity = userDataRepository.findByEmail(email).orElseThrow(() -> {
+            log.error("Tried to change password for user \"{}\" but user was not found in database", email);
+            return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessages.C500.INTERNAL_SERVER_ERROR);
+        });
+        userDataEntity.changePassword(oldPassword, newPassword);
+        userDataRepository.save(userDataEntity);
     }
 }
