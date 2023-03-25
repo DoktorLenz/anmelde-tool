@@ -10,6 +10,7 @@ public class ErrorMessages {
         public static final String BAD_REQUEST = "Bad request";
         public static final String MALFORMED_REQUEST_BODY = "Request body was malformed.";
         public static final String MALFORMED_REQUEST_URL = "Request URL was malformed.";
+        public static final String WRONG_PASSWORD = "Old password is wrong.";
     }
 
     @UtilityClass
