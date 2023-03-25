@@ -6,9 +6,9 @@ spring:
     name: "ANMELDE_TOOL_BACKEND"
 
   datasource:
-    url: "jdbc:postgresql://localhost:5432/anmelde_tool?useSSL=false&serverTimezone=Europe/Berlin"
-    username: "anmelde_tool"
-    password: "anmelde_tool"
+    url: jdbc:postgresql://${anmelde-tool.db.url}:${anmelde-tool.db.port}/${anmelde-tool.db.db-name}?useSSL=${anmelde-tool.db.useSSL}&serverTimezone=Europe/Berlin
+    username: ${anmelde-tool.db.username}
+    password: ${anmelde-tool.db.password}
     driver-class-name: org.postgresql.Driver
 
   liquibase:
@@ -16,10 +16,10 @@ spring:
     drop-first: true
 
   mail:
-    host: "smtp.mail.yahoo.com"
-    port: 587
-    username: "laurenz.stinner@ymail.com"
-    password: "ctxhitfwsrgpahtv"
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     templates:
       path: "mail/templates"
     properties:
@@ -31,6 +31,20 @@ spring:
             enable: true
 
 anmelde-tool:
+  db:
+    url: localhost
+    port: 5432
+    useSSL: false
+    username: "anmelde_tool"
+    password: "anmelde_tool"
+    db-name: "anmelde_tool"
+  reset-password:
+    cleanup:
+      # Lifespan in minutes
+      lifespan: 60
+      cron: "0 0 * * * *"
+    mail:
+      pending-cron: "0 */10 * * * *"
   registration:
     cleanup:
       # Lifespan in minutes
