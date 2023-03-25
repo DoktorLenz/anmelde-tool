@@ -78,7 +78,7 @@ public class AuthenticationService implements UserDetailsService {
 
     @Transactional()
     public void cleanupOldRegistrations() {
-        registrationRepository.deleteAllByCreatedAtIsBeforeAndEmailSentIsNotNull(
+        registrationRepository.deleteAllByEmailSentIsBefore(
                 Instant.now().minusSeconds(60 * registrationLifespanInMinutes)
         );
     }
