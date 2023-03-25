@@ -13,7 +13,7 @@ public class ResetPasswordEmailJob {
     private final AuthenticationService authenticationService;
     private final AuthenticationMailService mailService;
 
-    @Scheduled(cron = "${anmelde-tool.reset-password.mail.prending.cron}")
+    @Scheduled(cron = "${anmelde-tool.reset-password.mail.pending-cron}")
     void sendPendingResetPasswordEmails() {
         mailService.sendPendingResetPasswordEmails();
     }
