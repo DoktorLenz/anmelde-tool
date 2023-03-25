@@ -1,11 +1,8 @@
 package de.stinner.anmeldetoolbackend.domain.auth.service;
 
 import de.stinner.anmeldetoolbackend.application.rest.error.ErrorMessages;
-import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationEntity;
-import de.stinner.anmeldetoolbackend.domain.auth.persistence.RegistrationRepository;
-import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataEntity;
-import de.stinner.anmeldetoolbackend.domain.auth.persistence.UserDataRepository;
-import de.stinner.anmeldetoolbackend.domain.mail.service.MailServiceImpl;
+import de.stinner.anmeldetoolbackend.domain.auth.persistence.*;
+import de.stinner.anmeldetoolbackend.domain.mail.service.AuthenticationMailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,9 +28,13 @@ import java.util.UUID;
 public class AuthenticationService implements UserDetailsService {
     private final UserDataRepository userDataRepository;
     private final RegistrationRepository registrationRepository;
-    private final MailServiceImpl mailService;
+    private final ResetPasswordRepository resetPasswordRepository;
+    private final AuthenticationMailService authenticationMailService;
     @Value("#{new Long('${anmelde-tool.registration.cleanup.lifespan}')}")
     private Long registrationLifespanInMinutes;
+
+    @Value("#{new Long('${anmelde-tool.reset-password.cleanup.lifespan}')}")
+    private Long resetPasswordLifespanInMinutes;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -58,6 +59,11 @@ public class AuthenticationService implements UserDetailsService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
+    protected Optional<UserDataEntity> findByEmail(final String email) {
+        return userDataRepository.findByEmail(email);
+    }
+
     @Transactional()
     public void register(RegistrationEntity registration) {
         if (findByEmail(registration.getEmail()).isPresent()) {
@@ -67,39 +73,75 @@ public class AuthenticationService implements UserDetailsService {
         }
 
         registrationRepository.save(registration);
-        mailService.sendRegistrationEmail(registration);
+        authenticationMailService.sendRegistrationEmail(registration);
     }
-
-
-    @Transactional(readOnly = true)
-    protected Optional<UserDataEntity> findByEmail(final String email) {
-        return userDataRepository.findByEmail(email);
-    }
-
 
     @Transactional()
     public void cleanupOldRegistrations() {
-        registrationRepository.deleteByCreatedAtBeforeAndEmailSentIsNotNull(
+        registrationRepository.deleteAllByCreatedAtIsBeforeAndEmailSentIsNotNull(
                 Instant.now().minusSeconds(60 * registrationLifespanInMinutes)
         );
     }
 
     @Transactional()
     public UserDataEntity finishRegistration(UUID id, String password) {
-        RegistrationEntity registrationEntity = registrationRepository.findById(id)
+        RegistrationEntity registrationEntity = registrationRepository
+                .findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsTrue(
+                        id,
+                        Instant.now().minusSeconds(60 * registrationLifespanInMinutes)
+                )
                 .orElseThrow(() -> new ResponseStatusException(
-                                HttpStatus.BAD_REQUEST,
-                                ErrorMessages.C400.EXPIRED_REGISTRATION_ID
+                                HttpStatus.NOT_FOUND,
+                                ErrorMessages.C404.EXPIRED_REGISTRATION_ID
                         )
                 );
 
         if (null == registrationEntity.getEmailSent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessages.C400.EXPIRED_REGISTRATION_ID);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessages.C404.EXPIRED_REGISTRATION_ID);
         }
 
         UserDataEntity entity = UserDataEntity.create(registrationEntity, password);
 
         registrationRepository.deleteById(id);
         return userDataRepository.save(entity);
+    }
+
+    @Transactional()
+    public void forgotPassword(String email) {
+        Optional<UserDataEntity> optionalUserDataEntity = userDataRepository.findByEmail(email);
+
+        optionalUserDataEntity.ifPresentOrElse(
+                (userDataEntity) -> {
+                    ResetPasswordEntity entity = ResetPasswordEntity.of(userDataEntity);
+                    entity = resetPasswordRepository.save(entity);
+                    authenticationMailService.sendResetPasswordEmail(entity);
+                },
+                () -> {
+                    log.info("Forgot password for none existing user was tried: {}. No email has been sent.", email);
+                }
+        );
+    }
+
+    @Transactional()
+    public void resetPassword(UUID resetiId, String password) {
+        ResetPasswordEntity resetPasswordEntity = resetPasswordRepository
+                .findByResetIdAndEmailSentAfter(
+                        resetiId,
+                        Instant.now().minusSeconds(60 * resetPasswordLifespanInMinutes)
+                )
+                .orElseThrow(() -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorMessages.C404.EXPIRED_RESET_ID
+                        )
+                );
+
+        if (null == resetPasswordEntity) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessages.C404.EXPIRED_RESET_ID);
+        }
+
+        UserDataEntity userDataEntity = resetPasswordEntity.getUser();
+        userDataEntity.setPassword(password);
+        userDataRepository.save(userDataEntity);
+        resetPasswordRepository.deleteAllByUserEquals(userDataEntity);
     }
 }
