@@ -58,10 +58,11 @@ public class UserDataEntity {
     private String lastname;
 
     /**
-     * Creates a new enabled User with no authorities
+     * Creates a new enabled User with no authorities.
+     * Password will be encoded by the encoder provided by WebSecurityConfiguration.
      *
      * @param registrationEntity
-     * @param password           Clear text password - Will be encoded by the encoder provided by WebSecurityConfiguration
+     * @param password           Clear text password
      * @return
      */
     public static UserDataEntity create(RegistrationEntity registrationEntity, String password) {
@@ -75,5 +76,16 @@ public class UserDataEntity {
         entity.firstname = registrationEntity.getFirstname();
         entity.lastname = registrationEntity.getLastname();
         return entity;
+    }
+
+    /**
+     * Sets a new password using the encoder provided by WebSecurityConfiguration
+     * and removes the expiration flag of the credentials.
+     *
+     * @param password Clear text password
+     */
+    public void setPassword(String password) {
+        this.password = WebSecurityConfiguration.encoder().encode(password);
+        this.credentialsExpired = false;
     }
 }
