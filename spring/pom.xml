@@ -220,7 +220,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${org.checkstyle.plugin.version}</version>
                 <configuration>
-                    <configLocation>./.config/checkstyle/rules.xml</configLocation>
+                    <configLocation>.config/checkstyle/rules.xml</configLocation>
                     <encoding>UTF-8</encoding>
                     <consoleOutput>true</consoleOutput>
                 </configuration>
