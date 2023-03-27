@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.stinner</groupId>
-    <artifactId>anmelde-tool-backend</artifactId>
+    <artifactId>anmelde-tool</artifactId>
     <version>${version}</version>
     <name>anmelde-tool-backend</name>
     <description>Backend for Anmelde-Tool</description>
