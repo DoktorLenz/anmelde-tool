@@ -11,7 +11,7 @@
     <groupId>de.stinner</groupId>
     <artifactId>anmelde-tool</artifactId>
     <version>${version}</version>
-    <name>anmelde-tool-backend</name>
+    <name>anmelde-tool</name>
     <description>Backend for Anmelde-Tool</description>
     <properties>
         <version>local</version>
