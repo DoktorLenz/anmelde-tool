@@ -23,14 +23,14 @@ jobs:
       matrix:
         node-version: [16.19.x]
 
-    steps:
+    steps:    
+      - uses: actions/checkout@v3
+
       - name: Print Vars
         run: |
           echo "$ARTIFACT_NAME"
           echo "$VERSION"
-    
-      - uses: actions/checkout@v3
-
+      
       - name: Cache node modules
         uses: actions/cache@v1
         with:
