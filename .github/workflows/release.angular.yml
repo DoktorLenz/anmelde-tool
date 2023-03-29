@@ -1,30 +1,29 @@
-name: Release 6 Deploy
+name: Release Angular as Dockerimage
 
 concurrency: release
 
 on:
   push:
-    branches: [releases/**]
+    tags:
+      - 'v*'
+      
+env:
+  VERSION: ${{github.ref_name}}
+  ARTIFACT_NAME: anmelde-tool-angular
 
 jobs:
-  build:
-    name: Build & Test
+  build-angular:
+    name: Build Angular App
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./angular
 
     strategy:
       matrix:
-        node-version: [18.15.x]
+        node-version: [16.19.x]
 
     steps:
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.IONOS_KEY }}
-          known_hosts: 'placeholder'
-
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.IONOS_HOST }} >> ~/.ssh/known_hosts
-
       - uses: actions/checkout@v3
 
       - name: Cache node modules
@@ -45,12 +44,54 @@ jobs:
 
       - name: Clean Distribution Directory
         run: npm run ci:clean
+        
+      - name: Set environment
+        run: npm run config
 
       - name: Build Application
         run: npm run ci:build
 
       - name: List Files in Distribution Directory
         run: ls -R ./dist
-
-      - name: Deploy with rsync
-        run: rsync -avz ./dist/ ${{ secrets.IONOS_USER }}@${{ secrets.IONOS_HOST }}:/var/www/anmeldung.dpsgkolbermoor.de/html/
+        
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: $ARTIFACT_NAME
+          path: ./dist
+        
+  build-docker-image:
+    name: Build Docker Image and Upload to Registry
+    needs: build-angular
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+        
+    steps:
+      - uses: actions/checkout@v3
+    
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: $ARTIFACT_NAME
+          path: ./angular
+          
+      - name: List Files in Distribution Directory
+        run: ls -R ./dist
+          
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: $ARTIFACT_NAME:$VERSION
+          dockerfile: ./docker/angular/Dockerfile
+        
