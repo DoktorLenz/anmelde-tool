@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: $ARTIFACT_NAME
-          path: ./dist
+          path: .angular/dist
         
   build-docker-image:
     name: Build Docker Image and Upload to Registry
