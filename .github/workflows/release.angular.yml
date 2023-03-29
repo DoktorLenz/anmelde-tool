@@ -78,7 +78,7 @@ jobs:
           path: ./angular/dist
           
       - name: List Files in Distribution Directory
-        run: ls -R ./dist
+        run: ls -R
           
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
