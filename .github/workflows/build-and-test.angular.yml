@@ -8,10 +8,12 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./angular
 
     strategy:
       matrix:
-        node-version: [18.15.x]
+        node-version: [16.19.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -37,6 +39,9 @@ jobs:
 
       - name: Clean Distribution Directory
         run: npm run ci:clean
+        
+      - name: Set Configuration
+        run: npm run config
 
       - name: Build Application
         run: npm run ci:build
