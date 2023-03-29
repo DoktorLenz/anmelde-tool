@@ -8,8 +8,9 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./angular
+    defaults:
+      run:
+        working-directory: ./angular
 
     strategy:
       matrix:
