@@ -93,5 +93,5 @@ jobs:
           context: .
           push: true
           tags: $ARTIFACT_NAME:$VERSION
-          dockerfile: ./docker/angular/Dockerfile
+          file: ./docker/angular/Dockerfile
         
