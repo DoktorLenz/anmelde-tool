@@ -24,6 +24,11 @@ jobs:
         node-version: [16.19.x]
 
     steps:
+      - name: Print Vars
+        run: |
+          echo "$ARTIFACT_NAME"
+          echo "$VERSION"
+    
       - uses: actions/checkout@v3
 
       - name: Cache node modules
@@ -92,6 +97,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: $ARTIFACT_NAME:$VERSION
+          tags: "$ARTIFACT_NAME:$VERSION"
           file: ./docker/angular/Dockerfile
         
