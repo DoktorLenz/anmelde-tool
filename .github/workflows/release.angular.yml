@@ -97,6 +97,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: "${{ARTIFACT_NAME}}:${{VERSION}}"
+          tags: ${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
