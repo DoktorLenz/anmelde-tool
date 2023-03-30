@@ -79,6 +79,11 @@ jobs:
         
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Print Vars
+        run: |
+          echo "${{env.ARTIFACT_NAME}}"
+          echo "${{env.VERSION}}"
     
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
@@ -102,7 +107,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{github.repository_owner}}/${{ env.ARTIFACT_NAME }}:latest
-            ghcr.io/${{github.repository_owner}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+            ghcr.io/${{github.repository_owner}}/${{basename github.repository}}/${{ env.ARTIFACT_NAME }}:latest
+            ghcr.io/${{github.repository_owner}}/${{basename github.repository}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
