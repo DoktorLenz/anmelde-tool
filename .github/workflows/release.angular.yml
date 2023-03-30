@@ -107,7 +107,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{github.repository}}/${{ env.ARTIFACT_NAME }}:latest
-            ghcr.io/${{github.repository}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+            ghcr.io/${{github.repository | tolower}}/${{ env.ARTIFACT_NAME }}:latest
+            ghcr.io/${{github.repository | tolower}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
