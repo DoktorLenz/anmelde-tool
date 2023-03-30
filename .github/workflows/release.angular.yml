@@ -11,20 +11,8 @@ env:
   ARTIFACT_NAME: anmelde-tool-angular
 
 jobs:
-  set-vars:
-    name: Set all necessary vars
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Extract tag name without 'v' prefix and set as env variable
-        run: |
-          VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-
-
   build-angular:
     name: Build Angular App
-    needs: set-vars
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -37,6 +25,11 @@ jobs:
     steps:    
       - uses: actions/checkout@v3
 
+      - name: Extract tag name without 'v' prefix and set as env variable
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          
       - name: Print Vars
         run: |
           echo "${{env.ARTIFACT_NAME}}"
