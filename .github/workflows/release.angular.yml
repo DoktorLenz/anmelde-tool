@@ -25,6 +25,7 @@ jobs:
 
   build-angular:
     name: Build Angular App
+    needs: set-vars
     runs-on: ubuntu-latest
     defaults:
       run:
