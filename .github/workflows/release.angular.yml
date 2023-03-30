@@ -8,7 +8,6 @@ on:
       - v*
       
 env:
-  VERSION: ""
   ARTIFACT_NAME: anmelde-tool-angular
 
 jobs:
@@ -17,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Extract tag name to use as version
-        id: extract_tag_name
+      - name: Extract tag name without 'v' prefix and set as env variable
         run: |
           VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
 
   build-angular:
     name: Build Angular App
@@ -40,8 +39,8 @@ jobs:
 
       - name: Print Vars
         run: |
-          echo "$ARTIFACT_NAME"
-          echo "$VERSION"
+          echo "${{env.ARTIFACT_NAME}}"
+          echo "${{env.VERSION}}"
       
       - name: Cache node modules
         uses: actions/cache@v1
@@ -110,7 +109,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{github.repositoy_owner}}/${{ env.ARTIFACT_NAME }}:latest
-            ghcr.io/${{github.repositoy_owner}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+            ghcr.io/${{github.repository_owner}}/${{ env.ARTIFACT_NAME }}:latest
+            ghcr.io/${{github.repository_owner}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
