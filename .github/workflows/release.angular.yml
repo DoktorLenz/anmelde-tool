@@ -8,10 +8,21 @@ on:
       - v*
       
 env:
-  VERSION: ${{github.ref_name}}
+  VERSION: ""
   ARTIFACT_NAME: anmelde-tool-angular
 
 jobs:
+  set-vars:
+    name: Set all necessary vars
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Extract tag name to use as version
+        id: extract_tag_name
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
   build-angular:
     name: Build Angular App
     runs-on: ubuntu-latest
@@ -97,6 +108,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+          tags: |
+            ghcr.io/${{github.repositoy_owner}}/${{ env.ARTIFACT_NAME }}:latest
+            ghcr.io/${{github.repositoy_owner}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
