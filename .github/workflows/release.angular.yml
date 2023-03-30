@@ -8,7 +8,9 @@ on:
       - v*
       
 env:
+  VERSION: ""
   ARTIFACT_NAME: anmelde-tool-angular
+  REPO_LOWER: ""
 
 jobs:
   build-angular:
@@ -28,7 +30,9 @@ jobs:
       - name: Extract tag name without 'v' prefix and set as env variable
         run: |
           VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          REPO=${{github.repository}}
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+          echo "REPO_LOWER=${REPO,,}" >> ${GITHUB_ENV}
           
       - name: Print Vars
         run: |
@@ -107,7 +111,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{github.repository | tolower}}/${{ env.ARTIFACT_NAME }}:latest
-            ghcr.io/${{github.repository | tolower}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+            ghcr.io/${{env.REPO_LOWER}}/${{ env.ARTIFACT_NAME }}:latest
+            ghcr.io/${{env.REPO_LOWER}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
