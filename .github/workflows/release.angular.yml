@@ -26,18 +26,6 @@ jobs:
 
     steps:    
       - uses: actions/checkout@v3
-
-      - name: Extract tag name without 'v' prefix and set as env variable
-        run: |
-          VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
-          REPO=${{github.repository}}
-          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
-          echo "REPO_LOWER=${REPO,,}" >> ${GITHUB_ENV}
-          
-      - name: Print Vars
-        run: |
-          echo "${{env.ARTIFACT_NAME}}"
-          echo "${{env.VERSION}}"
       
       - name: Cache node modules
         uses: actions/cache@v1
@@ -83,6 +71,19 @@ jobs:
         
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Extract tag name without 'v' prefix and set as env variable
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
+          REPO=${{github.repository}}
+          echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
+          echo "REPO_LOWER=${REPO,,}" >> ${GITHUB_ENV}
+          
+      - name: Print Vars
+        run: |
+          echo "${{env.ARTIFACT_NAME}}"
+          echo "${{env.VERSION}}"
+          echo "${{env.REPO_LOWER}}"
       
       - name: Print Vars
         run: |
