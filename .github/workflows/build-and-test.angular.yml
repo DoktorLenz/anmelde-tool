@@ -6,12 +6,12 @@ on:
     branches: [ "master" ]
     paths:
       - './angular/**'
-      - './.github/workflows/*.angular.yml'
+      - './.github/workflows/build-and-test.angular.yml'
   pull_request:
     branches: [ "master" ]
     paths:
       - './angular/**'
-      - './.github/workflows/*.angular.yml'
+      - './.github/workflows/build-and-test.angular.yml'
 
 jobs:
   build:
