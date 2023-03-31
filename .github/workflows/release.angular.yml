@@ -57,7 +57,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: $ARTIFACT_NAME
+          name: ${{env.ARTIFACT_NAME}}
           path: ./angular/dist/**
         
   build-docker-image:
@@ -75,17 +75,11 @@ jobs:
         run: |
           VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
-      
-      - name: Print Vars
-        run: |
-          echo "${{env.ARTIFACT_NAME}}"
-          echo "${{env.VERSION}}"
-          echo "${{vars.DOCKER_REGISTRY_URL}}"
     
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
-          name: $ARTIFACT_NAME
+          name: ${{env.ARTIFACT_NAME}}
           path: ./angular/dist
           
       - name: List Files in Distribution Directory
