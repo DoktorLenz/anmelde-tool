@@ -4,8 +4,14 @@ on:
   workflow_dispatch:
   push:
     branches: [ "master" ]
+    paths:
+      - './angular/**'
+      - './.github/workflows/*.angular.yml'
   pull_request:
     branches: [ "master" ]
+    paths:
+      - './angular/**'
+      - './.github/workflows/*.angular.yml'
 
 jobs:
   build:
@@ -45,12 +51,3 @@ jobs:
 
       - name: Build Application
         run: npm run ci:build
-
-      - name: List Files in Distribution Directory
-        run: ls -R ./dist
-      
-      - name: Upload Build
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: webapp
-          path: ./angular/dist/**
