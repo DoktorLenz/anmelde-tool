@@ -3,15 +3,17 @@ name: Build and Test
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
     paths:
-      - './angular/**'
-      - './.github/workflows/build-and-test.angular.yml'
+      - 'angular/**'
+      - '.github/workflows/build-and-test.angular.yml'
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
     paths:
-      - './angular/**'
-      - './.github/workflows/build-and-test.angular.yml'
+      - 'angular/**'
+      - '.github/workflows/build-and-test.angular.yml'
 
 jobs:
   build:
