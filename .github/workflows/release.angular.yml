@@ -19,10 +19,6 @@ jobs:
       run:
         working-directory: ./angular
 
-    strategy:
-      matrix:
-        node-version: [16.19.x]
-
     steps:    
       - uses: actions/checkout@v3
       
@@ -37,7 +33,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ vars.NODE_VERSION }}
 
       - name: Install Dependencies
         run: npm ci
