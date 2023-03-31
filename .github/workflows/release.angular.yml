@@ -10,7 +10,6 @@ on:
 env:
   VERSION: ""
   ARTIFACT_NAME: anmelde-tool-angular
-  REPO_LOWER: ""
 
 jobs:
   build-angular:
@@ -75,20 +74,18 @@ jobs:
       - name: Extract tag name without 'v' prefix and set as env variable
         run: |
           VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
-          REPO=${{github.repository}}
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
-          echo "REPO_LOWER=${REPO,,}" >> ${GITHUB_ENV}
           
       - name: Print Vars
         run: |
           echo "${{env.ARTIFACT_NAME}}"
           echo "${{env.VERSION}}"
-          echo "${{env.REPO_LOWER}}"
       
       - name: Print Vars
         run: |
           echo "${{env.ARTIFACT_NAME}}"
           echo "${{env.VERSION}}"
+          echo "${{env.DOCKER_REGISTRY_URL}}"
     
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
@@ -102,9 +99,9 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.DOCKER_REGISTRY_URL }}
+          username: ${{ env.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
           
       - name: Build and push
         uses: docker/build-push-action@v4
@@ -112,7 +109,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{env.REPO_LOWER}}/${{ env.ARTIFACT_NAME }}:latest
-            ghcr.io/${{env.REPO_LOWER}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+            ${{env.DOCKER_REGISTRY_URL}}/${{ env.ARTIFACT_NAME }}:latest
+            ${{env.DOCKER_REGISTRY_URL}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
