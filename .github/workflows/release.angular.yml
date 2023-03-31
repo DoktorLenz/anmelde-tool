@@ -75,17 +75,12 @@ jobs:
         run: |
           VERSION=$(git describe --tags --abbrev=0 | sed 's/v//')
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
-          
-      - name: Print Vars
-        run: |
-          echo "${{env.ARTIFACT_NAME}}"
-          echo "${{env.VERSION}}"
       
       - name: Print Vars
         run: |
           echo "${{env.ARTIFACT_NAME}}"
           echo "${{env.VERSION}}"
-          echo "${{env.DOCKER_REGISTRY_URL}}"
+          echo "${{vars.DOCKER_REGISTRY_URL}}"
     
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
@@ -99,8 +94,8 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.DOCKER_REGISTRY_URL }}
-          username: ${{ env.DOCKER_REGISTRY_USERNAME }}
+          registry: ${{ vars.DOCKER_REGISTRY_URL }}
+          username: ${{ vars.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
           
       - name: Build and push
@@ -109,7 +104,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{env.DOCKER_REGISTRY_URL}}/${{ env.ARTIFACT_NAME }}:latest
-            ${{env.DOCKER_REGISTRY_URL}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
+            ${{vars.DOCKER_REGISTRY_URL}}/${{ env.ARTIFACT_NAME }}:latest
+            ${{vars.DOCKER_REGISTRY_URL}}/${{ env.ARTIFACT_NAME }}:${{ env.VERSION }}
           file: ./docker/angular/Dockerfile
         
