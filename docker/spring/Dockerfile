@@ -1,6 +1,6 @@
-FROM openjdk:19
+FROM openjdk:17
 
-COPY ./target/*.jar /app/anmelde-tool.jar
+COPY ./spring/target/*.jar /app/anmelde-tool.jar
 
 ENTRYPOINT ["java","-jar","/app/title-service.jar"]
 
