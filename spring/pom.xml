@@ -167,13 +167,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-contract-wiremock</artifactId>
-            <version>${org.springframework.cloud.wiremock.version}</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
