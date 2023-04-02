@@ -88,7 +88,7 @@ public class AuthenticationService implements UserDetailsService {
     @Transactional()
     public UserDataEntity finishRegistration(UUID id, String password) {
         RegistrationEntity registrationEntity = registrationRepository
-                .findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsTrue(
+                .findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsNotNull(
                         id,
                         Instant.now().minusSeconds(60 * registrationLifespanInMinutes)
                 )
