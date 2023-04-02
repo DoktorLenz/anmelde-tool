@@ -1,7 +1,6 @@
-
 spring:
-#  main:
-#    allow-bean-definition-overriding: true
+  #  main:
+  #    allow-bean-definition-overriding: true
 
   # Set proper path to database
   datasource:
@@ -20,7 +19,3 @@ spring:
     port: 3025
     username: foo
     password: foo-pwd
-
-logging:
-  level:
-    org.springframework: DEBUG
