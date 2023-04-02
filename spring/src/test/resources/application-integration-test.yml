@@ -1,0 +1,26 @@
+
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+
+  # Set proper path to database
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:14.0:///anmelde_tool?serverTimezone=Europe/Berlin?TC_DAEMON=true?user=anmelde_tool
+    username: anmelde_tool
+
+  # Liquibase-config for Tests
+  liquibase:
+    change-log: "classpath:/db/liquibase-changelog_testdata.xml"
+    drop-first: true
+
+  # Configure GreenMail
+  mail:
+    host: localhost
+    port: 3025
+    username: foo
+    password: foo-pwd
+
+logging:
+  level:
+    org.springframework: DEBUG
