@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.stinner</groupId>
@@ -16,22 +16,22 @@
     <properties>
         <version>local</version>
         <java.version>17</java.version>
+
         <org.postgres.jdbc-driver.version>42.6.0</org.postgres.jdbc-driver.version>
-        <org.lombok.version>1.18.22</org.lombok.version>
-        <hibernate.jpamodelgen.version>6.1.7.Final</hibernate.jpamodelgen.version>
+        <org.lombok.version>1.18.26</org.lombok.version>
+        <hibernate.jpamodelgen.version>6.2.0.Final</hibernate.jpamodelgen.version>
         <org.liquibase.version>4.20.0</org.liquibase.version>
         <io.hypersistence.version>3.2.0</io.hypersistence.version>
-        <org.springdoc.version>1.5.12</org.springdoc.version>
-        <org.springframework.security.test.version>5.5.3</org.springframework.security.test.version>
-        <org.mockito.version>4.2.0</org.mockito.version>
-        <org.testcontainers.version>1.16.2</org.testcontainers.version>
-        <org.checkstyle.plugin.version>3.1.2</org.checkstyle.plugin.version>
-        <org.checkstyle.version>9.0.1</org.checkstyle.version>
-        <org.springframework.cloud.wiremock.version>3.1.0</org.springframework.cloud.wiremock.version>
+        <org.springframework.security.test.version>6.0.2</org.springframework.security.test.version>
+        <org.mockito.version>5.2.0</org.mockito.version>
+        <org.testcontainers.version>1.17.6</org.testcontainers.version>
+        <org.checkstyle.plugin.version>3.2.1</org.checkstyle.plugin.version>
+        <org.checkstyle.version>10.9.3</org.checkstyle.version>
         <org.jacoco.version>0.8.8</org.jacoco.version>
-        <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.thymeleaf.version>3.1.1.RELEASE</org.thymeleaf.version>
+        <com.icegreen.greenmail.version>2.0.0-alpha-3</com.icegreen.greenmail.version>
 
         <!-- non-dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -167,15 +167,37 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>${com.icegreen.greenmail.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <!-- See https://github.com/greenmail-mail-test/greenmail/issues/512 -->
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>jakarta.mail</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail-junit5</artifactId>
+            <version>${com.icegreen.greenmail.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <!-- See https://github.com/greenmail-mail-test/greenmail/issues/512 -->
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>jakarta.mail</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -193,7 +215,7 @@
                         </path>
 
                         <path>
-                            <groupId>org.hibernate</groupId>
+                            <groupId>org.hibernate.orm</groupId>
                             <artifactId>hibernate-jpamodelgen</artifactId>
                             <version>${hibernate.jpamodelgen.version}</version>
                         </path>
@@ -214,7 +236,8 @@
                 <version>${org.checkstyle.plugin.version}</version>
                 <configuration>
                     <configLocation>.config/checkstyle/rules.xml</configLocation>
-                    <encoding>UTF-8</encoding>
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <outputEncoding>UTF-8</outputEncoding>
                     <consoleOutput>true</consoleOutput>
                 </configuration>
                 <dependencies>
