@@ -116,7 +116,7 @@ public class AuthenticationService implements UserDetailsService {
         Optional<UserDataEntity> optionalUserDataEntity = userDataRepository.findByEmail(email);
 
         optionalUserDataEntity.ifPresentOrElse(
-                (userDataEntity) -> {
+                userDataEntity -> {
                     ResetPasswordEntity entity = ResetPasswordEntity.of(userDataEntity);
                     entity = resetPasswordRepository.save(entity);
                     authenticationMailService.sendResetPasswordEmail(entity);
