@@ -59,10 +59,3 @@ jobs:
         uses: cicirello/jacoco-badge-generator@v2
         with:
           jacoco-csv-file: ./spring/target/site/jacoco/jacoco.csv
-
-      - name: Jacoco Reporter
-        uses: dorny/test-reporter@v1
-        with:
-          name: JUNIT
-          reporter: java-junit
-          path: ./spring/target/site/jacoco/jacoco.xml
