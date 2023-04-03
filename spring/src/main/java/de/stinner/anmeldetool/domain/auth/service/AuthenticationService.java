@@ -89,7 +89,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Transactional()
-    public UserDataEntity finishRegistration(UUID id, String password) {
+    public void finishRegistration(UUID id, String password) {
         RegistrationEntity registrationEntity = registrationRepository
                 .findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsNotNull(
                         id,
@@ -108,7 +108,7 @@ public class AuthenticationService implements UserDetailsService {
         UserDataEntity entity = UserDataEntity.create(registrationEntity, password);
 
         registrationRepository.deleteById(id);
-        return userDataRepository.save(entity);
+        userDataRepository.save(entity);
     }
 
     @Transactional()
