@@ -62,7 +62,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    protected Optional<UserDataEntity> findByEmail(final String email) {
+    public Optional<UserDataEntity> findByEmail(final String email) {
         return userDataRepository.findByEmail(email);
     }
 
