@@ -70,7 +70,10 @@ public class AuthenticationService implements UserDetailsService {
     public void register(RegistrationEntity registration) {
         if (findByEmail(registration.getEmail()).isPresent()) {
             // Request should return 201, but must not add a new registration entry
-            log.info("Registration for already existing user was tried: {}. No email has been sent.", registration.getEmail());
+            log.info(
+                    "Registration for already existing user was tried: {}. No email has been sent.",
+                    registration.getEmail()
+            );
             return;
         }
 
@@ -160,7 +163,10 @@ public class AuthenticationService implements UserDetailsService {
         String email = authentication.getName();
         UserDataEntity userDataEntity = userDataRepository.findByEmail(email).orElseThrow(() -> {
             log.error("Tried to change password for user \"{}\" but user was not found in database", email);
-            return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessages.C500.INTERNAL_SERVER_ERROR);
+            return new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    ErrorMessages.C500.INTERNAL_SERVER_ERROR
+            );
         });
         userDataEntity.changePassword(oldPassword, newPassword);
         userDataRepository.save(userDataEntity);

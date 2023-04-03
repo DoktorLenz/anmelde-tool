@@ -64,9 +64,9 @@ public class UserDataEntity {
      * Creates a new enabled User with no authorities.
      * Password will be encoded by the encoder provided by WebSecurityConfiguration.
      *
-     * @param registrationEntity
+     * @param registrationEntity User information from registration
      * @param password           Clear text password
-     * @return
+     * @return UserData with encoded password and data from registration
      */
     public static UserDataEntity create(RegistrationEntity registrationEntity, String password) {
         UserDataEntity entity = new UserDataEntity();

@@ -9,7 +9,10 @@ import java.util.UUID;
 public interface RegistrationRepository extends JpaRepository<RegistrationEntity, UUID> {
     Iterable<RegistrationEntity> findAllByEmailSentIsNull();
 
-    Optional<RegistrationEntity> findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsNotNull(UUID registrationId, Instant after);
+    Optional<RegistrationEntity> findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsNotNull(
+            UUID registrationId,
+            Instant after
+    );
 
 
     void deleteAllByEmailSentIsBefore(Instant before);
