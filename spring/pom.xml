@@ -38,6 +38,10 @@
 
         <!-- non-dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Sonar-->
+        <sonar.organization>doktorlenz</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -290,7 +294,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
