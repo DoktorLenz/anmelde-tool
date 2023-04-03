@@ -126,10 +126,10 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Transactional()
-    public void resetPassword(UUID resetiId, String password) {
+    public void resetPassword(UUID resetId, String password) {
         ResetPasswordEntity resetPasswordEntity = resetPasswordRepository
                 .findByResetIdAndEmailSentAfter(
-                        resetiId,
+                        resetId,
                         Instant.now().minusSeconds(60 * resetPasswordLifespanInMinutes)
                 )
                 .orElseThrow(() -> new ResponseStatusException(
