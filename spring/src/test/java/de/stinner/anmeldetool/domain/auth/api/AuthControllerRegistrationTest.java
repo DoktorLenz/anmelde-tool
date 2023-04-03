@@ -12,13 +12,14 @@ import jakarta.mail.internet.MimeMultipart;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AuthControllerRegistrationTest extends BaseControllerTest {
 
+public class AuthControllerRegistrationTest extends BaseControllerTest {
 
     private final String password = "validpassword";
     private String username;
@@ -28,6 +29,7 @@ public class AuthControllerRegistrationTest extends BaseControllerTest {
     private String mailServerUsername;
     @Value("${spring.mail.password}")
     private String mailServerPassword;
+
 
     @Test
     @SneakyThrows
@@ -45,7 +47,9 @@ public class AuthControllerRegistrationTest extends BaseControllerTest {
         dto.setFirstname("Firstname");
         dto.setLastname("Lastname");
 
-        performPostRequest(dto, ApiEndpoints.V1.Auth.REGISTER).andExpect(status().isNoContent());
+        baseRequest.with().body(dto)
+                .when().post(ApiEndpoints.V1.Auth.REGISTER)
+                .then().statusCode(204);
 
         greenMail.waitForIncomingEmail(1);
 
@@ -66,8 +70,12 @@ public class AuthControllerRegistrationTest extends BaseControllerTest {
         dto.setRegistrationId(registrationId);
         dto.setPassword(password);
 
-        performPostRequest(dto, ApiEndpoints.V1.Auth.FINISH_REGISTRATION).andExpect(status().isNoContent());
+        baseRequest.with().body(dto)
+                .when().post(ApiEndpoints.V1.Auth.FINISH_REGISTRATION)
+                .then().statusCode(204);
 
-        performGetRequestWithAuth(ApiEndpoints.V1.Auth.LOGIN, username, password).andExpect(status().isNoContent());
+        baseRequest.with().auth().basic(username, password)
+                .when().get(ApiEndpoints.V1.Auth.LOGIN)
+                .then().statusCode(HttpStatus.NO_CONTENT.value());
     }
 }
