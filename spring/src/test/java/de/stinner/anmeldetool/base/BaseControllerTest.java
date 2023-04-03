@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BaseControllerTest extends BaseIntegrationTest {
+public abstract class BaseControllerTest extends BaseIntegrationTest {
 
     protected static RequestSpecification baseRequest;
 
