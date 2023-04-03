@@ -121,9 +121,7 @@ public class AuthenticationService implements UserDetailsService {
                     entity = resetPasswordRepository.save(entity);
                     authenticationMailService.sendResetPasswordEmail(entity);
                 },
-                () -> {
-                    log.info("Forgot password for none existing user was tried: {}. No email has been sent.", email);
-                }
+                () -> log.info("Forgot password for none existing user was tried: {}. No email has been sent.", email)
         );
     }
 
