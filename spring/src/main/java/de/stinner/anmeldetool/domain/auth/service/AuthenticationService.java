@@ -39,6 +39,7 @@ public class AuthenticationService implements UserDetailsService {
     private Long resetPasswordLifespanInMinutes;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final UserDataEntity user = findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with name '" + username + "' was not found."));
