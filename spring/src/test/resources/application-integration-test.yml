@@ -12,10 +12,3 @@ spring:
   liquibase:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
     drop-first: true
-
-  # Configure GreenMail
-  mail:
-    host: localhost
-    port: 3025
-    username: foo
-    password: foo-pwd
