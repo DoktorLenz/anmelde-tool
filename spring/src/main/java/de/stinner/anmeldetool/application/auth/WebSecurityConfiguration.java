@@ -39,9 +39,12 @@ public class WebSecurityConfiguration {
                         ApiEndpoints.V1.Auth.REGISTER,
                         ApiEndpoints.V1.Auth.FINISH_REGISTRATION,
                         ApiEndpoints.V1.Auth.FORGOT_PASSWORD,
-                        ApiEndpoints.V1.Auth.RESET_PASSWORD
+                        ApiEndpoints.V1.Auth.RESET_PASSWORD,
+                        ApiEndpoints.V1.Auth.LOGOUT
                 )
                 .anonymous()
+                .requestMatchers(ApiEndpoints.V1.Auth.LOGIN)
+                .authenticated()
                 .anyRequest()
                 .hasAuthority(Authority.ROLE_USER.toString());
 
