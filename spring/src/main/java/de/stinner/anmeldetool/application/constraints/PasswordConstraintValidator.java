@@ -6,10 +6,6 @@ import jakarta.validation.ConstraintValidatorContext;
 public class PasswordConstraintValidator implements ConstraintValidator<Password, String> {
 
     @Override
-    public void initialize(final Password constraintAnnotation) {
-    }
-
-    @Override
     public boolean isValid(final String password, final ConstraintValidatorContext context) {
         // Min & Max are defined by BCrypt
         if (password.length() < 8) {
