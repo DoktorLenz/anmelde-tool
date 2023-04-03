@@ -21,7 +21,7 @@ env:
 
 jobs:
   build:
-    name: Build & Test
+    name: Build & Test Spring
     runs-on: ubuntu-latest
     defaults:
       run:
