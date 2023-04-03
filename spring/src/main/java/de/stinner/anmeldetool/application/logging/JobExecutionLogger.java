@@ -13,7 +13,7 @@ import org.springframework.scheduling.config.TriggerTask;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.Optional;
 
 @Slf4j
@@ -35,6 +35,22 @@ class JobExecutionLogger {
         beanPostProcessor
                 .getScheduledTasks()
                 .forEach(this::logNextExecutionDate);
+    }
+
+    private void logNextExecutionDate(final ScheduledTask task) {
+        log.info("next execution time for job " + task.toString() + ": " + this.getNextExecutionDate(task));
+    }
+
+    private String getNextExecutionDate(final ScheduledTask task) {
+        if (task.getTask() instanceof TriggerTask triggerTask) {
+            Instant nextExecutionTime =
+                    triggerTask.getTrigger().nextExecution(new SimpleTriggerContext());
+            return Optional.ofNullable(nextExecutionTime).map(Instant::toString).orElse("no further execution");
+        } else if (task.getTask() instanceof IntervalTask intervalTask) {
+            return Instant.now().plusMillis(intervalTask.getIntervalDuration().toMillis()).toString();
+        } else {
+            return "unknown";
+        }
     }
 
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled)")
@@ -60,22 +76,6 @@ class JobExecutionLogger {
 
     private String getJobName(final ProceedingJoinPoint joinPoint) {
         return joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
-    }
-
-    private void logNextExecutionDate(final ScheduledTask task) {
-        log.info("next execution time for job " + task.toString() + ": " + this.getNextExecutionDate(task));
-    }
-
-    private String getNextExecutionDate(final ScheduledTask task) {
-        if (task.getTask() instanceof TriggerTask triggerTask) {
-            Date nextExecutionTime =
-                    triggerTask.getTrigger().nextExecutionTime(new SimpleTriggerContext());
-            return Optional.ofNullable(nextExecutionTime).map(Date::toString).orElse("no further execution");
-        } else if (task.getTask() instanceof IntervalTask intervalTask) {
-            return new Date(System.currentTimeMillis() + intervalTask.getInterval()).toString();
-        } else {
-            return "unknown";
-        }
     }
 
     private Optional<ScheduledTask> getCurrentTask(final String runnableName) {
