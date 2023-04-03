@@ -27,10 +27,12 @@
 <h3 class="greeting" th:text="#{greetings(${recipientName})}">Hallo TESTNUTZER,</h3>
 
 <div th:text="#{registration.text_1}">Vielen Dank, dass du dich beim Anmeldetool registriert hast.</div>
-<div th:text="#{registration.text_2(${registrationLink})}">Damit deine Registrierung abgeschlossen werden kann, klicke
-    bitten auf den
-    folgenden
-    Link:
+<div>
+    <span th:text="#{registration.text_2}">
+        Damit deine Registrierung abgeschlossen werden kann, klicke bitten auf den folgenden Link:
+    </span>
+    <span id="registration-link" th:text="${registrationLink}">
+    </span>
 </div>
 <p th:text="#{registration.text_3}">Du hast dich gar nicht bei uns registriert? Dann ignorier bitte diese
     E-Mail.
