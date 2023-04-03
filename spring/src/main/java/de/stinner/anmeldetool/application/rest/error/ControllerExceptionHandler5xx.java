@@ -11,16 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Slf4j
 public class ControllerExceptionHandler5xx {
-
-    //    @ApiResponse(
-//            description = "When the request is malformed in a way the backend can not (yet) handle, "
-//                    + "or the backend is not running properly.",
-//            responseCode = "500",
-//            content = @Content(
-//                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-//                    schema = @Schema(implementation = ErrorResponse.class)
-//            )
-//    )
+    
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(
             Exception e,

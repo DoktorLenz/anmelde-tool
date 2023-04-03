@@ -54,7 +54,10 @@ public class AuthController {
 
     @PostMapping(ApiEndpoints.V1.Auth.RESET_PASSWORD)
     public ResponseEntity<Void> resetPassword(@Valid @RequestBody ResetPasswordDto resetPasswordRequestDto) {
-        authenticationService.resetPassword(resetPasswordRequestDto.getResetId(), resetPasswordRequestDto.getPassword());
+        authenticationService.resetPassword(
+                resetPasswordRequestDto.getResetId(),
+                resetPasswordRequestDto.getPassword()
+        );
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

@@ -42,6 +42,12 @@ class MailServiceImpl implements MailService {
     private Resource googleLogo;
 
     @Override
+    public void sendSimpleMessageUsingTemplate(String to, String subject, String... templateModel) {
+        String text = String.format(template.getText(), templateModel);
+        sendSimpleMessage(to, subject, text);
+    }
+
+    @Override
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -54,12 +60,6 @@ class MailServiceImpl implements MailService {
         } catch (MailException e) {
             log.error("SimpleMail to \"{}\" with subject \"{}\" could not be sent: {}", to, subject, e.getMessage());
         }
-    }
-
-    @Override
-    public void sendSimpleMessageUsingTemplate(String to, String subject, String... templateModel) {
-        String text = String.format(template.getText(), templateModel);
-        sendSimpleMessage(to, subject, text);
     }
 
     @Override
@@ -78,7 +78,10 @@ class MailServiceImpl implements MailService {
 
             mailSender.send(message);
         } catch (MessagingException e) {
-            log.error("AttachmentMail to \"{}\" with subject \"{}\" could not be sent: {}", to, subject, e.getMessage());
+            log.error(
+                    "AttachmentMail to \"{}\" with subject \"{}\" could not be sent: {}",
+                    to, subject, e.getMessage()
+            );
         }
     }
 
