@@ -3,7 +3,6 @@ package de.stinner.anmeldetool.domain.auth.api;
 import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import de.stinner.anmeldetool.domain.auth.api.model.*;
 import de.stinner.anmeldetool.domain.auth.persistence.RegistrationEntity;
-import de.stinner.anmeldetool.domain.auth.persistence.UserDataEntity;
 import de.stinner.anmeldetool.domain.auth.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +37,7 @@ public class AuthController {
 
     @PostMapping(ApiEndpoints.V1.Auth.FINISH_REGISTRATION)
     public ResponseEntity<Void> finishRegistration(@Valid @RequestBody FinishRegistrationDto finishRegistrationDto) {
-        UserDataEntity entity = authenticationService.finishRegistration(
+        authenticationService.finishRegistration(
                 finishRegistrationDto.getRegistrationId(),
                 finishRegistrationDto.getPassword()
         );
