@@ -47,7 +47,7 @@ public abstract class BaseIntegrationTest {
             final TestPropertyValues values = TestPropertyValues.of(
                     "spring.mail.host=" + mailServerHost,
                     "spring.mail.port=3025",
-                    "spring.mail.user=" + mailServerUsername,
+                    "spring.mail.username=" + mailServerUsername,
                     "spring.mail.password=" + mailServerPassword
             );
 
