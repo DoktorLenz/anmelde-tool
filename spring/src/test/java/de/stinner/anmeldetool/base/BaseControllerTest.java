@@ -19,11 +19,11 @@ import org.springframework.test.web.servlet.result.StatusResultMatchers;
 
 import static org.assertj.core.api.Fail.fail;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@WithMockUser
 public abstract class BaseControllerTest extends BaseIntegrationTest {
 
     @Autowired
@@ -69,6 +69,17 @@ public abstract class BaseControllerTest extends BaseIntegrationTest {
             Object... uriVars
     ) {
         return MockMvcRequestBuilders.get(basePath, uriVars);
+    }
+
+    protected ResultActions performGetRequestWithAuth(String path, String username, String password) {
+        ResultActions resultActions = null;
+        try {
+            resultActions = mockMvc.perform(getGetBuilder(path).with(csrf()).with(httpBasic(username, password)));
+        } catch (Exception e) {
+            fail("Get-request failed.", e);
+        }
+
+        return resultActions;
     }
 
     protected ResultActions performPutRequest(
