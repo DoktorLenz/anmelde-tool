@@ -1,7 +1,5 @@
 package de.stinner.anmeldetool.domain.auth.api.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -15,7 +13,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-public class ForgotPasswordRequestDtoTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class ForgotPasswordRequestDtoTest {
 
     @Test
     @DisplayName("ForgotPasswordRequestDto should have working getters and setters")
@@ -36,13 +36,14 @@ public class ForgotPasswordRequestDtoTest {
 
         Annotation[] annotations = emailField.getAnnotations();
 
-        assertThat(annotations).hasSize(2);
-        assertThat(annotations).anySatisfy(annotation -> {
-            assertThat(annotation.annotationType()).isEqualTo(NotBlank.class);
-        });
-        assertThat(annotations).anySatisfy(annotation -> {
-            assertThat(annotation.annotationType()).isEqualTo(Email.class);
-        });
+        assertThat(annotations)
+                .hasSize(2)
+                .anySatisfy(annotation -> {
+                    assertThat(annotation.annotationType()).isEqualTo(NotBlank.class);
+                })
+                .anySatisfy(annotation -> {
+                    assertThat(annotation.annotationType()).isEqualTo(Email.class);
+                });
     }
 
     @Test
@@ -55,24 +56,23 @@ public class ForgotPasswordRequestDtoTest {
         Validator validator = factory.getValidator();
 
         Set<ConstraintViolation<ForgotPasswordRequestDto>> violations = validator.validate(dto);
-        assertThat(violations).hasSize(1);
-
-        assertThat(violations).anySatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isEqualTo("email");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(NotBlank.class);
-        });
+        assertThat(violations).hasSize(1)
+                .anySatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath()).hasToString("email");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(NotBlank.class);
+                });
 
         dto.setEmail("invalid-email");
 
         violations = validator.validate(dto);
-        assertThat(violations).hasSize(1);
-
-        assertThat(violations).anySatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isEqualTo("email");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Email.class);
-        });
+        assertThat(violations)
+                .hasSize(1)
+                .anySatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath()).hasToString("email");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Email.class);
+                });
 
         dto.setEmail("valid-email@example.com");
 

@@ -29,6 +29,7 @@ public class AuthenticationMailService {
     }
 
     @Async
+    @Transactional()
     public void sendRegistrationEmail(RegistrationEntity registration) {
         Map<String, Object> templateModel = new HashMap<>();
         String recipientName = String.format("%s %s", registration.getFirstname(), registration.getLastname());
@@ -36,23 +37,29 @@ public class AuthenticationMailService {
                 "https://anmeldung.dpsgkolbermoor.de/auth/finish-registration?id=%s",
                 registration.getRegistrationId()
         );
+
+        String subject = "Registrierung Abschließen";
+
         templateModel.put("recipientName", recipientName);
         templateModel.put("registrationLink", registrationLink);
         try {
             mailService.sendMessageUsingThymeleafTemplate(
                     registration.getEmail(),
-                    "Registrierung Abschließen",
+                    subject,
                     "template-registration.html",
                     templateModel
             );
             registrationEmailSent(registration);
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            throw new SendMailException(
+                    registration.getEmail(),
+                    subject,
+                    e
+            );
         }
     }
 
-    @Transactional()
-    protected void registrationEmailSent(RegistrationEntity registration) {
+    private void registrationEmailSent(RegistrationEntity registration) {
         registration.setEmailSent(Instant.now());
         registrationRepository.save(registration);
     }
@@ -62,6 +69,7 @@ public class AuthenticationMailService {
     }
 
     @Async
+    @Transactional()
     public void sendResetPasswordEmail(ResetPasswordEntity resetPasswordEntity) {
         Map<String, Object> templateModel = new HashMap<>();
         String recipientName = String.format(
@@ -74,23 +82,28 @@ public class AuthenticationMailService {
                 resetPasswordEntity.getResetId()
         );
 
+        String subject = "Passwort zurücksetzen";
+
         templateModel.put("recipientName", recipientName);
         templateModel.put("passwordResetLink", resetPasswordLink);
         try {
             mailService.sendMessageUsingThymeleafTemplate(
                     resetPasswordEntity.getUser().getEmail(),
-                    "Passwort zurücksetzen",
+                    subject,
                     "template-reset-password.html",
                     templateModel
             );
             passwordResetEmailSent(resetPasswordEntity);
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            throw new SendMailException(
+                    resetPasswordEntity.getUser().getEmail(),
+                    subject,
+                    e
+            );
         }
     }
 
-    @Transactional()
-    protected void passwordResetEmailSent(ResetPasswordEntity resetPasswordEntity) {
+    private void passwordResetEmailSent(ResetPasswordEntity resetPasswordEntity) {
         resetPasswordEntity.setEmailSent(Instant.now());
         resetPasswordRepository.save(resetPasswordEntity);
     }

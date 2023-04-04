@@ -26,14 +26,14 @@ public final class ApiEndpoints {
 
         @UtilityClass
         public static class Auth {
-            private static final String AUTH = BASE_V1 + "/auth";
-            public static final String LOGIN = AUTH + "/login";
-            public static final String LOGOUT = AUTH + "/logout";
-            public static final String REGISTER = AUTH + "/register";
-            public static final String FINISH_REGISTRATION = AUTH + "/finish-registration";
-            public static final String FORGOT_PASSWORD = AUTH + "/forgot-password";
-            public static final String RESET_PASSWORD = AUTH + "/reset-password";
-            public static final String CHANGE_PASSWORD = AUTH + "/change-password";
+            private static final String BASE_AUTH = BASE_V1 + "/auth";
+            public static final String LOGIN = BASE_AUTH + "/login";
+            public static final String LOGOUT = BASE_AUTH + "/logout";
+            public static final String REGISTER = BASE_AUTH + "/register";
+            public static final String FINISH_REGISTRATION = BASE_AUTH + "/finish-registration";
+            public static final String FORGOT_PASSWORD = BASE_AUTH + "/forgot-password";
+            public static final String RESET_PASSWORD = BASE_AUTH + "/reset-password";
+            public static final String CHANGE_PASSWORD = BASE_AUTH + "/change-password";
         }
 
 

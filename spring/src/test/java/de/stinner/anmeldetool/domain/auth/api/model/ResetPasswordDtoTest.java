@@ -15,7 +15,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ResetPasswordDtoTest {
+class ResetPasswordDtoTest {
 
     @Test
     @DisplayName("ResetPasswordDto should have working getters and setters")
@@ -53,30 +53,30 @@ public class ResetPasswordDtoTest {
         Validator validator = factory.getValidator();
 
         Set<ConstraintViolation<ResetPasswordDto>> violations = validator.validate(dto);
-        assertThat(violations).hasSize(2);
-
-        assertThat(violations).anySatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isEqualTo("resetId");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(NotNull.class);
-        });
-
-        assertThat(violations).anySatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isEqualTo("password");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Password.class);
-        });
+        assertThat(violations)
+                .hasSize(2)
+                .anySatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath()).hasToString("resetId");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(NotNull.class);
+                })
+                .anySatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath()).hasToString("password");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Password.class);
+                });
 
         dto.setResetId(UUID.randomUUID());
         dto.setPassword("thispasswordistoolongtobevalidbecauseitexceedsfifty-sixcharacters");
 
         violations = validator.validate(dto);
-        assertThat(violations).hasSize(1);
-        assertThat(violations).allSatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isEqualTo("password");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Password.class);
-        });
+        assertThat(violations)
+                .hasSize(1)
+                .allSatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath()).hasToString("password");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Password.class);
+                });
 
         dto.setPassword("validpassword");
 

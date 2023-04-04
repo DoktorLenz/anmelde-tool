@@ -1,24 +1,20 @@
 package de.stinner.anmeldetool.domain.auth.api.model;
 
-import de.stinner.anmeldetool.application.constraints.Password;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RegistrationRequestDtoTest {
+class RegistrationRequestDtoTest {
     @Test
     @DisplayName("RegistrationRequestDto should have working getters and setters")
     void testGettersAndSetters() {
@@ -65,26 +61,26 @@ public class RegistrationRequestDtoTest {
         Validator validator = factory.getValidator();
 
         Set<ConstraintViolation<RegistrationRequestDto>> violations = validator.validate(dto);
-        assertThat(violations).hasSize(3);
-
-        assertThat(violations).allSatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isIn("email", "firstname", "lastname");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(NotBlank.class);
-        });
+        assertThat(violations)
+                .hasSize(3)
+                .allSatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath().toString()).isIn("email", "firstname", "lastname");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(NotBlank.class);
+                });
 
         dto.setEmail("invalid-email");
         dto.setFirstname("firstname");
         dto.setLastname("lastname");
 
         violations = validator.validate(dto);
-        assertThat(violations).hasSize(1);
-
-        assertThat(violations).anySatisfy(violation -> {
-            assertThat(violation.getRootBean()).isEqualTo(dto);
-            assertThat(violation.getPropertyPath().toString()).isEqualTo("email");
-            assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Email.class);
-        });
+        assertThat(violations)
+                .hasSize(1)
+                .anySatisfy(violation -> {
+                    assertThat(violation.getRootBean()).isEqualTo(dto);
+                    assertThat(violation.getPropertyPath()).hasToString("email");
+                    assertThat(violation.getConstraintDescriptor().getAnnotation()).isInstanceOf(Email.class);
+                });
 
         dto.setEmail("valid-email@example.com");
 

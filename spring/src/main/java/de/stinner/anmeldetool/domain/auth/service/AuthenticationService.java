@@ -39,6 +39,7 @@ public class AuthenticationService implements UserDetailsService {
     private Long resetPasswordLifespanInMinutes;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final UserDataEntity user = findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with name '" + username + "' was not found."));
@@ -62,7 +63,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    protected Optional<UserDataEntity> findByEmail(final String email) {
+    public Optional<UserDataEntity> findByEmail(final String email) {
         return userDataRepository.findByEmail(email);
     }
 
@@ -89,7 +90,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Transactional()
-    public UserDataEntity finishRegistration(UUID id, String password) {
+    public void finishRegistration(UUID id, String password) {
         RegistrationEntity registrationEntity = registrationRepository
                 .findByRegistrationIdAndCreatedAtIsAfterAndEmailSentIsNotNull(
                         id,
@@ -108,7 +109,7 @@ public class AuthenticationService implements UserDetailsService {
         UserDataEntity entity = UserDataEntity.create(registrationEntity, password);
 
         registrationRepository.deleteById(id);
-        return userDataRepository.save(entity);
+        userDataRepository.save(entity);
     }
 
     @Transactional()
@@ -116,22 +117,20 @@ public class AuthenticationService implements UserDetailsService {
         Optional<UserDataEntity> optionalUserDataEntity = userDataRepository.findByEmail(email);
 
         optionalUserDataEntity.ifPresentOrElse(
-                (userDataEntity) -> {
+                userDataEntity -> {
                     ResetPasswordEntity entity = ResetPasswordEntity.of(userDataEntity);
                     entity = resetPasswordRepository.save(entity);
                     authenticationMailService.sendResetPasswordEmail(entity);
                 },
-                () -> {
-                    log.info("Forgot password for none existing user was tried: {}. No email has been sent.", email);
-                }
+                () -> log.info("Forgot password for none existing user was tried: {}. No email has been sent.", email)
         );
     }
 
     @Transactional()
-    public void resetPassword(UUID resetiId, String password) {
+    public void resetPassword(UUID resetId, String password) {
         ResetPasswordEntity resetPasswordEntity = resetPasswordRepository
                 .findByResetIdAndEmailSentAfter(
-                        resetiId,
+                        resetId,
                         Instant.now().minusSeconds(60 * resetPasswordLifespanInMinutes)
                 )
                 .orElseThrow(() -> new ResponseStatusException(

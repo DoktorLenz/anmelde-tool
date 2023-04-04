@@ -19,9 +19,8 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class AuthControllerRegistrationTest extends BaseControllerTest {
+class AuthControllerRegistrationTest extends BaseControllerTest {
 
-    private final String password = "validpassword";
     private String username;
     @Value("${spring.mail.host}")
     private String mailServerHost;
@@ -33,7 +32,7 @@ public class AuthControllerRegistrationTest extends BaseControllerTest {
 
     @Test
     @SneakyThrows
-    public void testSuccessfulRegistrationFlow() {
+    void testSuccessfulRegistrationFlow() {
         username = mailServerUsername + "@" + mailServerHost;
         String messageContent = testRegisterAndReturnMailMessageContent();
         String id = MailTestUtils.getRegistrationIdFromMessage(messageContent);
@@ -68,6 +67,7 @@ public class AuthControllerRegistrationTest extends BaseControllerTest {
     public void testFinishRegistration(UUID registrationId) {
         FinishRegistrationDto dto = new FinishRegistrationDto();
         dto.setRegistrationId(registrationId);
+        String password = "validpassword";
         dto.setPassword(password);
 
         baseRequest.with().body(dto)
