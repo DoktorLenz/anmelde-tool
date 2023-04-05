@@ -47,7 +47,7 @@ jobs:
         run: mvn clean package -DskipTests
 
   test-unit:
-    name: Unit Tests Backend
+    name: Unit Test Backend
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -78,16 +78,24 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn compiler:compile compiler:testCompile
+        run: mvn test-compile
       
-      - name: Build and analyze
+      - name: Run Unit Tests and Upload to Sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend-unit
+        run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ github.workspace }}/spring/target/site/jacoco/jacoco.xml
+          flags: Backend-Unit-Test
+          fail_ci_if_error: true
 
   test-integration:
-    name: Integration Tests Backend
+    name: Integration Test Backend
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -118,17 +126,15 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn compiler:compile compiler:testCompile
+        run: mvn test-compile
       
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn jacoco:prepare-agent-integration failsafe:integration-test jacoco:report-integration org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend-integration
+      - name: Run Integration Tests
+        run: mvn jacoco:prepare-agent-integration failsafe:integration-test jacoco:report-integration
 
-  # lint:
-  #   name: Lint Backend
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: ./spring
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ github.workspace }}/spring/target/site/jacoco-it/jacoco.xml
+          flags: Backend-Integration-Test
+          fail_ci_if_error: true

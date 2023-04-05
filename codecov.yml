@@ -1,0 +1,47 @@
+# Setting coverage targets per flag
+coverage:
+  status:
+    project:
+      default:
+        target: 90% #overall project/ repo coverage
+      angular:
+        target: 80%
+        flags:
+          - 'Frontend-Unit-Tests'
+          - 'Frontend-Integration-Tests'
+        paths:
+          - "angular"
+      spring:
+        target: 80%
+        flags:
+          - 'Backend-Unit-Tests'
+          - 'Backend-Integration-Tests'
+        paths:
+          - "spring"
+
+# adding Flags to your `layout` configuration to show up in the PR comment
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: new
+  require_changes: false  
+  require_base: yes
+  require_head: yes       
+  branches: null
+  show_carryforward_flags: true
+
+# New root YAML section = `flags:`
+# This is where you would define every flag from your
+# uploader, and update when new Flags added
+
+flags:
+  'Frontend-Unit-Tests':
+    carryforward: true
+
+  'Frontend-Integration-Tests':
+    carryforward: true
+
+  'Backend-Unit-Tests':
+    carryforward: true
+  
+  'Backend-Integration-Tests':
+    carryforward: true
