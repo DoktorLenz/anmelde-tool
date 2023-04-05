@@ -19,7 +19,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class AuthControllerRegistrationTest extends BaseControllerTest {
+class AuthControllerRegistrationIT extends BaseControllerTest {
 
     private String username;
     @Value("${spring.mail.host}")

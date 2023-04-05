@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.test.context.support.WithMockUser;
 
 
-class AuthControllerTest extends BaseControllerTest {
+class AuthControllerIT extends BaseControllerTest {
 
     @Test
     void testLogin() {
