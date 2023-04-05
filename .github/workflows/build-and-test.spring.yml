@@ -50,8 +50,6 @@ jobs:
     name: Unit Test Backend
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     defaults:
       run:
         working-directory: ./spring
@@ -88,22 +86,18 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend
 
-      - name: Add unit test coverage to PR
-        uses: madrapps/jacoco-report@v1.3
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
         with:
-          paths: ${{ github.workspace }}/spring/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: ${{ vars.SPRING_TOTAL_COVERAGE }}
-          min-coverage-changed-files: ${{ vars.SPRING_CHANGED_COVERAGE }}
-          title: Spring Unit Test Coverage
-          update-comment: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ github.workspace }}/spring/target/site/jacoco/jacoco.xml
+          flags: unittest
+          fail_ci_if_error: true
 
   test-integration:
     name: Integration Test Backend
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     defaults:
       run:
         working-directory: ./spring
@@ -137,19 +131,10 @@ jobs:
       - name: Run Integration Tests
         run: mvn jacoco:prepare-agent-integration failsafe:integration-test jacoco:report-integration
 
-      - name: Add integration test coverage to PR
-        uses: madrapps/jacoco-report@v1.3
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
         with:
-          paths: ${{ github.workspace }}/spring/target/site/jacoco-it/jacoco.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: ${{ vars.SPRING_TOTAL_COVERAGE }}
-          min-coverage-changed-files: ${{ vars.SPRING_CHANGED_COVERAGE }}
-          title: Spring Integration Test Coverage
-          update-comment: true
-
-  # lint:
-  #   name: Lint Backend
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: ./spring
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ github.workspace }}/spring/target/site/jacoco-it/jacoco.xml
+          flags: integrationtest
+          fail_ci_if_error: true
