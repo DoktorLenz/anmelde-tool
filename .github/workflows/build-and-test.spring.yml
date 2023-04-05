@@ -50,6 +50,8 @@ jobs:
     name: Unit Test Backend
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     defaults:
       run:
         working-directory: ./spring
@@ -100,6 +102,8 @@ jobs:
     name: Integration Test Backend
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     defaults:
       run:
         working-directory: ./spring
