@@ -78,7 +78,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn compiler:compile compiler:testCompile
+        run: mvn test-compile
       
       - name: Run Unit Tests and Upload to Sonar
         env:
@@ -126,7 +126,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn compiler:compile compiler:testCompile
+        run: mvn test-compile
       
       - name: Run Integration Tests
         run: mvn jacoco:prepare-agent-integration failsafe:integration-test jacoco:report-integration
