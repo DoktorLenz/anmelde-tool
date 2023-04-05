@@ -7,13 +7,17 @@ coverage:
       angular:
         target: 80%
         flags:
-          - unit
-          - integration
+          - 'Frontend-Unit-Tests'
+          - 'Frontend-Integration-Tests'
+        paths:
+          - "angular"
       spring:
         target: 80%
         flags:
-          - unit
-          - integration
+          - 'Backend-Unit-Tests'
+          - 'Backend-Integration-Tests'
+        paths:
+          - "spring"
 
 # adding Flags to your `layout` configuration to show up in the PR comment
 comment:
@@ -30,8 +34,14 @@ comment:
 # uploader, and update when new Flags added
 
 flags:
-  unit:
+  'Frontend-Unit-Tests':
+    carryforward: true
+
+  'Frontend-Integration-Tests':
+    carryforward: true
+
+  'Backend-Unit-Tests':
     carryforward: true
   
-  integration:
+  'Backend-Integration-Tests':
     carryforward: true

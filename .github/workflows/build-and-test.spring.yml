@@ -91,7 +91,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ${{ github.workspace }}/spring/target/site/jacoco/jacoco.xml
-          flags: unittest
+          flags: Unit-Test
           fail_ci_if_error: true
 
   test-integration:
@@ -136,5 +136,5 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ${{ github.workspace }}/spring/target/site/jacoco-it/jacoco.xml
-          flags: integrationtest
+          flags: Backend-Integration-Test
           fail_ci_if_error: true
