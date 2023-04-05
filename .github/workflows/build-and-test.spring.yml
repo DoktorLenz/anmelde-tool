@@ -78,7 +78,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn compiler:testCompile
+        run: mvn compiler:compile compiler:testCompile
       
       - name: Build and analyze
         env:
@@ -118,7 +118,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn compiler:testCompile
+        run: mvn compiler:compile compiler:testCompile
       
       - name: Build and analyze
         env:
