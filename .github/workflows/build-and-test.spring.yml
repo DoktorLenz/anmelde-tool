@@ -47,7 +47,7 @@ jobs:
         run: mvn clean package -DskipTests
 
   test-unit:
-    name: Unit Tests Backend
+    name: Unit Test Backend
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -80,14 +80,24 @@ jobs:
       - name: Compile Tests
         run: mvn compiler:compile compiler:testCompile
       
-      - name: Build and analyze
+      - name: Run Unit Tests and Upload to Sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend-unit
+        run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend
+
+      - name: Add unit test coverage to PR
+        uses: madrapps/jacoco-report@v1.3
+        with:
+          paths: ${{ github.workspace }}/spring/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: ${{ vars.SPRING_TOTAL_COVERAGE }}
+          min-coverage-changed-files: ${{ vars.SPRING_CHANGED_COVERAGE }}
+          title: Spring Unit Test Coverage
+          update-comment: true
 
   test-integration:
-    name: Integration Tests Backend
+    name: Integration Test Backend
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -120,11 +130,18 @@ jobs:
       - name: Compile Tests
         run: mvn compiler:compile compiler:testCompile
       
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn jacoco:prepare-agent-integration failsafe:integration-test jacoco:report-integration org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=de.stinner.anmeldetool:backend-integration
+      - name: Run Integration Tests
+        run: mvn jacoco:prepare-agent-integration failsafe:integration-test jacoco:report-integration
+
+      - name: Add integration test coverage to PR
+        uses: madrapps/jacoco-report@v1.3
+        with:
+          paths: ${{ github.workspace }}/spring/target/site/jacoco-it/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: ${{ vars.SPRING_TOTAL_COVERAGE }}
+          min-coverage-changed-files: ${{ vars.SPRING_CHANGED_COVERAGE }}
+          title: Spring Integration Test Coverage
+          update-comment: true
 
   # lint:
   #   name: Lint Backend
