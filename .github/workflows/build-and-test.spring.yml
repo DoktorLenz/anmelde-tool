@@ -48,6 +48,7 @@ jobs:
 
   test-unit:
     name: Unit Tests Backend
+    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -87,6 +88,7 @@ jobs:
 
   test-integration:
     name: Integration Tests Backend
+    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:
