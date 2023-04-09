@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'at-footer',
   template: `
       <div class="layout-footer">
           <a href="/dashboard" class="logo-container">

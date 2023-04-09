@@ -4,12 +4,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MenuService } from './app.menu.service';
-import { AppMainComponent } from './app.main.component';
+import { AppMainComponent } from '../main/app.main.component';
 
 @Component({
-  /* tslint:disable:component-selector */
   selector: '[app-menuitem]',
-  /* tslint:enable:component-selector */
   template: `
 		<ng-container>
 			<a [attr.href]="item.url" (click)="itemClick($event)" *ngIf="(!item.routerLink || item.items) && item.visible !== false"

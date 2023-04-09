@@ -15,7 +15,8 @@
       },
       "plugins": [
         "deprecation",
-        "jasmine"
+        "jasmine",
+        "import"
       ],
       "env": {
         "jasmine": true
@@ -26,6 +27,7 @@
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:jasmine/recommended",
+        "plugin:import/recommended",
         "airbnb-typescript/base"
       ],
       "rules": {

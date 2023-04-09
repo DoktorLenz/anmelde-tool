@@ -1,10 +1,10 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { AppMenuComponent } from './app.menu.component';
+import { AppMenuComponent } from './menu/app.menu.component';
 import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppRightPanelComponent } from './app.rightpanel.component';
+import { AppFooterComponent } from './footer/app.footer.component';
+import { AppRightPanelComponent } from './rightpanel/app.rightpanel.component';
 import { AppBreadcrumbComponent } from './app.breadcrumb.component';
 import { BreadcrumbService } from './app.breadcrumb.service';
 import { TabViewModule } from 'primeng/tabview';

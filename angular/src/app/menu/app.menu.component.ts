@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AppMainComponent } from './app.main.component';
+import { AppMainComponent } from '../main/app.main.component';
 
 @Component({
-  selector: 'app-menu',
+  selector: 'at-menu',
   template: `
         <ul class="layout-menu">
             <li app-menuitem *ngFor="let item of model; let i = index;" [item]="item" [index]="i" [root]="true"></li>
@@ -40,8 +40,8 @@ export class AppMenuComponent implements OnInit {
         ],
       },
       {
-        label:'Prime Blocks', icon:'pi pi-fw pi-prime', routerLink: ['/blocks'],
-        items:[
+        label: 'Prime Blocks', icon: 'pi pi-fw pi-prime', routerLink: ['/blocks'],
+        items: [
           { label: 'Free Blocks', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'] },
           { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: ['https://www.primefaces.org/primeblocks-ng'], target: '_blank' },
         ],

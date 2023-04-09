@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
-  selector: 'app-root',
+  selector: 'at-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-breadcrumb',
+  selector: 'at-breadcrumb',
   templateUrl: './app.breadcrumb.component.html',
 })
 export class AppBreadcrumbComponent implements OnDestroy {

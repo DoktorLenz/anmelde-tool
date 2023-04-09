@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AppMainComponent } from './app.main.component';
+import { AppMainComponent } from '../main/app.main.component';
 
 @Component({
-  selector: 'app-rightpanel',
+  selector: 'at-rightpanel',
   template: `
         <div class="layout-right-panel" [ngClass]="{'layout-right-panel-active': app.rightPanelActive}" (click)="app.onRightPanelClick()">
                 <div class="right-panel-scroll-content">

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from './app.menu.service';
 import { PrimeNGConfig } from 'primeng/api';
-import { AppComponent } from './app.component';
 import { InputSwitchOnChangeEvent } from 'primeng/inputswitch/inputswitch';
+import { MenuService } from '../menu/app.menu.service';
+import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'app-main',
+  selector: 'at-main',
   templateUrl: './app.main.component.html',
 })
 export class AppMainComponent implements OnInit {
