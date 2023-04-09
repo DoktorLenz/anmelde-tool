@@ -9,7 +9,8 @@
     "sme": "source-map-explorer ./dist/anmelde-tool-frontend/**/*.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "ci:clean": "rimraf ./dist",
+    "cypress:open": "$(npm bin)/cypress open",
+    "ci:clean": "rimraf ./dist && rimraf ./coverage",
     "ci:test": "ng test --watch=false --browsers=ChromeHeadlessCustom --code-coverage",
     "ci:build": "ng build --configuration production"
   },
@@ -45,6 +46,7 @@
     "@angular/compiler-cli": "^15.2.0",
     "@types/jasmine": "~4.3.0",
     "colors": "^1.4.0",
+    "cypress": "^12.9.0",
     "dotenv": "^16.0.3",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
