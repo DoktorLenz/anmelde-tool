@@ -1,17 +1,17 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { AppMenuComponent } from './menu/app.menu.component';
-import { AppTopBarComponent } from './app.topbar.component';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppRightPanelComponent } from './rightpanel/app.rightpanel.component';
-import { AppBreadcrumbComponent } from './app.breadcrumb.component';
-import { BreadcrumbService } from './app.breadcrumb.service';
 import { TabViewModule } from 'primeng/tabview';
-import { MenuService } from './app.menu.service';
+import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppBreadcrumbComponent } from './breadcrumb/app.breadcrumb.component';
+import { BreadcrumbService } from './breadcrumb/app.breadcrumb.service';
+import { MenuService } from './menu/app.menu.service';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -29,10 +29,10 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create the app', async(() => {
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
 
     expect(app).toBeTruthy();
-  }));
+  });
 });

@@ -106,7 +106,7 @@ export class AppMainComponent implements OnInit {
     event.preventDefault();
   }
 
-  onMenuClick($event: MouseEvent) {
+  onMenuClick() {
     this.menuClick = true;
   }
 
@@ -147,10 +147,6 @@ export class AppMainComponent implements OnInit {
 
   onRippleChange(event: InputSwitchOnChangeEvent) {
     this.app.ripple = event.checked;
-  }
-
-  onConfigClick(event: MouseEvent) {
-    this.configClick = true;
   }
 
   isHorizontal() {
