@@ -118,9 +118,9 @@ import { MenuService } from './app.menu.service';
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    BreadcrumbService, MenuService
+    BreadcrumbService, MenuService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

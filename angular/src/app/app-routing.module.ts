@@ -6,12 +6,12 @@ import { AppMainComponent } from './app.main.component';
   imports: [
     RouterModule.forRoot([
       {
-        path: '', component: AppMainComponent
+        path: '', component: AppMainComponent,
       },
       { path: '**', redirectTo: '/notfound' },
-    ], { scrollPositionRestoration: 'enabled' })
+    ], { scrollPositionRestoration: 'enabled' }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {AppMainComponent} from './app.main.component';
+import { Component } from '@angular/core';
+import { AppMainComponent } from './app.main.component';
 
 @Component({
-    selector: 'app-rightpanel',
-    template: `
+  selector: 'app-rightpanel',
+  template: `
         <div class="layout-right-panel" [ngClass]="{'layout-right-panel-active': app.rightPanelActive}" (click)="app.onRightPanelClick()">
                 <div class="right-panel-scroll-content">
                     <p-tabView>
@@ -161,8 +161,8 @@ import {AppMainComponent} from './app.main.component';
                     </p-tabView>
                 </div>
         </div>
-    `
+    `,
 })
 export class AppRightPanelComponent {
-    constructor(public app: AppMainComponent) { }
+  constructor(public app: AppMainComponent) { }
 }

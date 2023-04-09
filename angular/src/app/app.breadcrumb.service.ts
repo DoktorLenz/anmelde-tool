@@ -5,11 +5,11 @@ import { MenuItem } from 'primeng/api';
 @Injectable()
 export class BreadcrumbService {
 
-    private itemsSource = new Subject<MenuItem[]>();
+  private itemsSource = new Subject<MenuItem[]>();
 
-    itemsHandler = this.itemsSource.asObservable();
+  itemsHandler = this.itemsSource.asObservable();
 
-    setItems(items: MenuItem[]) {
-        this.itemsSource.next(items);
-    }
+  setItems(items: MenuItem[]) {
+    this.itemsSource.next(items);
+  }
 }

@@ -11,27 +11,28 @@ import { TabViewModule } from 'primeng/tabview';
 import { MenuService } from './app.menu.service';
 
 describe('AppComponent', () => {
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule,
-                TabViewModule
-            ],
-            declarations: [
-                AppComponent,
-                AppMenuComponent,
-                AppRightPanelComponent,
-                AppTopBarComponent,
-                AppFooterComponent,
-                AppBreadcrumbComponent
-            ],
-            providers: [BreadcrumbService, MenuService]
-        }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        TabViewModule,
+      ],
+      declarations: [
+        AppComponent,
+        AppMenuComponent,
+        AppRightPanelComponent,
+        AppTopBarComponent,
+        AppFooterComponent,
+        AppBreadcrumbComponent,
+      ],
+      providers: [BreadcrumbService, MenuService],
+    }).compileComponents();
+  }));
 
-    it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app).toBeTruthy();
-    }));
+  it('should create the app', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+
+    expect(app).toBeTruthy();
+  }));
 });

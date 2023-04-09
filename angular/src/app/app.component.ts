@@ -2,24 +2,24 @@ import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
+  selector: 'app-root',
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
 
-    menuMode = 'static';
+  menuMode = 'static';
 
-    theme = 'absolution';
+  theme = 'absolution';
 
-    inputStyle = 'outlined';
+  inputStyle = 'outlined';
 
-    ripple: boolean = false;
+  ripple = false;
 
-    constructor(private primengConfig: PrimeNGConfig) {
-    }
+  constructor(private primengConfig: PrimeNGConfig) {
+  }
 
-    ngOnInit() {
-        this.primengConfig.ripple = true;
-        this.ripple = true;
-    }
+  ngOnInit() {
+    this.primengConfig.ripple = true;
+    this.ripple = true;
+  }
 }
