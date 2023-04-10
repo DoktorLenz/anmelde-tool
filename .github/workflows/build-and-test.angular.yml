@@ -87,7 +87,7 @@ jobs:
         continue-on-error: true
 
       - name: Change eslint relative to absolute path
-        run: sed -i 's+/home/runner/work/+/github/workspace/+g' eslint/result.json
+        run: sed -i 's+/home/runner/work/anmelde-tool/anmelde-tool/+/github/workspace/+g' eslint/result.json
 
       - name: Upload to Sonar
         uses: SonarSource/sonarcloud-github-action@master
