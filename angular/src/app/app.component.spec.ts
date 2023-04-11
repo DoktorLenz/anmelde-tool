@@ -1,37 +1,38 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { AppMenuComponent } from './app.menu.component';
-import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppRightPanelComponent } from './app.rightpanel.component';
-import { AppBreadcrumbComponent } from './app.breadcrumb.component';
-import { BreadcrumbService } from './app.breadcrumb.service';
+import { AppMenuComponent } from './menu/app.menu.component';
+import { AppFooterComponent } from './footer/app.footer.component';
+import { AppRightPanelComponent } from './rightpanel/app.rightpanel.component';
 import { TabViewModule } from 'primeng/tabview';
-import { MenuService } from './app.menu.service';
+import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppBreadcrumbComponent } from './breadcrumb/app.breadcrumb.component';
+import { BreadcrumbService } from './breadcrumb/app.breadcrumb.service';
+import { MenuService } from './menu/app.menu.service';
 
 describe('AppComponent', () => {
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule,
-                TabViewModule
-            ],
-            declarations: [
-                AppComponent,
-                AppMenuComponent,
-                AppRightPanelComponent,
-                AppTopBarComponent,
-                AppFooterComponent,
-                AppBreadcrumbComponent
-            ],
-            providers: [BreadcrumbService, MenuService]
-        }).compileComponents();
-    }));
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        TabViewModule,
+      ],
+      declarations: [
+        AppComponent,
+        AppMenuComponent,
+        AppRightPanelComponent,
+        AppTopBarComponent,
+        AppFooterComponent,
+        AppBreadcrumbComponent,
+      ],
+      providers: [BreadcrumbService, MenuService],
+    }).compileComponents();
+  }));
 
-    it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app).toBeTruthy();
-    }));
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+
+    expect(app).toBeTruthy();
+  });
 });

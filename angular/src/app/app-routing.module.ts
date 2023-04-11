@@ -1,17 +1,17 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AppMainComponent } from './app.main.component';
+import { AppMainComponent } from './main/app.main.component';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       {
-        path: '', component: AppMainComponent
+        path: '', component: AppMainComponent,
       },
       { path: '**', redirectTo: '/notfound' },
-    ], { scrollPositionRestoration: 'enabled' })
+    ], { scrollPositionRestoration: 'enabled' }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

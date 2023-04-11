@@ -8,23 +8,23 @@
                  'topbar-icons-active': topbarIconsActive,
                  'p-input-filled': app.inputStyle === 'filled', 'p-ripple-disabled': !app.ripple}">
 
-  <app-topbar></app-topbar>
+  <at-topbar></at-topbar>
 
-  <app-rightpanel></app-rightpanel>
+  <at-rightpanel></at-rightpanel>
 
-  <div class="layout-sidebar" (click)="onMenuClick($event)">
-    <app-menu></app-menu>
+  <div class="layout-sidebar" (click)="onMenuClick()">
+    <at-menu></at-menu>
   </div>
 
   <div class="layout-main">
 
-    <app-breadcrumb></app-breadcrumb>
+    <at-breadcrumb></at-breadcrumb>
 
     <div class="layout-content">
       <router-outlet></router-outlet>
     </div>
 
-    <app-footer></app-footer>
+    <at-footer></at-footer>
     <div class="layout-mask" *ngIf="staticMenuMobileActive || topbarIconsActive"></div>
   </div>
 </div>
