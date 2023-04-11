@@ -31,6 +31,12 @@
         "airbnb-typescript/base"
       ],
       "rules": {
+        "max-len": [
+          "error",
+          {
+            "code": 110
+          }
+        ],
         "deprecation/deprecation": "warn",
         "@angular-eslint/directive-selector": [
           "error",
@@ -57,7 +63,14 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "max-len": [
+          "error",
+          {
+            "code": 110
+          }
+        ]
+      }
     }
   ]
 }
