@@ -1,0 +1,63 @@
+<form [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()">
+  <p-card styleClass="auth-card">
+    <ng-template pTemplate="header"> </ng-template>
+    <ng-template pTemplate="title"> Registrieren </ng-template>
+    <ng-template pTemplate="content">
+
+      <div class="flex flex-column pb-4 mb-3 gap-2 relative">
+        <label htmlFor="firstname">Vorname</label>
+
+        <div class="p-input-icon-right flex flex-column">
+          <i *ngIf="firstname.invalid && firstname.dirty"
+             class="pi pi-exclamation-circle error-color"></i>
+          <input type="text"
+                 pInputText
+                 id="firstname"
+                 formControlName="firstname" />
+        </div>
+        <small class="error-message"
+               *ngIf="firstname.invalid && firstname.dirty"
+               id="username-errors">{{firstname | errorTooltip}}</small>
+      </div>
+
+      <div class="flex flex-column pb-4 mb-3 relative">
+        <label htmlFor="lastname">Nachname</label>
+
+        <div class="p-input-icon-right flex flex-column">
+          <i *ngIf="lastname.invalid && lastname.dirty"
+             class="pi pi-exclamation-circle error-color"></i>
+          <input type="text"
+                 pInputText
+                 id="lastname"
+                 formControlName="lastname" />
+        </div>
+        <small class="error-message"
+               *ngIf="lastname.invalid && lastname.dirty "
+               id="username-errors">{{lastname | errorTooltip}}</small>
+      </div>
+
+      <div class="flex flex-column pb-4 relative">
+        <label htmlFor="emailAddress">E-Mail Adresse</label>
+
+        <div class="p-input-icon-right flex flex-column">
+          <i *ngIf="email.invalid && email.dirty"
+             class="pi pi-exclamation-circle error-color"></i>
+          <input type="email"
+                 pInputText
+                 id="emailAddress"
+                 formControlName="email" />
+        </div>
+        <small class="error-message"
+               *ngIf="email.invalid && email.dirty"
+               id="username-errors">{{email | errorTooltip}}</small>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button type="submit"
+                label="Jetzt Registrieren"
+                [loading]="loading"
+                [disabled]="!registerForm.valid"></p-button>
+    </ng-template>
+  </p-card>
+</form>
