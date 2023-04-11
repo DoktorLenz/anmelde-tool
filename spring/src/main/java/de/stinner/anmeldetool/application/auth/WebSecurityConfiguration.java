@@ -3,6 +3,10 @@ package de.stinner.anmeldetool.application.auth;
 import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import de.stinner.anmeldetool.domain.auth.service.AuthenticationService;
 import de.stinner.anmeldetool.domain.auth.service.Authority;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +16,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Configuration
@@ -24,8 +33,13 @@ public class WebSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
+
+        http.csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
+                )
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
 
         http.authorizeHttpRequests()
                 .and()
@@ -38,13 +52,14 @@ public class WebSecurityConfiguration {
 
         http.authorizeHttpRequests()
                 .requestMatchers(
+                        ApiEndpoints.V1.SESSION,
                         ApiEndpoints.V1.Auth.REGISTER,
                         ApiEndpoints.V1.Auth.FINISH_REGISTRATION,
                         ApiEndpoints.V1.Auth.FORGOT_PASSWORD,
                         ApiEndpoints.V1.Auth.RESET_PASSWORD,
                         ApiEndpoints.V1.Auth.LOGOUT
                 )
-                .anonymous()
+                .permitAll()
                 .requestMatchers(ApiEndpoints.V1.Auth.LOGIN)
                 .authenticated()
                 .anyRequest()
@@ -63,6 +78,17 @@ public class WebSecurityConfiguration {
 
     public static PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    private static final class CsrfCookieFilter extends OncePerRequestFilter {
+        @Override
+        protected void doFilterInternal(
+                HttpServletRequest request, HttpServletResponse response, FilterChain filterChain
+        ) throws ServletException, IOException {
+            CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+            csrfToken.getToken();
+            filterChain.doFilter(request, response);
+        }
     }
 
 }

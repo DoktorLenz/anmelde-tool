@@ -23,6 +23,7 @@ public final class ApiEndpoints {
     @UtilityClass
     public static class V1 {
         private static final String BASE_V1 = BASE + "/v1";
+        public static final String SESSION = BASE_V1 + "/session";
 
         @UtilityClass
         public static class Auth {
