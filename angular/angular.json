@@ -106,7 +106,8 @@
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
-            "codeCoverage": true
+            "codeCoverage": true,
+            "main": "src/test.ts"
           }
         },
         "lint": {

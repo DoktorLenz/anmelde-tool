@@ -4,11 +4,15 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
+      "node",
       "jasmine"
     ]
   },
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
+  ],
+  "files": [
+    "src/test.ts"
   ]
 }
