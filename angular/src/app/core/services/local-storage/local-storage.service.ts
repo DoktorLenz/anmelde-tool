@@ -64,6 +64,7 @@ export class LocalStorageService {
   }
 
   private b64EncodeUnicode(a_str: string): string {
+    // eslint-disable-next-line deprecation/deprecation
     return btoa(
       encodeURIComponent(a_str).replace(
         /%([0-9A-F]{2})/g,
@@ -83,6 +84,7 @@ export class LocalStorageService {
   private b64DecodeUnicode(a_str: string): string {
     return decodeURIComponent(
       Array.prototype.map
+        // eslint-disable-next-line deprecation/deprecation
         .call(atob(a_str), function (a_c: string) {
           return '%' + ('00' + a_c.charCodeAt(0).toString(16)).slice(-2);
         })

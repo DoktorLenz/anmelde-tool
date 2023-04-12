@@ -3,8 +3,6 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { HttpAuthService } from 'src/app/core/http/auth/http-auth.service';
-import { AuthRoute } from 'src/app/lib/routes/auth-route';
-import { BaseRoute } from 'src/app/lib/routes/base-route';
 
 @Component({
   templateUrl: './login.component.html',

@@ -28,6 +28,7 @@ export class HttpAuthService extends HttpBase {
     console.log(username, password);
     return this.httpClient.get(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.LOGIN}`, {
       headers: new HttpHeaders({
+        // eslint-disable-next-line deprecation/deprecation
         'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
         // Prevent browser auth dialog
         'X-Requested-With': 'XMLHttpRequest',
