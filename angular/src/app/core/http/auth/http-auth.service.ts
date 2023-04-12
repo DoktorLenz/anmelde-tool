@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegistrationRequestDto } from './model/registration-request.dto';
 import { Observable, map } from 'rxjs';
@@ -22,6 +22,17 @@ export class HttpAuthService extends HttpBase {
       .pipe(
         map(() => {return;}),
       );
+  }
+
+  public login(username: string, password: string): Observable<void> {
+    console.log(username, password);
+    return this.httpClient.get(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.LOGIN}`, {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+        // Prevent browser auth dialog
+        'X-Requested-With': 'XMLHttpRequest',
+      }),
+    }).pipe(map(() => {return;}));
   }
 }
 
