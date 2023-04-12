@@ -9,12 +9,12 @@ export class SessionService {
 
   constructor(private readonly localStorageService: LocalStorageService) {}
 
-  public get sessionAuthenticated(): boolean {
-    return this.localStorageService.sessionAuthenticated;
+  public isSessionAuthenticated(): boolean {
+    return this.localStorageService.getSessionAuthenticated();
   }
 
   public setSessionDetails(authenticated: boolean, authorities: Authority[]) {
-    this.localStorageService.sessionAuthenticated = authenticated;
-    this.localStorageService.sessionAuthorities = authorities;
+    this.localStorageService.setSessionAuthenticated(authenticated);
+    this.localStorageService.setSessionAuthorities(authorities);
   }
 }
