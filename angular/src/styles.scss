@@ -25,6 +25,12 @@ body {
   color: var(--error-color) !important;
 }
 
+.error-message {
+  color: var(--error-color);
+  position: absolute;
+  bottom: 0;
+}
+
 
 .auth-card {
   @media screen and (min-width: $breakpoint-xs) {
