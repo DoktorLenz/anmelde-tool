@@ -9,6 +9,11 @@ import { RegistrationSentComponent } from './registration-sent/registration-sent
 const routes: Routes = [
   {
     path: '',
+    redirectTo: AuthRoute.LOGIN,
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: AuthComponent,
     children: [
       {
@@ -22,6 +27,10 @@ const routes: Routes = [
       {
         path: AuthRoute.REGISTRATION_SENT,
         component: RegistrationSentComponent,
+      },
+      {
+        path: '**',
+        redirectTo: AuthRoute.LOGIN,
       },
     ],
   },

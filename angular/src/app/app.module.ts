@@ -6,7 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { SessionDetailsInterceptor } from './core/interceptors/session-details/session-details.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
     ToastModule,
     ButtonModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SessionDetailsInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
