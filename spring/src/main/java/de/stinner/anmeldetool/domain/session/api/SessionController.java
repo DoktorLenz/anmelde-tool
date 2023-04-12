@@ -9,12 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @RestController
 public class SessionController {
 
     @GetMapping(ApiEndpoints.V1.SESSION)
-    public ResponseEntity<Void> session(HttpServletRequest request) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Boolean> session(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        if (null != principal) {
+            return new ResponseEntity(true, HttpStatus.OK);
+        }
+        return new ResponseEntity(false, HttpStatus.OK);
     }
 }
