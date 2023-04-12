@@ -25,7 +25,6 @@ export class HttpAuthService extends HttpBase {
   }
 
   public login(username: string, password: string): Observable<void> {
-    console.log(username, password);
     return this.httpClient.get(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.LOGIN}`, {
       headers: new HttpHeaders({
         // eslint-disable-next-line deprecation/deprecation
