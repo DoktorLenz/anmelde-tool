@@ -54,6 +54,7 @@ describe('HttpAuthService', () => {
       expect(request.request.method).toEqual('GET');
 
       expect(request.request.headers.get('Authorization'))
+        // eslint-disable-next-line deprecation/deprecation
         .toEqual(`Basic ${btoa(`${username}:${password}`)}`);
 
       expect(request.request.headers.get('X-Requested-With'))
