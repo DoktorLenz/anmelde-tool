@@ -6,7 +6,6 @@ import { HttpAuthService } from 'src/app/core/http/auth/http-auth.service';
 
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   protected get email(): AbstractControl {

@@ -8,7 +8,6 @@ import { BaseRoute } from 'src/app/lib/routes/base-route';
 
 @Component({
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
 })
 export class RegisterComponent {
 
