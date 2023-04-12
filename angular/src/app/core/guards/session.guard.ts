@@ -7,7 +7,7 @@ export const sessionAuthenticatedGuard: CanActivateFn = () => {
   const router = inject(Router);
   const sessionService = inject(SessionService);
 
-  if (sessionService.sessionAuthenticated) {
+  if (sessionService.isSessionAuthenticated()) {
     return true;
   } else {
     return router.navigate([`/${BaseRoute.AUTH}`]);
@@ -18,7 +18,7 @@ export const sessionNotAuthenticatedGuard: CanActivateFn = () => {
   const router = inject(Router);
   const sessionService = inject(SessionService);
 
-  if ( !sessionService.sessionAuthenticated) {
+  if ( !sessionService.isSessionAuthenticated()) {
     return true;
   } else {
     return router.navigate(['']);
