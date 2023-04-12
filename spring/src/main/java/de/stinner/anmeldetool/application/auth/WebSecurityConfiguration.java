@@ -26,7 +26,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.security.Principal;
 
 @RequiredArgsConstructor
 @Configuration
@@ -100,7 +99,6 @@ public class WebSecurityConfiguration {
         @Override
         public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
             if (request instanceof HttpServletRequest httpRequest && response instanceof HttpServletResponse httpResponse) {
-                Principal principal = httpRequest.getUserPrincipal();
                 httpResponse.setHeader("Session-Authenticated", null != httpRequest.getUserPrincipal() ? "true" : "false");
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
                 if (authentication != null && authentication.isAuthenticated()) {
