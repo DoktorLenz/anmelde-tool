@@ -3,8 +3,7 @@ package de.stinner.anmeldetool.application.auth;
 import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import de.stinner.anmeldetool.domain.auth.service.AuthenticationService;
 import de.stinner.anmeldetool.domain.auth.service.Authority;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -24,6 +26,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Configuration
@@ -47,6 +50,8 @@ public class WebSecurityConfiguration {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+
+        http.addFilterAfter(new AuthSessionFilter(), AuthorizationFilter.class);
 
         http.logout().logoutUrl(ApiEndpoints.V1.Auth.LOGOUT);
 
@@ -91,4 +96,20 @@ public class WebSecurityConfiguration {
         }
     }
 
+    private static final class AuthSessionFilter implements Filter {
+        @Override
+        public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+            if (request instanceof HttpServletRequest httpRequest && response instanceof HttpServletResponse httpResponse) {
+                Principal principal = httpRequest.getUserPrincipal();
+                httpResponse.setHeader("Session-Authenticated", null != httpRequest.getUserPrincipal() ? "true" : "false");
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                if (authentication != null && authentication.isAuthenticated()) {
+                    String authorities = authentication.getAuthorities().toString();
+                    httpResponse.setHeader("Session-Authorities", authorities);
+                }
+            }
+
+            filterChain.doFilter(request, response);
+        }
+    }
 }
