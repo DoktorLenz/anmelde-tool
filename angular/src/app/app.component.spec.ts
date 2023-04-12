@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { MockProviders } from 'ng-mocks';
+import { HttpSessionService } from './core/http/http-session/http-session.service';
+import { MessageService } from 'primeng/api';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -10,6 +13,9 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
+      ],
+      providers: [
+        MockProviders(HttpSessionService, MessageService),
       ],
     }).compileComponents();
   });
