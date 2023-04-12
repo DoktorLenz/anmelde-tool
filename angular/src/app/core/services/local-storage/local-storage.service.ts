@@ -7,19 +7,19 @@ import { Authority } from '../session/authority';
 })
 export class LocalStorageService {
 
-  public set sessionAuthenticated(authenticated: boolean) {
+  public setSessionAuthenticated(authenticated: boolean) {
     this.toLocalStorage(authenticated, LocalStorageKey.SESSION_AUTHENTICATED);
   }
 
-  public get sessionAuthenticated(): boolean {
+  public getSessionAuthenticated(): boolean {
     return this.fromLocalStorage(LocalStorageKey.SESSION_AUTHENTICATED) ?? false;
   }
 
-  public set sessionAuthorities(authorities: Authority[] | null) {
+  public setSessionAuthorities(authorities: Authority[] | null) {
     this.toLocalStorage(authorities, LocalStorageKey.SESSION_AUTHORITIES);
   }
 
-  public get sessionAuthorities(): Authority[] | null {
+  public getSessionAuthorities(): Authority[] | null {
     return this.fromLocalStorage(LocalStorageKey.SESSION_AUTHORITIES);
   }
 
