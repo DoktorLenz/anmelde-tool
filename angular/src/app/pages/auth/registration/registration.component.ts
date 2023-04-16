@@ -41,7 +41,7 @@ export class RegisterComponent {
   protected registerForm = new FormGroup({
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
 
   protected loading = false;
