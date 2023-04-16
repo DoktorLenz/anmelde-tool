@@ -21,20 +21,13 @@ export class SessionDetailsInterceptor implements HttpInterceptor {
           return;
         }
         if (httpEvent instanceof HttpResponse) {
-          let authenticated = false;
-          let authorities: Authority[] = [];
-          if (httpEvent.headers.has('session-authenticated')) {
-            authenticated = httpEvent.headers.get('session-authenticated') === 'true' ? true : false;
-          }
-          if (httpEvent.headers.has('session-authorities')) {
-            let authorityString = httpEvent.headers.get('session-authorities') ?? '';
-            if (authorityString) {
-              authorityString = authorityString.replace('[', '')
-                .replace(']', '');
-            }
-            authorities = authorityString.split(',')
-              .map((authority) => Authority[authority.trim() as keyof typeof Authority]);
-          }
+          const authenticated = httpEvent.headers.get('session-authenticated') === 'true' ? true : false;
+          const authorities = (httpEvent.headers.get('session-authorities') ?? '')
+            .replace(/\[|\]/g, '')
+            .split(',')
+            .map((authority) => Authority[authority.trim() as keyof typeof Authority])
+            .filter(Boolean);
+
           this.sessionService.setSessionDetails(authenticated, authorities);
         }
       }),
