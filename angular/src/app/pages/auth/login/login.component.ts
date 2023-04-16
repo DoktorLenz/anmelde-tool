@@ -37,7 +37,6 @@ export class LoginComponent {
     const loadingIndicatorTimeout = setTimeout(() => {
       this.loading = true;
     }, 500);
-    console.log('AUTH');
     this.httpAuthService.login(this.email.getRawValue().toString(), this.password.getRawValue().toString())
       .subscribe({
         next: () => {

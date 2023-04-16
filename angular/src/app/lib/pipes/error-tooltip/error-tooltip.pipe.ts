@@ -7,11 +7,8 @@ import { AbstractControl } from '@angular/forms';
 export class ErrorTooltipPipe implements PipeTransform {
 
   transform(control: AbstractControl): string {
-    console.warn(control);
-
     const errorMessages = Object.entries(control.errors ?? [])
       .map(([property]) => this.getErrorMessage(property));
-
 
     return errorMessages.join(', ');
   }
