@@ -9,7 +9,7 @@ const routes: Routes = [
     canActivate: [sessionNotAuthenticatedGuard],
   },
   {
-    path: '**',
+    path: '',
     loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
     canActivate: [sessionAuthenticatedGuard],
   },
