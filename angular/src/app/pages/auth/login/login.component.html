@@ -10,13 +10,16 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="email.invalid && email.dirty"
+             data-cy="login-username-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="email"
+          <input data-cy="login-username"
+                 type="email"
                  pInputText
                  id="email"
                  formControlName="email" />
         </div>
-        <small class="error-message"
+        <small data-cy="login-username-error-message"
+               class="error-message"
                *ngIf="email.invalid && email.dirty"
                id="username-errors">{{email | errorTooltip}}</small>
       </div>
@@ -26,20 +29,24 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="password.invalid && password.dirty"
+             data-cy="login-password-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="password"
+          <input data-cy="login-password"
+                 type="password"
                  pInputText
                  id="password"
                  formControlName="password" />
         </div>
-        <small class="error-message"
+        <small data-cy="login-password-error-message"
+               class="error-message"
                *ngIf="password.invalid && password.dirty "
                id="password-errors">{{password | errorTooltip}}</small>
       </div>
 
     </ng-template>
     <ng-template pTemplate="footer">
-      <p-button type="submit"
+      <p-button data-cy="login-submit-button"
+                type="submit"
                 label="Anmelden"
                 [loading]="loading"
                 [disabled]="!loginForm.valid"></p-button>
