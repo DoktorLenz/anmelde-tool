@@ -11,7 +11,7 @@
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="email.invalid && email.dirty"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="text"
+          <input type="email"
                  pInputText
                  id="email"
                  formControlName="email" />
@@ -27,14 +27,14 @@
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="password.invalid && password.dirty"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="text"
+          <input type="password"
                  pInputText
                  id="password"
                  formControlName="password" />
         </div>
         <small class="error-message"
                *ngIf="password.invalid && password.dirty "
-               id="username-errors">{{password | errorTooltip}}</small>
+               id="password-errors">{{password | errorTooltip}}</small>
       </div>
 
     </ng-template>
