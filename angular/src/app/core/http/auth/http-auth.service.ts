@@ -16,9 +16,7 @@ export class HttpAuthService extends HttpBase {
   }
 
   public register(dto: RegistrationRequestDto): Observable<void> {
-    return this.httpClient.post(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.REGISTER}`, dto, {
-      withCredentials: true,
-    })
+    return this.httpClient.post(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.REGISTER}`, dto)
       .pipe(
         map(() => {return;}),
       );
@@ -29,8 +27,6 @@ export class HttpAuthService extends HttpBase {
       headers: new HttpHeaders({
         // eslint-disable-next-line deprecation/deprecation
         'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        // Prevent browser auth dialog
-        'X-Requested-With': 'XMLHttpRequest',
       }),
     }).pipe(map(() => {return;}));
   }
