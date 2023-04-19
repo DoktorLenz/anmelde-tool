@@ -1,0 +1,53 @@
+#
+# Starts shared infrastructure required for running certain services of the Movie-DB.
+#
+version: "3.9"
+services:
+
+  mail_hog:
+    container_name: mailhog_e2e
+    build:
+      context: ../..
+      dockerfile: docker/mailhog/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "31025:1025"
+      - "38025:8025"
+
+  db:
+    container_name: database_e2e
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=anmelde_tool
+      - POSTGRES_PASSWORD=anmelde_tool
+      - POSTGRES_DB=anmelde_tool
+    restart: unless-stopped
+    ports:
+      - "35432:5432"
+
+  backend:
+    container_name: backend_e2e
+    build:
+      context: ../..
+      dockerfile: docker/spring/Dockerfile
+    environment:
+      - anmelde-tool.baseUrl=http://localhost
+      - anmelde-tool.db.url=host.docker.internal
+      - anmelde-tool.db.port=35432
+      - anmelde-tool.mail.host=host.docker.internal
+      - anmelde-tool.mail.port=31025
+    restart: unless-stopped
+    ports:
+      - "38080:8080"
+    depends_on:
+      - db
+
+  frontend:
+    container_name: frontend_e2e
+    build:
+      context: ../..
+      dockerfile: docker/angular/Dockerfile
+    environment:
+      - CONFIG=e2e
+    ports:
+      - "80:80"
