@@ -16,10 +16,10 @@ spring:
     drop-first: true
 
   mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    host: ${anmelde-tool.mail.host}
+    port: ${anmelde-tool.mail.port}
+    username: ${anmelde-tool.mail.username}
+    password: ${anmelde-tool.mail.password}
     templates:
       path: "mail/templates"
     properties:
@@ -31,6 +31,7 @@ spring:
             enable: true
 
 anmelde-tool:
+  baseUrl: "http://localhost:4200"
   db:
     url: localhost
     port: 5432
@@ -38,6 +39,12 @@ anmelde-tool:
     username: "anmelde_tool"
     password: "anmelde_tool"
     db-name: "anmelde_tool"
+  mail:
+    host: localhost
+    port: 1025
+    username: admin
+    password: admin
+    noreply: noreply@localhost
   reset-password:
     cleanup:
       # Lifespan in minutes
@@ -67,3 +74,6 @@ management:
       enabled: true
     readinessState:
       enabled: true
+logging:
+  level:
+    org.springframework.security: DEBUG

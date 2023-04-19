@@ -24,14 +24,11 @@ import java.util.Map;
 @Slf4j
 class MailServiceImpl implements MailService {
 
-    private static final String NOREPLY_ADDRESS = "laurenz.stinner@ymail.com";
-
     private final JavaMailSender mailSender;
-
     private final SimpleMailMessage template;
-
     private final SpringTemplateEngine thymeleafTemplateEngine;
-
+    @Value("${anmelde-tool.mail.noreply}")
+    private String NOREPLY_ADDRESS;
     @Value("classpath:/mail/assets/mail-logo.jpg")
     private Resource logo;
 

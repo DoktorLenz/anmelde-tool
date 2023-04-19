@@ -31,8 +31,9 @@
     <span th:text="#{registration.text_2}">
         Damit deine Registrierung abgeschlossen werden kann, klicke bitten auf den folgenden Link:
     </span>
-    <span id="registration-link" th:text="${registrationLink}">
-    </span>
+    <br/>
+    <a id="registration-link" th:href="${registrationLink}" th:text="${registrationLink}">
+    </a>
 </div>
 <p th:text="#{registration.text_3}">Du hast dich gar nicht bei uns registriert? Dann ignorier bitte diese
     E-Mail.

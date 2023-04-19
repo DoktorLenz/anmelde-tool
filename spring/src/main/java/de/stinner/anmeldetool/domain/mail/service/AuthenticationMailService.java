@@ -6,6 +6,7 @@ import de.stinner.anmeldetool.domain.auth.persistence.ResetPasswordEntity;
 import de.stinner.anmeldetool.domain.auth.persistence.ResetPasswordRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class AuthenticationMailService {
     private final MailServiceImpl mailService;
     private final RegistrationRepository registrationRepository;
     private final ResetPasswordRepository resetPasswordRepository;
+    @Value("${anmelde-tool.baseUrl}")
+    private String baseUrl;
 
     public void sendPendingRegistrationEmails() {
         registrationRepository.findAllByEmailSentIsNull().forEach(this::sendRegistrationEmail);
@@ -34,7 +37,8 @@ public class AuthenticationMailService {
         Map<String, Object> templateModel = new HashMap<>();
         String recipientName = String.format("%s %s", registration.getFirstname(), registration.getLastname());
         String registrationLink = String.format(
-                "https://anmeldung.dpsgkolbermoor.de/auth/finish-registration?id=%s",
+                "%s/auth/finish-registration?id=%s",
+                baseUrl,
                 registration.getRegistrationId()
         );
 
