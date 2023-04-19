@@ -4,6 +4,18 @@
 version: "3.9"
 services:
 
+  mail_hog:
+    container_name: mailhog
+    image: mailhog/mailhog:latest
+    environment:
+      - MH_AUTH_FILE=/mnt/mailhog/authfile.txt
+    volumes:
+      - ./mailhog:/mnt/mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
   db:
     container_name: anmelde-tool-dev_database
     image: postgres:latest
