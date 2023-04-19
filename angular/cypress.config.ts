@@ -4,6 +4,13 @@ import { defineConfig } from 'cypress';
 const browserify = require('@cypress/browserify-preprocessor');
 const cucumber = require('cypress-cucumber-preprocessor').default;
 const resolve = require('resolve');
+const fs = require('fs-extra');
+const path = require('path');
+
+function getConfigurationByFile(file: string) {
+  const pathToConfigFile = path.resolve('', 'cypress/config', `${file}.json`);
+  return fs.readJson(pathToConfigFile);
+}
 
 export default defineConfig({
   projectId: 'crabrc',
@@ -23,6 +30,10 @@ export default defineConfig({
       };
 
       on('file:preprocessor', cucumber(options));
+
+      const file = config.env['configFile'] || 'dev';
+      return getConfigurationByFile(file);
+
     },
     specPattern: 'cypress/**/*.{feature,features}',
   },
