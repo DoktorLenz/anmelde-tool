@@ -12,7 +12,6 @@
     "test": "ng test",
     "cypress:open": "$(npm bin)/cypress open",
     "cypress": "cypress run",
-    "ci:cypress": "cypress run --env configFile=ci",
     "ci:clean": "rimraf ./dist && rimraf ./coverage",
     "ci:test": "ng test --watch=false --browsers=ChromeHeadlessCustom --code-coverage",
     "ci:build": "ng build --configuration production",
