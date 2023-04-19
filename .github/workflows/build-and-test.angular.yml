@@ -140,3 +140,41 @@ jobs:
           files: ${{ github.workspace }}/angular/coverage/cobertura/cobertura-coverage.xml
           flags: Frontend-Unit-Test
           fail_ci_if_error: true
+
+  test-component:
+    name: Component Test Frontend
+    needs: build
+    runs-on: ubunti-latest
+    defaults:
+      run:
+        working-directory: ./angular
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Cypress Component Test
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          component: true
+          record: true
+          parallel: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
