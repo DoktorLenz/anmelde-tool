@@ -6,7 +6,7 @@ Given('I have a clean browser', () => {
 })
 
 Given('I visit the site', () => {
-  cy.visit('http://localhost:4200');
+  cy.visit(Cypress.config().baseUrl);
 })
 
 Given('I login with email {string} and password {string}', (email, password) => {
@@ -16,5 +16,5 @@ Given('I login with email {string} and password {string}', (email, password) => 
 })
 
 Then('I should be on the main page', () => {
-  cy.url().should('equal', 'http://localhost:4200/')
+  cy.url().should('eq', `${Cypress.config().baseUrl}`)
 })
