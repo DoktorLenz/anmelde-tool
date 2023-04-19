@@ -144,7 +144,7 @@ jobs:
   test-component:
     name: Component Test Frontend
     needs: build
-    runs-on: ubunti-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./angular
