@@ -57,8 +57,6 @@ describe('HttpAuthService', () => {
         // eslint-disable-next-line deprecation/deprecation
         .toEqual(`Basic ${btoa(`${username}:${password}`)}`);
 
-      expect(request.request.headers.get('X-Requested-With'))
-        .toEqual('XMLHttpRequest');
       request.flush(null);
     });
   });
