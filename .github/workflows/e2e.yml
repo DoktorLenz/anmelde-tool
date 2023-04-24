@@ -42,15 +42,17 @@ jobs:
           cache: maven
 
       - name: Host e2e Infrastructure
+        working-directory: ./tools/e2e
         run: ./run.sh
 
       - name: Run Cypress e2e
         uses: cypress-io/github-action@v5
         with:
-          env: configFile=ci
           record: true
           parallel: true
+          working-directory: angular
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_baseURL: http://localhost
       
