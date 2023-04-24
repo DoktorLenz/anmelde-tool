@@ -17,7 +17,8 @@
       "plugins": [
         "deprecation",
         "jasmine",
-        "import"
+        "import",
+        "cypress"
       ],
       "env": {
         "jasmine": true
@@ -29,7 +30,8 @@
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:jasmine/recommended",
         "plugin:import/recommended",
-        "airbnb-typescript/base"
+        "airbnb-typescript/base",
+        "plugin:cypress/recommended"
       ],
       "rules": {
         "max-len": [
