@@ -61,7 +61,8 @@
             "devDependencies": [
               "**/*.spec.ts",
               "**/*.cy.ts",
-              "cypress/**/*.ts"
+              "cypress/**/*.ts",
+              "cypress.config.ts"
             ]
           }
         ]
