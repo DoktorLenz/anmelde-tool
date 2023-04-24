@@ -177,5 +177,5 @@ jobs:
           parallel: true
           working-directory: ./angular
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY_COMPONENT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

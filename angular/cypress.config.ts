@@ -48,8 +48,8 @@ async function setupNodeEvents(
 }
 
 export default defineConfig({
-  projectId: 'crabrc',
   component: {
+    projectId: "e2y64z",
     devServer: {
       framework: 'angular',
       bundler: 'webpack',
@@ -58,6 +58,7 @@ export default defineConfig({
   },
 
   e2e: {
+    projectId: "8i594h",
     specPattern: 'cypress/**/*.{feature,features}',
     baseUrl: 'http://localhost:4200',
     setupNodeEvents
