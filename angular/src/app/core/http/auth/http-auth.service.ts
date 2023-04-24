@@ -23,10 +23,10 @@ export class HttpAuthService extends HttpBase {
   }
 
   public login(username: string, password: string): Observable<void> {
+    const b64EncodedCredentials = Buffer.from(`${username}:${password}`).toString('base64');
+
     return this.httpClient.get(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.LOGIN}`, {
-      headers: new HttpHeaders({
-        // eslint-disable-next-line deprecation/deprecation
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+      headers: new HttpHeaders({ 'Authorization': `Basic ${b64EncodedCredentials}`,
       }),
     }).pipe(map(() => {return;}));
   }

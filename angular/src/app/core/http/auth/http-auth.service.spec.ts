@@ -53,9 +53,9 @@ describe('HttpAuthService', () => {
 
       expect(request.request.method).toEqual('GET');
 
-      expect(request.request.headers.get('Authorization'))
-        // eslint-disable-next-line deprecation/deprecation
-        .toEqual(`Basic ${btoa(`${username}:${password}`)}`);
+      const b64EncodedCredentials = Buffer.from(`${username}:${password}`).toString('base64');
+
+      expect(request.request.headers.get('Authorization')).toEqual(`Basic ${b64EncodedCredentials}`);
 
       request.flush(null);
     });
