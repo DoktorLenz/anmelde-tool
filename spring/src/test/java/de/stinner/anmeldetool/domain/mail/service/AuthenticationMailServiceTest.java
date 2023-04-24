@@ -3,6 +3,7 @@ package de.stinner.anmeldetool.domain.mail.service;
 import de.stinner.anmeldetool.domain.auth.persistence.*;
 import jakarta.mail.MessagingException;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.thymeleaf.TemplateEngine;
 
 import java.util.HashMap;
@@ -38,6 +40,10 @@ class AuthenticationMailServiceTest {
     @InjectMocks
     private AuthenticationMailService authenticationMailService;
 
+    @BeforeEach()
+    void setup() {
+        ReflectionTestUtils.setField(authenticationMailService, "baseUrl", "https://example.com");
+    }
 
     @Test
     @SneakyThrows
@@ -136,7 +142,7 @@ class AuthenticationMailServiceTest {
     private Map<String, Object> getTemplateModelForResetPassword(ResetPasswordEntity resetPassword) {
         Map<String, Object> model = new HashMap<>();
         model.put("recipientName", resetPassword.getUser().getFirstname() + " " + resetPassword.getUser().getLastname());
-        model.put("passwordResetLink", "https://anmeldung.dpsgkolbermoor.de/auth/reset-password?id=" + resetPassword.getResetId());
+        model.put("passwordResetLink", "https://example.com/auth/reset-password?id=" + resetPassword.getResetId());
         return model;
     }
 

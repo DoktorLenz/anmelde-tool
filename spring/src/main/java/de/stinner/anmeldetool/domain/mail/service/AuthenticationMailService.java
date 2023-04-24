@@ -82,7 +82,8 @@ public class AuthenticationMailService {
                 resetPasswordEntity.getUser().getLastname()
         );
         String resetPasswordLink = String.format(
-                "https://anmeldung.dpsgkolbermoor.de/auth/reset-password?id=%s",
+                "%s/auth/reset-password?id=%s",
+                baseUrl,
                 resetPasswordEntity.getResetId()
         );
 
