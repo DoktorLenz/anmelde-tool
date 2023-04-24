@@ -115,6 +115,7 @@
           "options": {
             "cache": true,
             "lintFilePatterns": [
+              "cypress/**/*.ts",
               "src/**/*.ts",
               "src/**/*.html"
             ]
