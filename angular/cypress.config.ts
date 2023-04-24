@@ -1,15 +1,50 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-extraneous-dependencies */
-import { defineConfig } from 'cypress';
-const browserify = require('@cypress/browserify-preprocessor');
-const cucumber = require('cypress-cucumber-preprocessor').default;
-const resolve = require('resolve');
-const fs = require('fs-extra');
-const path = require('path');
+import { defineConfig } from "cypress";
+import * as webpack from "@cypress/webpack-preprocessor";
+import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
 
-function getConfigurationByFile(file: string) {
-  const pathToConfigFile = path.resolve('', 'cypress/config', `${file}.json`);
-  return fs.readJson(pathToConfigFile);
+
+async function setupNodeEvents(
+  on: Cypress.PluginEvents,
+  config: Cypress.PluginConfigOptions
+): Promise<Cypress.PluginConfigOptions> {
+  // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
+  await addCucumberPreprocessorPlugin(on, config);
+
+  on(
+    "file:preprocessor",
+    webpack({
+      webpackOptions: {
+        resolve: {
+          extensions: [".ts", ".js"],
+        },
+        module: {
+          rules: [
+            {
+              test: /\.ts$/,
+              exclude: [/node_modules/],
+              use: [
+                {
+                  loader: "ts-loader",
+                },
+              ],
+            },
+            {
+              test: /\.feature$/,
+              use: [
+                {
+                  loader: "@badeball/cypress-cucumber-preprocessor/webpack",
+                  options: config,
+                },
+              ],
+            },
+          ],
+        },
+      },
+    })
+  );
+
+  // Make sure to return the config object as it might have been modified by the plugin.
+  return config;
 }
 
 export default defineConfig({
@@ -23,18 +58,8 @@ export default defineConfig({
   },
 
   e2e: {
-    setupNodeEvents(on, config) {
-      const options = {
-        ...browserify.defaultOptions,
-        typescript: resolve.sync('typescript', { baseDir: config.projectRoot }),
-      };
-
-      on('file:preprocessor', cucumber(options));
-
-      const file = config.env['configFile'] || 'dev';
-      return getConfigurationByFile(file);
-
-    },
     specPattern: 'cypress/**/*.{feature,features}',
-  },
+    baseUrl: 'http://localhost:4200',
+    setupNodeEvents
+  }
 });

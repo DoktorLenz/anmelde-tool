@@ -10,7 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "tsconfig.json"
+          "tsconfig.json",
+          "cypress/tsconfig.json"
         ]
       },
       "plugins": [
@@ -52,6 +53,16 @@
             "type": "element",
             "prefix": "at",
             "style": "kebab-case"
+          }
+        ],
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
+              "**/*.spec.ts",
+              "**/*.cy.ts",
+              "cypress/**/*.ts"
+            ]
           }
         ]
       }

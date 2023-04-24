@@ -22,7 +22,7 @@
     "lib": [
       "ES2022",
       "dom"
-    ],
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -30,8 +30,8 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
   },
-  "exclude": [
-    "cypress.config.ts",
-    "cypress/**/*.*"
-  ]
+  "include": [
+    "src/**/*.ts",
+    "node_modules/cypress/types/cypress-global-vars.d.ts"
+  ],
 }
