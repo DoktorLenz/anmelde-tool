@@ -23,7 +23,7 @@ export class SessionDetailsInterceptor implements HttpInterceptor {
         if (httpEvent instanceof HttpResponse) {
           const authenticated = httpEvent.headers.get('session-authenticated') === 'true' ? true : false;
           const authorities = (httpEvent.headers.get('session-authorities') ?? '')
-            .replace(/\[|\]/g, '')
+            .replace(/[[\]]/g, '')
             .split(',')
             .map((authority) => Authority[authority.trim() as keyof typeof Authority])
             .filter(Boolean);
