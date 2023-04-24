@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.TestPropertySource;
 import org.thymeleaf.TemplateEngine;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
+@TestPropertySource(properties = {"anmelde-tool.baseUrl=http://example.com"})
 class AuthenticationMailServiceTest {
 
     @Mock
@@ -67,7 +69,7 @@ class AuthenticationMailServiceTest {
     private Map<String, Object> getTemplateModelForRegistration(RegistrationEntity registration) {
         Map<String, Object> model = new HashMap<>();
         model.put("recipientName", registration.getFirstname() + " " + registration.getLastname());
-        model.put("registrationLink", "https://anmeldung.dpsgkolbermoor.de/auth/finish-registration?id=" + registration.getRegistrationId());
+        model.put("registrationLink", "https://example.com/auth/finish-registration?id=" + registration.getRegistrationId());
         return model;
     }
 
