@@ -65,7 +65,8 @@ describe('LoginComponent', () => {
   describe('Password is entered and then removed', () => {
     beforeEach(() => {
       setup();
-      cy.get('[data-cy="login-password"]').type('a').clear();
+      cy.get('[data-cy="login-password"]').type('a');
+      cy.get('[data-cy="login-password"]').clear();
     });
 
     it('should indicate "required" error', () => {
@@ -107,7 +108,6 @@ describe('LoginComponent', () => {
 
       it('should indicate loading after 500ms', () => {
         cy.get('[data-cy="login-submit-button"] .p-button .p-button-loading-icon').should('not.exist');
-        cy.wait(500);
         cy.get('[data-cy="login-submit-button"] .p-button .p-button-loading-icon').should('be.visible');
       });
 

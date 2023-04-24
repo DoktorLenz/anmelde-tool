@@ -13,6 +13,8 @@
   },
   "include": [
     "**/*.ts",
-    "../node_modules/cypress"
+    "../cypress.config.ts",
+    "../node_modules/cypress",
+    "../src/**/**.cy.ts"
   ]
 }
