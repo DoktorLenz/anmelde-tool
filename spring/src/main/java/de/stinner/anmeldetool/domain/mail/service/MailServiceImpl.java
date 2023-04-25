@@ -28,7 +28,7 @@ class MailServiceImpl implements MailService {
     private final SimpleMailMessage template;
     private final SpringTemplateEngine thymeleafTemplateEngine;
     @Value("${anmelde-tool.mail.noreply}")
-    private String NOREPLY_ADDRESS;
+    private String noreplyAddress;
     @Value("classpath:/mail/assets/mail-logo.jpg")
     private Resource logo;
 
@@ -48,7 +48,7 @@ class MailServiceImpl implements MailService {
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(NOREPLY_ADDRESS);
+            message.setFrom(noreplyAddress);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
@@ -65,7 +65,7 @@ class MailServiceImpl implements MailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setFrom(NOREPLY_ADDRESS);
+            helper.setFrom(noreplyAddress);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(text);
@@ -97,7 +97,7 @@ class MailServiceImpl implements MailService {
     private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setFrom(NOREPLY_ADDRESS);
+        helper.setFrom(noreplyAddress);
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(htmlBody, true);
