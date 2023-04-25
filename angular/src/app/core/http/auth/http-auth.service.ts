@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { HttpBase } from '../http-base';
 import { BaseRoute } from 'src/app/lib/routes/base-route';
 import { AuthRoute } from 'src/app/lib/routes/auth-route';
+import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root',

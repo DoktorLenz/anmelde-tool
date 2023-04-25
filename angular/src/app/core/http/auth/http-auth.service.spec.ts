@@ -2,6 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { RegistrationRequestDto } from './model/registration-request.dto';
 import { HttpAuthService } from './http-auth.service';
+import { Buffer } from 'buffer';
 
 describe('HttpAuthService', () => {
   let httpAuthService: HttpAuthService;
