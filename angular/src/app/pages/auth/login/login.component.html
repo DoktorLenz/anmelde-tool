@@ -1,8 +1,8 @@
 <form [formGroup]="loginForm"
       (ngSubmit)="onSubmit()">
   <p-card styleClass="auth-card">
-    <ng-template pTemplate="header"> </ng-template>
-    <ng-template pTemplate="title"> Anmelden </ng-template>
+    <ng-template pTemplate="header"></ng-template>
+    <ng-template pTemplate="title">Anmelden</ng-template>
     <ng-template pTemplate="content">
 
       <div class="flex flex-column pb-4 mb-3 gap-2 relative">
@@ -10,15 +10,15 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="email.invalid && email.dirty"
-             data-cy="login-username-error-icon"
+             data-testid="login-username-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input data-cy="login-username"
+          <input data-testid="login-username"
                  type="email"
                  pInputText
                  id="email"
                  formControlName="email" />
         </div>
-        <small data-cy="login-username-error-message"
+        <small data-testid="login-username-error-message"
                class="error-message"
                *ngIf="email.invalid && email.dirty"
                id="username-errors">{{email | errorTooltip}}</small>
@@ -29,15 +29,15 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="password.invalid && password.dirty"
-             data-cy="login-password-error-icon"
+             data-testid="login-password-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input data-cy="login-password"
+          <input data-testid="login-password"
                  type="password"
                  pInputText
                  id="password"
                  formControlName="password" />
         </div>
-        <small data-cy="login-password-error-message"
+        <small data-testid="login-password-error-message"
                class="error-message"
                *ngIf="password.invalid && password.dirty "
                id="password-errors">{{password | errorTooltip}}</small>
@@ -45,7 +45,7 @@
 
     </ng-template>
     <ng-template pTemplate="footer">
-      <p-button data-cy="login-submit-button"
+      <p-button data-testid="login-submit-button"
                 type="submit"
                 label="Anmelden"
                 [loading]="loading"

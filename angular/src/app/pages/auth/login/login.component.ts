@@ -34,18 +34,16 @@ export class LoginComponent {
   protected loading = false;
 
   protected onSubmit(): void {
-    const loadingIndicatorTimeout = setTimeout(() => {
-      this.loading = true;
-    }, 500);
+    this.loading = true;
     this.httpAuthService.login(this.email.getRawValue().toString(), this.password.getRawValue().toString())
       .subscribe({
         next: () => {
-          this.onLoginFinish(loadingIndicatorTimeout);
+          this.loading = false;
           this.messageService.clear();
           this.router.navigateByUrl('');
         },
         error: () => {
-          this.onLoginFinish(loadingIndicatorTimeout);
+          this.loading = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Upps!',
@@ -54,11 +52,6 @@ export class LoginComponent {
           });
         },
       });
-  }
-
-  private onLoginFinish(timeout: NodeJS.Timeout): void {
-    clearTimeout(timeout);
-    this.loading = false;
   }
 
   constructor(
