@@ -5,7 +5,8 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "node",
-      "jasmine"
+      "jasmine",
+      "@types/testing-library__jasmine-dom"
     ]
   },
   "include": [
