@@ -48,15 +48,6 @@ async function setupNodeEvents(
 }
 
 export default defineConfig({
-  component: {
-    projectId: 'e2y64z',
-    devServer: {
-      framework: 'angular',
-      bundler: 'webpack',
-    },
-    specPattern: '**/*.cy.ts',
-  },
-
   e2e: {
     projectId: '8i594h',
     specPattern: 'cypress/**/*.{feature,features}',
