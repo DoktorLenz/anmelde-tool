@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './registration/registration.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -20,7 +20,7 @@ import { RegistrationSentComponent } from './registration-sent/registration-sent
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent,
+    RegistrationComponent,
     RegistrationSentComponent,
   ],
   imports: [

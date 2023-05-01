@@ -10,13 +10,14 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="firstname.invalid && firstname.dirty"
+          data-testid="registration-firstname-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="text"
+          <input data-testid="registration-firstname" type="text"
                  pInputText
                  id="firstname"
                  formControlName="firstname" />
         </div>
-        <small class="error-message"
+        <small data-testid="registration-firstname-error-message" class="error-message"
                *ngIf="firstname.invalid && firstname.dirty"
                id="username-errors">{{firstname | errorTooltip}}</small>
       </div>
@@ -26,13 +27,14 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="lastname.invalid && lastname.dirty"
+          data-testid="registration-lastname-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="text"
+          <input data-testid="registration-lastname" type="text"
                  pInputText
                  id="lastname"
                  formControlName="lastname" />
         </div>
-        <small class="error-message"
+        <small data-testid="registration-lastname-error-message" class="error-message"
                *ngIf="lastname.invalid && lastname.dirty "
                id="username-errors">{{lastname | errorTooltip}}</small>
       </div>
@@ -42,13 +44,14 @@
 
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="email.invalid && email.dirty"
+          data-testid="registration-mail-error-icon"
              class="pi pi-exclamation-circle error-color"></i>
-          <input type="email"
+          <input data-testid="registration-mail" type="email"
                  pInputText
                  id="emailAddress"
                  formControlName="email" />
         </div>
-        <small class="error-message"
+        <small data-testid="registration-mail-error-message" class="error-message"
                *ngIf="email.invalid && email.dirty"
                id="username-errors">{{email | errorTooltip}}</small>
       </div>

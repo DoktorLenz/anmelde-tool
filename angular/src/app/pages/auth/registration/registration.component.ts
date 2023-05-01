@@ -9,7 +9,7 @@ import { BaseRoute } from 'src/app/lib/routes/base-route';
 @Component({
   templateUrl: './registration.component.html',
 })
-export class RegisterComponent {
+export class RegistrationComponent {
 
   protected get firstname(): AbstractControl {
     const control = this.registerForm.get('firstname');
@@ -47,9 +47,7 @@ export class RegisterComponent {
   protected loading = false;
 
   protected onSubmit(): void {
-    const loadingIndicatorTimeout = setTimeout(() => {
-      this.loading = true;
-    }, 500);
+    this.loading = true;
     this.httpAuthService.register({
       firstname: this.firstname.getRawValue().toString(),
       lastname: this.lastname.getRawValue().toString(),
@@ -57,12 +55,12 @@ export class RegisterComponent {
     })
       .subscribe({
         next: () => {
-          this.onRegisterFinish(loadingIndicatorTimeout);
+          this.loading = false;
           this.messageService.clear();
           this.router.navigateByUrl(`/${BaseRoute.AUTH}/${AuthRoute.REGISTRATION_SENT}`);
         },
         error: () => {
-          this.onRegisterFinish(loadingIndicatorTimeout);
+          this.loading = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Upps!',
@@ -71,11 +69,6 @@ export class RegisterComponent {
           });
         },
       });
-  }
-
-  private onRegisterFinish(timeout: NodeJS.Timeout): void {
-    clearTimeout(timeout);
-    this.loading = false;
   }
 
   constructor(
