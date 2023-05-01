@@ -18,7 +18,7 @@ export class ErrorTooltipPipe implements PipeTransform {
       case 'required':
         return 'Erforderlich';
       case 'email':
-        return 'Gib eine gültige E-Mail Adresse ein';
+        return 'Ungültige E-Mail Adresse';
       default:
         return `unknown error "${error}"`;
     }
