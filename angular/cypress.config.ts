@@ -51,7 +51,7 @@ export default defineConfig({
   e2e: {
     projectId: '8i594h',
     specPattern: 'cypress/**/*.{feature,features}',
-    baseUrl: 'http://localhost:4200',
+    baseUrl: 'http://localhost',
     setupNodeEvents,
   },
 });

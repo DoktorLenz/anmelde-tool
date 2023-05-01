@@ -63,12 +63,54 @@
           "error",
           {
             "devDependencies": [
-              "src/**/*.spec.ts",
+              "src/**/*.spec.ts"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "cypress/**/*.ts",
+        "cypress.config.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "cypress/tsconfig.json"
+        ]
+      },
+      "plugins": [
+        "deprecation",
+        "import",
+        "cypress",
+        "testing-library"
+      ],
+      "env": {
+        "jasmine": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:jasmine/recommended",
+        "plugin:import/recommended",
+        "airbnb-typescript/base",
+        "plugin:cypress/recommended",
+        "plugin:testing-library/angular"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
               "cypress/**/*.ts",
               "cypress.config.ts"
             ]
           }
-        ]
+        ],
+        "testing-library/prefer-screen-queries": "off",
+        "testing-library/await-async-query": "off"
       }
     },
     {
