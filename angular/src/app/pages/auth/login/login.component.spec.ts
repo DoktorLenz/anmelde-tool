@@ -50,6 +50,7 @@ describe('When an invalid username is entered', () => {
 
     expect(ui.username.errorIcon()).toBeInTheDocument();
     expect(ui.username.errorMessage()).toBeInTheDocument();
+    expect(ui.username.errorMessage()?.innerHTML).toEqual('Ungültige E-Mail Adresse');
   });
 
   it('should disable submit button, cause mail', async () => {
@@ -72,6 +73,7 @@ describe('When a password is entered and then removed', () => {
 
     expect(ui.password.errorIcon()).toBeInTheDocument();
     expect(ui.password.errorMessage()).toBeInTheDocument();
+    expect(ui.password.errorMessage()?.innerHTML).toEqual('Erforderlich');
   });
 
   it('should disable submit button, cause password', async () => {
@@ -86,7 +88,7 @@ describe('When a password is entered and then removed', () => {
 });
 
 describe('When a password is entered and then removed and an invalid username is entered', () => {
-  it('should dispay both errors', async () => {
+  it('should display both errors', async () => {
     await render(LoginComponent, options);
 
     const user = userEvent.setup();
@@ -96,8 +98,10 @@ describe('When a password is entered and then removed and an invalid username is
 
     expect(ui.username.errorIcon()).toBeInTheDocument();
     expect(ui.username.errorMessage()).toBeInTheDocument();
+    expect(ui.username.errorMessage()?.innerHTML).toEqual('Ungültige E-Mail Adresse');
     expect(ui.password.errorIcon()).toBeInTheDocument();
     expect(ui.password.errorMessage()).toBeInTheDocument();
+    expect(ui.password.errorMessage()?.innerHTML).toEqual('Erforderlich');
   });
 
   it('should disable submit button, cause password and mail', async () => {
@@ -136,7 +140,10 @@ describe('When a valid username and a valid password is entered', () => {
     expect(ui.submitButton()).not.toBeDisabled();
   });
 
-  describe('When button is clicked', async () => {
+  describe('When button is clicked', () => {
+    const username = 'bar@localhost';
+    const password = 'validpassword';
+
     it('should disable submit button while call is pending', async () => {
       await render(LoginComponent, options);
 
@@ -146,12 +153,29 @@ describe('When a valid username and a valid password is entered', () => {
       });
 
       const user = userEvent.setup();
-      await user.type(ui.username.input(), 'bar@localhost');
-      await user.type(ui.password.input(), 'validpassword');
+      await user.type(ui.username.input(), username);
+      await user.type(ui.password.input(), password);
 
       await user.click(ui.submitButton());
 
       expect(ui.submitButton()).toBeDisabled();
+    });
+
+    it('should pass login values to service', async () => {
+      await render(LoginComponent, options);
+
+      const httpAuthService = TestBed.inject(HttpAuthService);
+      ngMocks.stub(httpAuthService, {
+        login: jasmine.createSpy().and.returnValue(EMPTY),
+      });
+
+      const user = userEvent.setup();
+      await user.type(ui.username.input(), username);
+      await user.type(ui.password.input(), password);
+
+      await user.click(ui.submitButton());
+
+      expect(httpAuthService.login).toHaveBeenCalledWith(username, password);
     });
 
     it('should route on successful login', async () => {
@@ -168,8 +192,8 @@ describe('When a valid username and a valid password is entered', () => {
       });
 
       const user = userEvent.setup();
-      await user.type(ui.username.input(), 'bar@localhost');
-      await user.type(ui.password.input(), 'validpassword');
+      await user.type(ui.username.input(), username);
+      await user.type(ui.password.input(), password);
 
       await user.click(ui.submitButton());
 
@@ -189,8 +213,8 @@ describe('When a valid username and a valid password is entered', () => {
       });
 
       const user = userEvent.setup();
-      await user.type(ui.username.input(), 'bar@localhost');
-      await user.type(ui.password.input(), 'validpassword');
+      await user.type(ui.username.input(), username);
+      await user.type(ui.password.input(), password);
 
       await user.click(ui.submitButton());
 
@@ -210,8 +234,8 @@ describe('When a valid username and a valid password is entered', () => {
       });
 
       const user = userEvent.setup();
-      await user.type(ui.username.input(), 'bar@localhost');
-      await user.type(ui.password.input(), 'validpassword');
+      await user.type(ui.username.input(), username);
+      await user.type(ui.password.input(), password);
 
       await user.click(ui.submitButton());
 
@@ -229,8 +253,8 @@ describe('When a valid username and a valid password is entered', () => {
       });
 
       const user = userEvent.setup();
-      await user.type(ui.username.input(), 'bar@localhost');
-      await user.type(ui.password.input(), 'validpassword');
+      await user.type(ui.username.input(), username);
+      await user.type(ui.password.input(), password);
 
       await user.click(ui.submitButton());
 
