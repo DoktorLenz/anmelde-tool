@@ -5,7 +5,7 @@
     <ng-template pTemplate="title">Anmelden</ng-template>
     <ng-template pTemplate="content">
 
-      <div class="flex flex-column gap-2 relative">
+      <div class="flex flex-column gap-2">
         <label htmlFor="email">E-Mail Adresse</label>
         <div class="p-input-icon-right flex flex-column">
           <i *ngIf="email.valid && email.dirty && loginForm.valid"
@@ -26,16 +26,14 @@
                id="username-errors">{{email.errors | errorMessage}}</small>
 
         <label htmlFor="password">Passwort</label>
-        <div class="p-input-icon-right flex flex-column">
-          <input data-testid="login-password"
-                 type="password"
-                 [ngClass]="{
+        <input data-testid="login-password"
+               type="password"
+               [ngClass]="{
                   'ng-invalid ng-dirty': loginForm.errors
                  }"
-                 pInputText
-                 id="password"
-                 formControlName="password" />
-        </div>
+               pInputText
+               id="password"
+               formControlName="password" />
 
         <small *ngIf="loginForm.errors"
                class="error-color"
