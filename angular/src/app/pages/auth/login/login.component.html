@@ -5,50 +5,55 @@
     <ng-template pTemplate="title">Anmelden</ng-template>
     <ng-template pTemplate="content">
 
-      <div class="flex flex-column pb-4 mb-3 gap-2 relative">
+      <div class="flex flex-column gap-2 relative">
         <label htmlFor="email">E-Mail Adresse</label>
-
         <div class="p-input-icon-right flex flex-column">
-          <i *ngIf="email.invalid && email.dirty"
-             data-testid="login-username-error-icon"
-             class="pi pi-exclamation-circle error-color"></i>
+          <i *ngIf="email.valid && email.dirty && loginForm.valid"
+             class="pi pi-check-circle check-color"
+             data-testid="login-username-valid-icon"></i>
           <input data-testid="login-username"
                  type="email"
+                 [ngClass]="{
+                  'ng-invalid ng-dirty': loginForm.invalid
+                 }"
                  pInputText
                  id="email"
                  formControlName="email" />
         </div>
         <small data-testid="login-username-error-message"
-               class="error-message"
+               class="error-color"
                *ngIf="email.invalid && email.dirty"
-               id="username-errors">{{email | errorTooltip}}</small>
-      </div>
+               id="username-errors">{{email.errors | errorMessage}}</small>
 
-      <div class="flex flex-column pb-4 relative">
         <label htmlFor="password">Passwort</label>
-
         <div class="p-input-icon-right flex flex-column">
-          <i *ngIf="password.invalid && password.dirty"
-             data-testid="login-password-error-icon"
-             class="pi pi-exclamation-circle error-color"></i>
           <input data-testid="login-password"
                  type="password"
+                 [ngClass]="{
+                  'ng-invalid ng-dirty': loginForm.errors
+                 }"
                  pInputText
                  id="password"
                  formControlName="password" />
         </div>
-        <small data-testid="login-password-error-message"
-               class="error-message"
-               *ngIf="password.invalid && password.dirty "
-               id="password-errors">{{password | errorTooltip}}</small>
+
+        <small *ngIf="loginForm.errors"
+               class="error-color"
+               data-testid="login-form-error-message">{{loginForm.errors | errorMessage}}</small>
       </div>
 
     </ng-template>
     <ng-template pTemplate="footer">
-      <p-button type="submit"
-                label="Anmelden"
-                [loading]="loading"
-                [disabled]="!loginForm.valid"></p-button>
+      <div class="flex flex-column align-items-center">
+        <p-button class="w-full"
+                  styleClass="w-full"
+                  type="submit"
+                  label="Anmelden"
+                  [loading]="loading"></p-button>
+        <small class="mt-4">Noch keinen Account?</small>
+        <small><a data-testid="link-to-registration"
+             href="/auth/register">Registrieren</a></small>
+      </div>
     </ng-template>
   </p-card>
 </form>

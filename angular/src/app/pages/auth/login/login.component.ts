@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { HttpAuthService } from 'src/app/core/http/auth/http-auth.service';
 
 @Component({
@@ -27,37 +26,36 @@ export class LoginComponent {
   }
 
   protected loginForm =  new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('', {
+      validators: [Validators.required, Validators.email],
+      updateOn: 'blur',
+    }),
+    password: new FormControl(''),
   });
 
   protected loading = false;
 
   protected onSubmit(): void {
+    if (this.loginForm.invalid || !this.email.getRawValue().toString()) {
+      return;
+    }
     this.loading = true;
     this.httpAuthService.login(this.email.getRawValue().toString(), this.password.getRawValue().toString())
       .subscribe({
         next: () => {
           this.loading = false;
-          this.messageService.clear();
           this.router.navigateByUrl('');
         },
         error: () => {
           this.loading = false;
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Upps!',
-            detail: 'Da ist etwas schief gelaufen. Bitte überprüfe deine Eingaben und versuche es erneut.',
-            life: 4000,
-          });
+          this.loginForm.setErrors({ 'invalid-login': true });
         },
       });
   }
 
   constructor(
     private readonly httpAuthService: HttpAuthService,
-    private readonly router: Router,
-    private readonly messageService: MessageService) {
+    private readonly router: Router) {
 
   }
 }

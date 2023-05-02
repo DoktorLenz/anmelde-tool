@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorTooltipPipe } from './error-tooltip/error-tooltip.pipe';
+import { ErrorMessagePipe } from './error-tooltip/error-message.pipe';
 
 
 
 @NgModule({
   declarations: [
-    ErrorTooltipPipe,
+    ErrorMessagePipe,
   ],
   imports: [
     CommonModule,
   ],
   exports: [
-    ErrorTooltipPipe,
+    ErrorMessagePipe,
   ],
 })
 export class PipesModule { }

@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 
 @Pipe({
-  name: 'errorTooltip',
+  name: 'errorMessage',
 })
-export class ErrorTooltipPipe implements PipeTransform {
+export class ErrorMessagePipe implements PipeTransform {
 
-  transform(control: AbstractControl): string {
-    const errorMessages = Object.entries(control.errors ?? [])
+  transform(errors: ValidationErrors | null): string {
+    const errorMessages = Object.entries(errors ?? [])
       .map(([property]) => this.getErrorMessage(property));
 
     return errorMessages.join(', ');
@@ -19,6 +19,8 @@ export class ErrorTooltipPipe implements PipeTransform {
         return 'Erforderlich';
       case 'email':
         return 'Ungültige E-Mail Adresse';
+      case 'invalid-login':
+        return 'Falsche E-Mail Adresse oder falsches Passwort';
       default:
         return `unknown error "${error}"`;
     }

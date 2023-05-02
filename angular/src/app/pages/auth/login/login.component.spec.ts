@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, tick } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { MockProviders, ngMocks } from 'ng-mocks';
 import { MessageService } from 'primeng/api';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RenderComponentOptions, render, screen } from '@testing-library/angular';
+import { RenderComponentOptions, fireEvent, render, screen } from '@testing-library/angular';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -12,20 +12,21 @@ import { EMPTY, of, throwError } from 'rxjs';
 import { PipesModule } from 'src/app/lib/pipes/pipes.module';
 import { Router } from '@angular/router';
 import userEvent from '@testing-library/user-event';
+import { By } from '@angular/platform-browser';
 
 const ui = {
   title: () => screen.getByTestId('login-title'),
   username: {
     input: () => screen.getByTestId('login-username'),
-    errorIcon: () => screen.queryByTestId('login-username-error-icon'),
+    validIcon: () => screen.queryByTestId('login-username-valid-icon'),
     errorMessage: () => screen.queryByTestId('login-username-error-message'),
   },
   password: {
     input: () => screen.getByTestId('login-password'),
-    errorIcon: () => screen.queryByTestId('login-password-error-icon'),
-    errorMessage: () => screen.queryByTestId('login-password-error-message'),
   },
+  formErrorMessage: () => screen.queryByTestId('login-form-error-message'),
   submitButton: () => screen.getByRole('button'),
+  linkToRegistration: () => screen.getByTestId('link-to-registration'),
 };
 
 const options: RenderComponentOptions<LoginComponent> = {
@@ -41,224 +42,138 @@ const options: RenderComponentOptions<LoginComponent> = {
   ],
 };
 
-describe('When an invalid username is entered', () => {
-  it('should display "Invalid Mail" error', async () => {
+describe('When an invalid username is entered and the field is blured', () => {
+  it('should display error "Ungültige E-Mail Adresse"', async () => {
     await render(LoginComponent, options);
 
     const user = userEvent.setup();
     await user.type(ui.username.input(), 'notamailaddress');
+    fireEvent.blur(ui.username.input());
 
-    expect(ui.username.errorIcon()).toBeInTheDocument();
-    expect(ui.username.errorMessage()).toBeInTheDocument();
     expect(ui.username.errorMessage()?.innerHTML).toEqual('Ungültige E-Mail Adresse');
   });
 
-  it('should disable submit button, cause mail', async () => {
+  it('should not pass login details when clicking on submit', async () => {
     await render(LoginComponent, options);
 
-    const user = userEvent.setup();
-    await user.type(ui.username.input(), 'notamailaddress');
+    const httpAuthService = TestBed.inject(HttpAuthService);
+    ngMocks.stub(httpAuthService, {
+      login: jasmine.createSpy(),
+    });
 
-    expect(ui.submitButton()).toBeDisabled();
+    const user = userEvent.setup();
+
+    await user.type(ui.username.input(), 'notamailaddress');
+    fireEvent.blur(ui.username.input());
+
+    await user.click(ui.submitButton());
+
+    expect(httpAuthService.login).not.toHaveBeenCalled();
+  });
+
+  describe('and a password is entered', () => {
+    it('should still not pass login details when clicking on submit', async () => {
+      await render(LoginComponent, options);
+
+      const httpAuthService = TestBed.inject(HttpAuthService);
+      ngMocks.stub(httpAuthService, {
+        login: jasmine.createSpy(),
+      });
+
+      const user = userEvent.setup();
+
+      await user.type(ui.username.input(), 'notamailaddress');
+      fireEvent.blur(ui.username.input());
+
+      await user.type(ui.password.input(), 'validpassword');
+      fireEvent.blur(ui.username.input());
+
+      await user.click(ui.submitButton());
+
+      expect(httpAuthService.login).not.toHaveBeenCalled();
+    });
   });
 });
 
-describe('When a password is entered and then removed', () => {
-  it('should display "required" error', async () => {
+describe('Whena a valid username and no password are entered', () => {
+  it('should display error after submit click', async () => {
     await render(LoginComponent, options);
 
-    const user = userEvent.setup();
-    await user.type(ui.password.input(), 'password');
-    await user.clear(ui.password.input());
-
-    expect(ui.password.errorIcon()).toBeInTheDocument();
-    expect(ui.password.errorMessage()).toBeInTheDocument();
-    expect(ui.password.errorMessage()?.innerHTML).toEqual('Erforderlich');
-  });
-
-  it('should disable submit button, cause password', async () => {
-    await render(LoginComponent, options);
+    const httpAuthService = TestBed.inject(HttpAuthService);
+    ngMocks.stub(httpAuthService, {
+      login: jasmine.createSpy().and.returnValue(throwError(() => new Error())),
+    });
 
     const user = userEvent.setup();
-    await user.type(ui.password.input(), 'password');
-    await user.clear(ui.password.input());
 
-    expect(ui.submitButton()).toBeDisabled();
-  });
-});
-
-describe('When a password is entered and then removed and an invalid username is entered', () => {
-  it('should display both errors', async () => {
-    await render(LoginComponent, options);
-
-    const user = userEvent.setup();
-    await user.type(ui.username.input(), 'notamailaddress');
-    await user.type(ui.password.input(), 'password');
-    await user.clear(ui.password.input());
-
-    expect(ui.username.errorIcon()).toBeInTheDocument();
-    expect(ui.username.errorMessage()).toBeInTheDocument();
-    expect(ui.username.errorMessage()?.innerHTML).toEqual('Ungültige E-Mail Adresse');
-    expect(ui.password.errorIcon()).toBeInTheDocument();
-    expect(ui.password.errorMessage()).toBeInTheDocument();
-    expect(ui.password.errorMessage()?.innerHTML).toEqual('Erforderlich');
-  });
-
-  it('should disable submit button, cause password and mail', async () => {
-    await render(LoginComponent, options);
-
-    const user = userEvent.setup();
-    await user.type(ui.username.input(), 'notamailaddress');
-    await user.type(ui.password.input(), 'password');
-    await user.clear(ui.password.input());
-
-    expect(ui.submitButton()).toBeDisabled();
-  });
-});
-
-describe('When a valid username and a valid password is entered', () => {
-  it('displays no error', async () => {
-    await render(LoginComponent, options);
-
-    const user = userEvent.setup();
     await user.type(ui.username.input(), 'bar@localhost');
-    await user.type(ui.password.input(), 'validpassword');
+    fireEvent.blur(ui.username.input());
 
-    expect(ui.username.errorIcon()).not.toBeInTheDocument();
-    expect(ui.username.errorMessage()).not.toBeInTheDocument();
-    expect(ui.password.errorIcon()).not.toBeInTheDocument();
-    expect(ui.password.errorMessage()).not.toBeInTheDocument();
+    expect(ui.formErrorMessage()).not.toBeInTheDocument();
+
+    await user.click(ui.submitButton());
+
+    expect(ui.formErrorMessage()?.innerHTML).toEqual('Falsche E-Mail Adresse oder falsches Passwort');
   });
+});
 
-  it('enables submit button', async () => {
+describe('When a valid username and a password are entered', () => {
+  it('should display error on failed login', async () => {
     await render(LoginComponent, options);
 
-    const user = userEvent.setup();
-    await user.type(ui.username.input(), 'bar@localhost');
-    await user.type(ui.password.input(), 'validpassword');
+    const httpAuthService = TestBed.inject(HttpAuthService);
+    ngMocks.stub(httpAuthService, {
+      login: jasmine.createSpy().and.returnValue(throwError(() => new Error())),
+    });
 
-    expect(ui.submitButton()).not.toBeDisabled();
+    const user = userEvent.setup();
+
+    await user.type(ui.username.input(), 'bar@localhost');
+    fireEvent.blur(ui.username.input());
+
+    await user.type(ui.password.input(), 'invalidpassword');
+    fireEvent.blur(ui.password.input());
+
+    expect(ui.formErrorMessage()).not.toBeInTheDocument();
+
+    await user.click(ui.submitButton());
+
+    expect(ui.formErrorMessage()?.innerHTML).toEqual('Falsche E-Mail Adresse oder falsches Passwort');
   });
 
-  describe('When button is clicked', () => {
-    const username = 'bar@localhost';
-    const password = 'validpassword';
+  it('should navigate on successful login', async () => {
+    await render(LoginComponent, options);
 
-    it('should disable submit button while call is pending', async () => {
-      await render(LoginComponent, options);
-
-      const httpAuthService = TestBed.inject(HttpAuthService);
-      ngMocks.stub(httpAuthService, {
-        login: jasmine.createSpy().and.returnValue(EMPTY),
-      });
-
-      const user = userEvent.setup();
-      await user.type(ui.username.input(), username);
-      await user.type(ui.password.input(), password);
-
-      await user.click(ui.submitButton());
-
-      expect(ui.submitButton()).toBeDisabled();
+    const httpAuthService = TestBed.inject(HttpAuthService);
+    ngMocks.stub(httpAuthService, {
+      login: jasmine.createSpy().and.returnValue(of(void 0)),
     });
 
-    it('should pass login values to service', async () => {
-      await render(LoginComponent, options);
-
-      const httpAuthService = TestBed.inject(HttpAuthService);
-      ngMocks.stub(httpAuthService, {
-        login: jasmine.createSpy().and.returnValue(EMPTY),
-      });
-
-      const user = userEvent.setup();
-      await user.type(ui.username.input(), username);
-      await user.type(ui.password.input(), password);
-
-      await user.click(ui.submitButton());
-
-      expect(httpAuthService.login).toHaveBeenCalledWith(username, password);
+    const router = TestBed.inject(Router);
+    ngMocks.stub(router, {
+      navigateByUrl: jasmine.createSpy(),
     });
 
-    it('should route on successful login', async () => {
-      await render(LoginComponent, options);
+    const user = userEvent.setup();
 
-      const httpAuthService = TestBed.inject(HttpAuthService);
-      ngMocks.stub(httpAuthService, {
-        login: jasmine.createSpy().and.returnValue(of(void 0)),
-      });
+    await user.type(ui.username.input(), 'bar@localhost');
+    fireEvent.blur(ui.username.input());
 
-      const router = TestBed.inject(Router);
-      ngMocks.stub(router, {
-        navigateByUrl: jasmine.createSpy().and.callFake(() => {}),
-      });
+    await user.type(ui.password.input(), 'validpassword');
+    fireEvent.blur(ui.password.input());
 
-      const user = userEvent.setup();
-      await user.type(ui.username.input(), username);
-      await user.type(ui.password.input(), password);
+    expect(ui.formErrorMessage()).not.toBeInTheDocument();
 
-      await user.click(ui.submitButton());
+    await user.click(ui.submitButton());
 
-      expect(router.navigateByUrl).toHaveBeenCalledWith('');
-    });
+    expect(router.navigateByUrl).toHaveBeenCalledWith('');
+  });
+});
 
-    it('should remove any message on successful login', async () => {
-      await render(LoginComponent, options);
+describe('When clicked on "Registrieren"-Link', () => {
+  it('should navigate to register form', async () => {
+    await render(LoginComponent, options);
 
-      const httpAuthService = TestBed.inject(HttpAuthService);
-      ngMocks.stub(httpAuthService, {
-        login: jasmine.createSpy().and.returnValue(of(void 0)),
-      });
-      const messageService = TestBed.inject(MessageService);
-      ngMocks.stub(messageService, {
-        clear: jasmine.createSpy().and.callFake(() => {}),
-      });
-
-      const user = userEvent.setup();
-      await user.type(ui.username.input(), username);
-      await user.type(ui.password.input(), password);
-
-      await user.click(ui.submitButton());
-
-      expect(messageService.clear).toHaveBeenCalledWith();
-    });
-
-    it('should post error message on failed login', async () => {
-      await render(LoginComponent, options);
-
-      const httpAuthService = TestBed.inject(HttpAuthService);
-      ngMocks.stub(httpAuthService, {
-        login: jasmine.createSpy().and.returnValue(throwError(() => new Error())),
-      });
-      const messageService = TestBed.inject(MessageService);
-      ngMocks.stub(messageService, {
-        add: jasmine.createSpy().and.callFake(() => {}),
-      });
-
-      const user = userEvent.setup();
-      await user.type(ui.username.input(), username);
-      await user.type(ui.password.input(), password);
-
-      await user.click(ui.submitButton());
-
-      expect(messageService.add).toHaveBeenCalledWith(jasmine.objectContaining({
-        severity: 'error',
-      }));
-    });
-
-    it('should enable submit button on failed login', async () => {
-      await render(LoginComponent, options);
-
-      const httpAuthService = TestBed.inject(HttpAuthService);
-      ngMocks.stub(httpAuthService, {
-        login: jasmine.createSpy().and.returnValue(throwError(() => new Error())),
-      });
-
-      const user = userEvent.setup();
-      await user.type(ui.username.input(), username);
-      await user.type(ui.password.input(), password);
-
-      await user.click(ui.submitButton());
-
-      expect(ui.submitButton()).not.toBeDisabled();
-    });
+    expect(ui.linkToRegistration()).toHaveAttribute('href', '/auth/register');
   });
 });
