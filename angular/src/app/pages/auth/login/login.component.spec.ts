@@ -1,4 +1,4 @@
-import { TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { MockProviders, ngMocks } from 'ng-mocks';
 import { MessageService } from 'primeng/api';
@@ -8,14 +8,12 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpAuthService } from 'src/app/core/http/auth/http-auth.service';
-import { EMPTY, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { PipesModule } from 'src/app/lib/pipes/pipes.module';
 import { Router } from '@angular/router';
 import userEvent from '@testing-library/user-event';
-import { By } from '@angular/platform-browser';
 
 const ui = {
-  title: () => screen.getByTestId('login-title'),
   username: {
     input: () => screen.getByTestId('login-username'),
     validIcon: () => screen.queryByTestId('login-username-valid-icon'),
@@ -41,6 +39,19 @@ const options: RenderComponentOptions<LoginComponent> = {
     ReactiveFormsModule,
   ],
 };
+
+describe('When no username is entered but the field is dirty', () => {
+  it('should display error "Erforderlich"', async () => {
+    await render(LoginComponent, options);
+
+    const user = userEvent.setup();
+    await user.type(ui.username.input(), 'notamailaddress');
+    await user.clear(ui.username.input());
+    fireEvent.blur(ui.username.input());
+
+    expect(ui.username.errorMessage()?.innerHTML).toEqual('Erforderlich');
+  });
+});
 
 describe('When an invalid username is entered and the field is blured', () => {
   it('should display error "Ungültige E-Mail Adresse"', async () => {
