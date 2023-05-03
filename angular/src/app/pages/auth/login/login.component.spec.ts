@@ -12,6 +12,8 @@ import { of, throwError } from 'rxjs';
 import { PipesModule } from 'src/app/lib/pipes/pipes.module';
 import { Router } from '@angular/router';
 import userEvent from '@testing-library/user-event';
+import { BaseRoute } from 'src/app/lib/routes/base-route';
+import { AuthRoute } from 'src/app/lib/routes/auth-route';
 
 const ui = {
   username: {
@@ -181,10 +183,10 @@ describe('When a valid username and a password are entered', () => {
   });
 });
 
-describe('When clicked on "Registrieren"-Link', () => {
-  it('should navigate to register form', async () => {
+describe('"Registrieren"-Link', () => {
+  it('should contain link to register form', async () => {
     await render(LoginComponent, options);
 
-    expect(ui.linkToRegistration()).toHaveAttribute('href', '/auth/register');
+    expect(ui.linkToRegistration()).toHaveAttribute('href', `/${BaseRoute.AUTH}/${AuthRoute.REGISTRATION}`);
   });
 });

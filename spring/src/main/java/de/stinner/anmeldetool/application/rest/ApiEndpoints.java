@@ -30,7 +30,7 @@ public final class ApiEndpoints {
             private static final String BASE_AUTH = BASE_V1 + "/auth";
             public static final String LOGIN = BASE_AUTH + "/login";
             public static final String LOGOUT = BASE_AUTH + "/logout";
-            public static final String REGISTER = BASE_AUTH + "/register";
+            public static final String REGISTER = BASE_AUTH + "/registration";
             public static final String FINISH_REGISTRATION = BASE_AUTH + "/finish-registration";
             public static final String FORGOT_PASSWORD = BASE_AUTH + "/forgot-password";
             public static final String RESET_PASSWORD = BASE_AUTH + "/reset-password";

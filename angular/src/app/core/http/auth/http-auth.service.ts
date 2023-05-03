@@ -17,7 +17,7 @@ export class HttpAuthService extends HttpBase {
   }
 
   public register(dto: RegistrationRequestDto): Observable<void> {
-    return this.httpClient.post(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.REGISTER}`, dto)
+    return this.httpClient.post(`${this.baseUrl}/${BaseRoute.AUTH}/${AuthRoute.REGISTRATION}`, dto)
       .pipe(
         map(() => {return;}),
       );

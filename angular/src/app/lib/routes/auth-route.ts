@@ -1,5 +1,5 @@
 export enum AuthRoute {
   LOGIN = 'login',
-  REGISTER = 'register',
+  REGISTRATION = 'registration',
   REGISTRATION_SENT = 'registration-sent',
 }

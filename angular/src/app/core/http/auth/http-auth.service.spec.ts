@@ -33,7 +33,7 @@ describe('HttpAuthService', () => {
         expect(result).toBeUndefined();
       });
 
-      const request = httpTestingController.expectOne('/api/v1/auth/register');
+      const request = httpTestingController.expectOne('/api/v1/auth/registration');
 
       expect(request.request.method).toEqual('POST');
       expect(request.request.body).toEqual(registrationRequestDto);
