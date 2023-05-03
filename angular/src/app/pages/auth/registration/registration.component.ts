@@ -11,37 +11,37 @@ import { BaseRoute } from 'src/app/lib/routes/base-route';
 })
 export class RegistrationComponent {
 
+  private _firstname = new FormControl('', {
+    validators: Validators.required,
+    updateOn: 'change',
+  });
+
   protected get firstname(): AbstractControl {
-    const control = this.registerForm.get('firstname');
-    if (control) {
-      return control;
-    } else {
-      throw new Error('No control for firstname');
-    }
+    return this._firstname;
   }
+
+  private _lastname: AbstractControl = new FormControl('', {
+    validators: Validators.required,
+    updateOn: 'change',
+  });
 
   protected get lastname(): AbstractControl {
-    const control = this.registerForm.get('lastname');
-    if (control) {
-      return control;
-    } else {
-      throw new Error('No control for lastname');
-    }
+    return this._lastname;
   }
 
+  private _email: AbstractControl = new FormControl('', {
+    validators: [Validators.required, Validators.email],
+    updateOn: 'change',
+  });
+
   protected get email(): AbstractControl {
-    const control = this.registerForm.get('email');
-    if (control) {
-      return control;
-    } else {
-      throw new Error('No control for email');
-    }
+    return this._email;
   }
 
   protected registerForm = new FormGroup({
-    firstname: new FormControl('', Validators.required),
-    lastname: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    firstname: this.firstname,
+    lastname: this.lastname,
+    email: this.email,
   });
 
   protected loading = false;
@@ -56,7 +56,6 @@ export class RegistrationComponent {
       .subscribe({
         next: () => {
           this.loading = false;
-          this.messageService.clear();
           this.router.navigateByUrl(`/${BaseRoute.AUTH}/${AuthRoute.REGISTRATION_SENT}`);
         },
         error: () => {
@@ -64,7 +63,7 @@ export class RegistrationComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Upps!',
-            detail: 'Da ist etwas schief gelaufen. Bitte überprüfe deine Eingaben und versuche es erneut.',
+            detail: 'Da ist etwas schief gelaufen. Bitte versuche es später erneut.',
             life: 4000,
           });
         },
