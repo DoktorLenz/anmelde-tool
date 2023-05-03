@@ -1,11 +1,11 @@
 <form [formGroup]="registerForm"
       (ngSubmit)="onSubmit()">
   <p-card styleClass="auth-card">
-    <ng-template pTemplate="header"> </ng-template>
-    <ng-template pTemplate="title"> Registrieren </ng-template>
+    <ng-template pTemplate="header"></ng-template>
+    <ng-template pTemplate="title">
+      <div class="text-center">Registrieren</div>
+    </ng-template>
     <ng-template pTemplate="content">
-
-
       <div class="flex flex-column gap-2">
         <label htmlFor="firstname">Vorname</label>
         <div class="p-input-icon-right flex flex-column">
@@ -68,7 +68,6 @@
         <small><a data-testid="link-to-login"
              href="/auth/login">Anmelden</a></small>
       </div>
-
     </ng-template>
   </p-card>
 </form>

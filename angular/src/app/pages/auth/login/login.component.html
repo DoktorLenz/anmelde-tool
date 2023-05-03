@@ -2,9 +2,10 @@
       (ngSubmit)="onSubmit()">
   <p-card styleClass="auth-card">
     <ng-template pTemplate="header"></ng-template>
-    <ng-template pTemplate="title">Anmelden</ng-template>
+    <ng-template pTemplate="title">
+      <div class="text-center">Anmelden</div>
+    </ng-template>
     <ng-template pTemplate="content">
-
       <div class="flex flex-column gap-2">
         <label htmlFor="email">E-Mail Adresse</label>
         <div class="p-input-icon-right flex flex-column">
@@ -39,7 +40,6 @@
                class="error-color"
                data-testid="login-form-error-message">{{loginForm.errors | errorMessage}}</small>
       </div>
-
     </ng-template>
     <ng-template pTemplate="footer">
       <div class="flex flex-column align-items-center">
