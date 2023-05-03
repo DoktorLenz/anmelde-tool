@@ -7,30 +7,24 @@ import { HttpAuthService } from 'src/app/core/http/auth/http-auth.service';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
+  private _email: AbstractControl = new FormControl('', {
+    validators: [Validators.required, Validators.email],
+    updateOn: 'blur',
+  });
+
   protected get email(): AbstractControl {
-    const control = this.loginForm.get('email');
-    if (control) {
-      return control;
-    } else {
-      throw new Error('No control for email');
-    }
+    return this._email;
   }
 
+  private _password: AbstractControl = new FormControl('');
+
   protected get password(): AbstractControl {
-    const control = this.loginForm.get('password');
-    if (control) {
-      return control;
-    } else {
-      throw new Error('No control for password');
-    }
+    return this._password;
   }
 
   protected loginForm =  new FormGroup({
-    email: new FormControl('', {
-      validators: [Validators.required, Validators.email],
-      updateOn: 'blur',
-    }),
-    password: new FormControl(''),
+    email: this.email,
+    password: this.password,
   });
 
   protected loading = false;
