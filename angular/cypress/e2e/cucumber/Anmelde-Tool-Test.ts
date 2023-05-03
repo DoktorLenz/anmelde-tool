@@ -11,3 +11,7 @@ Given('I visit the site', () => {
 Then('I should be on the main page', () => {
   cy.url().should('eq', `${Cypress.config().baseUrl}/`);
 });
+
+Then('I should be on the registration page', () => {
+  cy.url().should('eq', `${Cypress.config().baseUrl}/auth/registration`);
+});
