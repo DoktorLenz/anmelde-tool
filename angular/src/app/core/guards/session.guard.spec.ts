@@ -40,12 +40,12 @@ describe('SessionGuard', () => {
       expect(router.navigate).not.toHaveBeenCalled();
     });
 
-    it('should navigate to auth page if session is not authenticated', () => {
+    it('should navigate to auth page if session is not authenticated', async () => {
       ngMocks.stub(sessionService, {
         isSessionAuthenticated: jasmine.createSpy().and.returnValue(false),
       });
 
-      TestBed.runInInjectionContext(() => sessionAuthenticatedGuard(route, state));
+      await TestBed.runInInjectionContext(() => sessionAuthenticatedGuard(route, state));
 
       expect(router.navigate).toHaveBeenCalledWith([`/${BaseRoute.AUTH}`]);
     });
@@ -84,12 +84,12 @@ describe('SessionGuard', () => {
       expect(router.navigate).not.toHaveBeenCalled();
     });
 
-    it('should navigate to root page if session is authenticated', () => {
+    it('should navigate to root page if session is authenticated', async () => {
       ngMocks.stub(sessionService, {
         isSessionAuthenticated: jasmine.createSpy().and.returnValue(true),
       });
 
-      TestBed.runInInjectionContext(() => sessionNotAuthenticatedGuard(route, state));
+      await TestBed.runInInjectionContext(() => sessionNotAuthenticatedGuard(route, state));
 
       expect(router.navigate).toHaveBeenCalledWith(['']);
     });
