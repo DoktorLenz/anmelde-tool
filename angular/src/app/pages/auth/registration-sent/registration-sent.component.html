@@ -1,24 +1,22 @@
 <p-card styleClass="auth-card">
   <ng-template pTemplate="header"></ng-template>
-  <ng-template pTemplate="title">Deine Registrierung war erfolgreich!</ng-template>
+  <ng-template pTemplate="title">
+    <div class="text-center">Bestätigungs-Link</div>
+  </ng-template>
   <ng-template pTemplate="justify-content-between">
-
-    <div>
-      Wir haben Dir an die angegebene E-Mail Adresse einen Link zur
-      Bestätigung der Registrierung gesendet. Bitte überprüfe Deinen Posteingang (ggf.
-      SPAM-Ordner).
-    </div>
-
-    <div class="mt-1">
-      Bitte bestätige den Link in der Mail, um Deine Registrierung abzuschließen.
-    </div>
-
-    <div class="mt-1">
-      Ohne diese Bestätigung ist eine Anmeldung nicht möglich!
-    </div>
+    <small class="inline-block text-center">
+      Wir haben dir einen Link zur Bestätigung deiner Registrierung gesendet. Bitte überprüfe deinen
+      Posteingang (ggf. SPAM-Ordner).
+    </small>
+    <br />
+    <small class="mt-2 inline-block text-center">
+      Bitte klicke auf den Link in der Mail, um deine Registrierung abzuschließen.
+    </small>
   </ng-template>
   <ng-template pTemplate="footer">
-    <p-button label="Zurück zur Startseite"
+    <p-button class="w-full"
+              styleClass="w-full"
+              label="Zurück zur Startseite"
               [routerLink]="'/'"></p-button>
   </ng-template>
 </p-card>
