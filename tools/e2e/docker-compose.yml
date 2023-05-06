@@ -32,10 +32,10 @@ services:
       dockerfile: docker/spring/Dockerfile
     environment:
       - anmelde-tool.baseUrl=http://localhost
-      - anmelde-tool.db.url=host.docker.internal
-      - anmelde-tool.db.port=35432
-      - anmelde-tool.mail.host=host.docker.internal
-      - anmelde-tool.mail.port=31025
+      - anmelde-tool.db.url=db
+      - anmelde-tool.db.port=5432
+      - anmelde-tool.mail.host=mail_hog
+      - anmelde-tool.mail.port=1025
     restart: unless-stopped
     ports:
       - "38080:8080"
