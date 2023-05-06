@@ -13,3 +13,4 @@ mvn clean package -DskipTests
 cd ../tools/e2e
 docker-compose build
 docker-compose up -d
+docker network inspect anmelde-tool-e2e_default
