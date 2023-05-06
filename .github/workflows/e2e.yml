@@ -57,3 +57,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_baseURL: http://localhost
       
+      - name: Kill Docker-Container
+        if: always()
+        working-directory: ./tools/e2e
+        run: docker-compose down
