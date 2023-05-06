@@ -58,6 +58,7 @@ jobs:
           CYPRESS_baseURL: http://localhost
 
       - name: Logs Docker Container
+        if: always()
         run: |
           docker logs frontend_e2e |
           docker logs backend_e2e
