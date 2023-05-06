@@ -56,6 +56,11 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY_E2E }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_baseURL: http://localhost
+
+      - name: Logs Docker Container
+        run: |
+          docker logs frontend_e2e |
+          docker logs backend_e2e
       
       - name: Kill Docker-Container
         if: always()
