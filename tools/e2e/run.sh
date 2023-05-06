@@ -2,6 +2,7 @@
 docker-compose down
 
 cd ../../angular
+npm run ci
 npm run ci:clean
 npm run config
 npm run ci:build
