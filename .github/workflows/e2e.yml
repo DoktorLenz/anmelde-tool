@@ -65,7 +65,7 @@ jobs:
 
       - name: NGINX CONF
         if: always()
-        run: docker exec -it frontend_e2e cat /etc/nginx/conf.d/default.conf > nginx.conf
+        run: docker exec frontend_e2e cat /etc/nginx/conf.d/default.conf > nginx.conf
 
       - name: Upload config
         uses: actions/upload-artifact@v3
