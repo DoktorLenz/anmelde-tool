@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-ENV CONFIG=prod
+ENV CONFIG=e2e
 
 # Copy the build output to replace the default nginx contents.
 COPY ./angular/dist/anmelde-tool-frontend /usr/share/nginx/html
