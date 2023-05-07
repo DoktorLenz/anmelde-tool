@@ -62,6 +62,10 @@ jobs:
         run: |
           docker logs frontend_e2e |
           docker logs backend_e2e
+
+      - name: NGINX CONF
+        if: always()
+        run: docker exec -it frontend_e2e cat /etc/nginx/conf.d/default.conf
       
       - name: Kill Docker-Container
         if: always()
