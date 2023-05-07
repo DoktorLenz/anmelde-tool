@@ -59,9 +59,7 @@ jobs:
 
       - name: Logs Docker Container
         if: always()
-        run: |
-          docker logs frontend_e2e |
-          docker logs backend_e2e
+        run: docker logs frontend_e2e
 
       - name: NGINX CONF
         if: always()
