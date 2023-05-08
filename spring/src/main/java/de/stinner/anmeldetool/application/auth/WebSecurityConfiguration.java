@@ -36,7 +36,6 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
         http.csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
@@ -61,7 +60,9 @@ public class WebSecurityConfiguration {
                         ApiEndpoints.V1.Auth.FINISH_REGISTRATION,
                         ApiEndpoints.V1.Auth.FORGOT_PASSWORD,
                         ApiEndpoints.V1.Auth.RESET_PASSWORD,
-                        ApiEndpoints.V1.Auth.LOGOUT
+                        ApiEndpoints.V1.Auth.LOGOUT,
+                        ApiEndpoints.Actuator.READINESS,
+                        ApiEndpoints.Actuator.LIVENESS
                 )
                 .permitAll()
                 .requestMatchers(ApiEndpoints.V1.Auth.LOGIN)
