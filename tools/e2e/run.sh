@@ -23,7 +23,7 @@ fi
 
 while true; do
     health=$(docker inspect --format='{{json .State.Health.Status}}' $container_name | jq -r '.')
-    if [ "$health" == "healthy" ]; then
+    if [ "$health" = "healthy" ]; then
         echo "Container is healthy!"
         break
     fi
