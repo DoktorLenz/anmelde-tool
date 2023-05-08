@@ -36,9 +36,9 @@ export class LoginComponent {
     this.loading = true;
     this.httpAuthService.login(this.email.getRawValue().toString(), this.password.getRawValue().toString())
       .subscribe({
-        next: async () => {
+        next: () => {
           this.loading = false;
-          await this.router.navigateByUrl('');
+          void this.router.navigateByUrl('');
         },
         error: () => {
           this.loading = false;

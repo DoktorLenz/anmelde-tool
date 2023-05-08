@@ -56,13 +56,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY_E2E }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_baseURL: http://localhost
-
-      - name: Upload config
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: config
-          path: nginx.conf
       
       - name: Kill Docker-Container
         if: always()

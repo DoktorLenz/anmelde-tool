@@ -54,9 +54,9 @@ export class RegistrationComponent {
       email: this.email.getRawValue().toString(),
     })
       .subscribe({
-        next: async () => {
+        next: () => {
           this.loading = false;
-          await this.router.navigateByUrl(`/${BaseRoute.AUTH}/${AuthRoute.REGISTRATION_SENT}`);
+          void this.router.navigateByUrl(`/${BaseRoute.AUTH}/${AuthRoute.REGISTRATION_SENT}`);
         },
         error: () => {
           this.loading = false;
