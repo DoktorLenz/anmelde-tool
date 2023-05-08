@@ -5,7 +5,7 @@ COPY ./spring/target/*.jar /app/anmelde-tool.jar
 ENTRYPOINT ["java","-jar","/app/anmelde-tool.jar"]
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s \
-  CMD curl -f http://localhost:8080/actuator/health/readiness || exit 1
+  CMD wget -qO- http://localhost:8080/actuator/health/readiness || exit 1
 
 EXPOSE 8080
 

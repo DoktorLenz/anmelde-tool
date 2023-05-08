@@ -57,14 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_baseURL: http://localhost
 
-      - name: Logs Docker Container
-        if: always()
-        run: docker logs frontend_e2e
-
-      - name: NGINX CONF
-        if: always()
-        run: docker exec frontend_e2e cat /etc/nginx/conf.d/default.conf > nginx.conf
-
       - name: Upload config
         if: always()
         uses: actions/upload-artifact@v3
