@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.application.auth;
 
+import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
 import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import de.stinner.anmeldetool.domain.auth.service.AuthenticationService;
 import de.stinner.anmeldetool.domain.auth.service.Authority;
@@ -61,8 +62,8 @@ public class WebSecurityConfiguration {
                         ApiEndpoints.V1.Auth.FORGOT_PASSWORD,
                         ApiEndpoints.V1.Auth.RESET_PASSWORD,
                         ApiEndpoints.V1.Auth.LOGOUT,
-                        ApiEndpoints.Actuator.READINESS,
-                        ApiEndpoints.Actuator.LIVENESS
+                        ActuatorEndpoints.READINESS,
+                        ActuatorEndpoints.LIVENESS
                 )
                 .permitAll()
                 .requestMatchers(ApiEndpoints.V1.Auth.LOGIN)
