@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:17-alpine
 
 COPY ./spring/target/*.jar /app/anmelde-tool.jar
 

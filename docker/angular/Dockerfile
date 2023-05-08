@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.23.4-alpine
 
 ENV CONFIG=e2e
 
