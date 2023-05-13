@@ -6,6 +6,7 @@ import de.stinner.anmeldetool.domain.auth.service.Authority;
 import io.hypersistence.utils.hibernate.type.array.EnumArrayType;
 import io.hypersistence.utils.hibernate.type.array.internal.AbstractArrayType;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,6 +35,7 @@ public class UserDataEntity {
     )
     private UUID id;
     private String email;
+    @Setter(AccessLevel.NONE)
     private String password;
     private boolean accountLocked;
     private boolean credentialsExpired;
@@ -71,7 +73,7 @@ public class UserDataEntity {
     public static UserDataEntity create(RegistrationEntity registrationEntity, String password) {
         UserDataEntity entity = new UserDataEntity();
         entity.email = registrationEntity.getEmail();
-        entity.password = WebSecurityConfiguration.encoder().encode(password);
+        entity.setPassword(password);
         entity.accountLocked = false;
         entity.credentialsExpired = false;
         entity.enabled = true;
@@ -79,13 +81,6 @@ public class UserDataEntity {
         entity.firstname = registrationEntity.getFirstname();
         entity.lastname = registrationEntity.getLastname();
         return entity;
-    }
-
-    public void changePassword(String oldPassword, String newPassword) {
-        if (!WebSecurityConfiguration.encoder().matches(oldPassword, this.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessages.C400.WRONG_PASSWORD);
-        }
-        this.setPassword(newPassword);
     }
 
     /**
@@ -97,5 +92,12 @@ public class UserDataEntity {
     public void setPassword(String password) {
         this.password = WebSecurityConfiguration.encoder().encode(password);
         this.credentialsExpired = false;
+    }
+
+    public void changePassword(String oldPassword, String newPassword) {
+        if (!WebSecurityConfiguration.encoder().matches(oldPassword, this.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessages.C400.WRONG_PASSWORD);
+        }
+        this.setPassword(newPassword);
     }
 }

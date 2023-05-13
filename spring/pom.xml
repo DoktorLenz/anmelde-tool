@@ -300,6 +300,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${org.jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>de/stinner/anmeldetool/application/auth/WebSecurityConfiguration*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>
