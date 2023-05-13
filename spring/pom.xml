@@ -27,7 +27,7 @@
         <org.testcontainers.version>1.17.6</org.testcontainers.version>
         <org.checkstyle.plugin.version>3.2.1</org.checkstyle.plugin.version>
         <org.checkstyle.version>10.9.3</org.checkstyle.version>
-        <org.jacoco.version>0.8.8</org.jacoco.version>
+        <org.jacoco.version>0.8.10</org.jacoco.version>
 
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.thymeleaf.version>3.1.1.RELEASE</org.thymeleaf.version>
