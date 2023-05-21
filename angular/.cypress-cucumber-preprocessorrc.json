@@ -1,5 +1,5 @@
 {
   "stepDefinitions": [
-    "cypress/e2e/cucumber/**/*.ts"
+    "cypress/e2e/**/*.ts"
   ]
 }
