@@ -1,4 +1,4 @@
 export enum BaseRoute {
-  SESSION = 'session',
   AUTH = 'auth',
+  SIGNED_OUT = 'signedout',
 }

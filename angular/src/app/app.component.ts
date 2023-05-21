@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpSessionService } from './core/http/http-session/http-session.service';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+
+
 
 @Component({
   selector: 'at-root',
@@ -8,26 +9,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./app.component.scss'],
   providers: [MessageService],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'anmelde-tool-frontend';
 
-  constructor(
-    private readonly httpSessionSerivce: HttpSessionService,
-    private readonly messageService: MessageService) {
-
-  }
-
-  public ngOnInit(): void {
-    this.httpSessionSerivce.session().subscribe({
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Störungen',
-          detail: 'Derzeit gibt es in unserem System Störungen. Bitte versuche es später erneut.',
-          sticky: true,
-          closable: false,
-        });
-      },
-    });
-  }
 }

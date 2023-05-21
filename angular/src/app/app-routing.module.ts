@@ -1,17 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { sessionAuthenticatedGuard, sessionNotAuthenticatedGuard } from './core/guards/session.guard';
+import { authGuard } from './auth/guards/auth.guard';
+import { BaseRoute } from './lib/routes/base-route';
+import { AuthRoute } from './lib/routes/auth-route';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule),
-    canActivate: [sessionNotAuthenticatedGuard],
-  },
-  {
     path: '',
     loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
-    canActivate: [sessionAuthenticatedGuard],
+    canActivate: [authGuard],
+  },
+  {
+    path: `${BaseRoute.AUTH}/${AuthRoute.CALLBACK}`,
+    redirectTo: '/',
+  },
+  {
+    path: BaseRoute.SIGNED_OUT,
+    loadChildren: () => import('./pages/signed-out/signed-out.module').then(m => m.SignedOutModule),
+  },
+  {
+    path: '**',
+    redirectTo: '/',
   },
 ];
 
