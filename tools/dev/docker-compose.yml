@@ -16,7 +16,7 @@ services:
 
   db:
     container_name: database_dev
-    image: postgres:latest
+    image: postgres:15.3-alpine
     environment:
       - POSTGRES_USER=anmelde_tool
       - POSTGRES_PASSWORD=anmelde_tool
