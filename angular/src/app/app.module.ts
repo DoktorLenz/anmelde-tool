@@ -17,7 +17,7 @@ const authConfig: AuthConfig = {
   scope: 'openid profile email offline_access',
   responseType: 'code',
   oidc: true,
-  clientId: '214961548605587459@anmeldetool_dev',
+  clientId: '215538524160589831@anmelde-tool',
   issuer: 'http://localhost:8080', // eg. https://acme-jdo9fs.zitadel.cloud
   redirectUri: 'http://localhost:4200/auth/callback',
   postLogoutRedirectUri: 'http://localhost:4200/signedout',
