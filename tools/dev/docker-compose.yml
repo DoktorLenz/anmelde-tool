@@ -26,7 +26,7 @@ services:
       - "5432:5432"
 
   zitadel:
-    container_name: zitadel_e2e
+    container_name: zitadel_dev
     restart: 'always'
     image: 'ghcr.io/zitadel/zitadel:v2.27.0'
     command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
@@ -41,7 +41,7 @@ services:
       - '8080:8080'
 
   crdb:
-    container_name: cockroach_e2e
+    container_name: cockroach_dev
     restart: 'always'
     build:
       context: ../..
