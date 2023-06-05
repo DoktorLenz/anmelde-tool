@@ -29,14 +29,7 @@ public final class ErrorResponseBuilder {
         return this;
     }
 
-    public ErrorResponseBuilder withDetails(String... details) {
-        this.details = List.of(details);
-        return this;
-    }
-
     public ErrorResponse build() {
         return new ErrorResponse(errorMessage, path, status, details);
     }
-
-
 }

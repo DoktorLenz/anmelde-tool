@@ -149,14 +149,14 @@ public class RestControllerExceptionHandler {
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    protected ResponseEntity<ErrorResponse> handleHttpMediatypeNotSupportedException(
+    protected ResponseEntity<ErrorResponse> handleHttpMediaTypeNotSupportedException(
             final HttpMediaTypeNotSupportedException e,
             final HttpServletRequest request
     ) {
         HttpStatus responseStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
 
         String errorMessage = ErrorMessages.getMediaTypeNotSupportedMessage(
-                request.getHeader(HttpHeaders.CONTENT_TYPE),
+                e.getContentType().toString(),
                 e.getSupportedMediaTypes()
         );
 
