@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -132,7 +133,7 @@ public class RestControllerExceptionHandler {
     ) {
         HttpStatus responseStatus = HttpStatus.NOT_ACCEPTABLE;
 
-        String errorMessage = ErrorMessages.getMediaTypeErrorMessage(
+        String errorMessage = ErrorMessages.getMediaTypeNotAcceptableMessage(
                 request.getHeader(HttpHeaders.ACCEPT),
                 e.getSupportedMediaTypes()
         );
@@ -146,6 +147,29 @@ public class RestControllerExceptionHandler {
 
         return new ResponseEntity<>(errorResponse, headers, responseStatus);
     }
+
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    protected ResponseEntity<ErrorResponse> handleHttpMediatypeNotSupportedException(
+            final HttpMediaTypeNotSupportedException e,
+            final HttpServletRequest request
+    ) {
+        HttpStatus responseStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
+
+        String errorMessage = ErrorMessages.getMediaTypeNotSupportedMessage(
+                request.getHeader(HttpHeaders.CONTENT_TYPE),
+                e.getSupportedMediaTypes()
+        );
+
+        //Workaround to force "application/json" in response. If not present, Spring would view the response of this
+        //handler as an error, as the wrong content type were returned.
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ErrorResponse errorResponse = new ErrorResponseBuilder(errorMessage, responseStatus, request).build();
+
+        return new ResponseEntity<>(errorResponse, headers, responseStatus);
+    }
+
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(

@@ -4,7 +4,6 @@ package de.stinner.anmeldetool.application.rest.error;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.MediaType;
 
-import java.util.Arrays;
 import java.util.List;
 
 @UtilityClass
@@ -26,20 +25,20 @@ public final class ErrorMessages {
     public static final String INTERNAL_SERVER_ERROR = "There was an internal error.";
 
 
-    public static String getMediaTypeErrorMessage(
-            String providedMediaType,
+    public static String getMediaTypeNotAcceptableMessage(
+            String providedType,
             List<MediaType> supported
     ) {
-        return "Media type '" + providedMediaType
+        return "Media type '" + providedType
                 + "' not supported. This API can only generate: '" + supported + "'.";
     }
 
-    public static String getContentTypeErrorMessage(
-            MediaType providedContentType,
-            MediaType... supported
+    public static String getMediaTypeNotSupportedMessage(
+            String providedType,
+            List<MediaType> supported
     ) {
-        return "Media type '" + providedContentType
-                + "' not supported. This API only supports: '" + Arrays.toString(supported) + "'.";
+        return "Media type '" + providedType
+                + "' not supported. This API only accepts: '" + supported + "'.";
     }
 
 }
