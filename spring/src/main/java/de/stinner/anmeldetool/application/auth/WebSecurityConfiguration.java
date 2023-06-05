@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.application.auth;
 
-import de.stinner.anmeldetool.application.rest.ApiEndpoints;
+import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +19,8 @@ public class WebSecurityConfiguration {
                 .cors().and()
                 .authorizeRequests(req -> req
                         .requestMatchers(
-                                ApiEndpoints.Actuator.READINESS,
-                                ApiEndpoints.Actuator.LIVENESS
+                                ActuatorEndpoints.READINESS,
+                                ActuatorEndpoints.LIVENESS
                         ).permitAll()
                         .anyRequest()
                         .authenticated()

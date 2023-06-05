@@ -11,12 +11,4 @@ public final class ApiEndpoints {
     public static class V1 {
         private static final String BASE_V1 = BASE + "/v1";
     }
-
-    @UtilityClass
-    public static final class Actuator {
-        private static final String BASE_ACTUATOR = BASE + "/actuator";
-        private static final String HEALTH = BASE_ACTUATOR + "/health";
-        public static final String READINESS = HEALTH + "/readiness";
-        public static final String LIVENESS = HEALTH + "/liveness";
-    }
 }

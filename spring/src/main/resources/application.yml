@@ -84,4 +84,4 @@ management:
       enabled: true
   endpoints:
     web:
-      base-path: /api/actuator
+      base-path: /actuator

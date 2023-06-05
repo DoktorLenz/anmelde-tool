@@ -23,11 +23,6 @@ class ApiEndpointsTest {
         assertThatFieldsContainingString(ApiEndpoints.V1.class, "/v1");
     }
 
-    @Test
-    void allPathsInActuatorMustContainActuator() {
-        assertThatFieldsContainingString(ApiEndpoints.Actuator.class, "/actuator");
-    }
-
     private void assertThatFieldsContainingString(Class<?> c, String contains) {
         List<Field> fields = Arrays.stream(c.getDeclaredFields())
                 .filter(field -> field.getType().equals(String.class))

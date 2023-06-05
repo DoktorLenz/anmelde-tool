@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.application.auth;
 
-import de.stinner.anmeldetool.application.rest.ApiEndpoints;
+import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
 import de.stinner.anmeldetool.base.BaseControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -11,13 +11,13 @@ class ActuatorIT extends BaseControllerTest {
 
     @Test
     void readinessEndpointShouldBeReachableWithoutAuth() {
-        given().when().get(ApiEndpoints.Actuator.READINESS)
+        given().when().get(ActuatorEndpoints.READINESS)
                 .then().statusCode(HttpStatus.OK.value());
     }
 
     @Test
     void livenessActuatorShouldBeReachableWithoutAuth() {
-        given().when().get(ApiEndpoints.Actuator.LIVENESS)
+        given().when().get(ActuatorEndpoints.LIVENESS)
                 .then().statusCode(HttpStatus.OK.value());
     }
 }
