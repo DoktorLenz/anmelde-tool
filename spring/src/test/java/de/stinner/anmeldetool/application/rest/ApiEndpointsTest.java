@@ -24,10 +24,9 @@ class ApiEndpointsTest {
     }
 
     @Test
-    void allPathsInAuthMustContainAuth() {
-        assertThatFieldsContainingString(ApiEndpoints.V1.Auth.class, "/auth");
+    void allPathsInActuatorMustContainActuator() {
+        assertThatFieldsContainingString(ApiEndpoints.Actuator.class, "/actuator");
     }
-
 
     private void assertThatFieldsContainingString(Class<?> c, String contains) {
         List<Field> fields = Arrays.stream(c.getDeclaredFields())
