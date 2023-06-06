@@ -1,26 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { authGuard } from './auth/guards/auth.guard';
 import { BaseRoute } from './lib/routes/base-route';
 import { AuthRoute } from './lib/routes/auth-route';
+import { CallbackComponent } from './pages/callback/callback.component';
+import { AutoLoginPartialRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
-    canActivate: [authGuard],
+    redirectTo: BaseRoute.HOME,
+    pathMatch: 'full',
   },
   {
     path: `${BaseRoute.AUTH}/${AuthRoute.CALLBACK}`,
-    redirectTo: '/',
+    component: CallbackComponent,
   },
   {
-    path: BaseRoute.SIGNED_OUT,
-    loadChildren: () => import('./pages/signed-out/signed-out.module').then(m => m.SignedOutModule),
-  },
-  {
-    path: '**',
-    redirectTo: '/',
+    path: BaseRoute.HOME,
+    loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
+    canActivate: [AutoLoginPartialRoutesGuard],
   },
 ];
 
