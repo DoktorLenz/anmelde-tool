@@ -23,21 +23,6 @@ spring:
           issuer-uri: http://localhost:8080
           jwk-set-uri: http://localhost:8080/oauth/v2/keys
 
-  mail:
-    host: ${anmelde-tool.mail.host}
-    port: ${anmelde-tool.mail.port}
-    username: ${anmelde-tool.mail.username}
-    password: ${anmelde-tool.mail.password}
-    templates:
-      path: "mail/templates"
-    properties:
-      mail:
-        debug: false
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
 anmelde-tool:
   baseUrl: "http://localhost:4200"
   db:
@@ -47,26 +32,6 @@ anmelde-tool:
     username: "anmelde_tool"
     password: "anmelde_tool"
     db-name: "anmelde_tool"
-  mail:
-    host: localhost
-    port: 1025
-    username: admin
-    password: admin
-    noreply: noreply@localhost
-  reset-password:
-    cleanup:
-      # Lifespan in minutes
-      lifespan: 60
-      cron: "0 0 * * * *"
-    mail:
-      pending-cron: "0 */10 * * * *"
-  registration:
-    cleanup:
-      # Lifespan in minutes
-      lifespan: 60
-      cron: "0 0 * * * *"
-    mail:
-      pending-cron: "0 */10 * * * *"
   logging:
     file:
       size-limit: 5MB
