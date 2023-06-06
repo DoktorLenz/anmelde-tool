@@ -1,5 +1,6 @@
 server:
-  port: 8443
+  port: 38080
+
 
 spring:
   application:
@@ -9,28 +10,24 @@ spring:
     url: jdbc:postgresql://${anmelde-tool.db.url}:${anmelde-tool.db.port}/${anmelde-tool.db.db-name}?useSSL=${anmelde-tool.db.useSSL}&serverTimezone=Europe/Berlin
     username: ${anmelde-tool.db.username}
     password: ${anmelde-tool.db.password}
-    driver-class-name: org.postgresql.Driver
 
   liquibase:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
     drop-first: true
 
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    templates:
-      path: "mail/templates"
-    properties:
-      mail:
-        debug: false
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${anmelde-tool.oauth2.issuer-uri}
 
 anmelde-tool:
+  baseUrl: "http://localhost:4200"
+  oauth2:
+    issuer-uri: "http://localhost:8080"
+    clientId: "215538524160589831@anmelde-tool"
+    secure-routes:
+      - "/api"
   db:
     url: localhost
     port: 5432
@@ -38,20 +35,6 @@ anmelde-tool:
     username: "anmelde_tool"
     password: "anmelde_tool"
     db-name: "anmelde_tool"
-  reset-password:
-    cleanup:
-      # Lifespan in minutes
-      lifespan: 60
-      cron: "0 0 * * * *"
-    mail:
-      pending-cron: "0 */10 * * * *"
-  registration:
-    cleanup:
-      # Lifespan in minutes
-      lifespan: 60
-      cron: "0 0 * * * *"
-    mail:
-      pending-cron: "0 */10 * * * *"
   logging:
     file:
       size-limit: 5MB
@@ -67,3 +50,6 @@ management:
       enabled: true
     readinessState:
       enabled: true
+  endpoints:
+    web:
+      base-path: /actuator

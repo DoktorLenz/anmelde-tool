@@ -30,7 +30,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
           },
@@ -68,7 +72,8 @@
               "browserTarget": "anmelde-tool-frontend:build:production"
             },
             "development": {
-              "browserTarget": "anmelde-tool-frontend:build:development"
+              "browserTarget": "anmelde-tool-frontend:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -93,11 +98,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
-            "codeCoverage": true
+            "codeCoverage": true,
+            "main": "src/test.ts"
           }
         },
         "lint": {
@@ -105,9 +115,41 @@
           "options": {
             "cache": true,
             "lintFilePatterns": [
+              "cypress/**/*.ts",
               "src/**/*.ts",
               "src/**/*.html"
             ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "anmelde-tool-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "anmelde-tool-frontend:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "anmelde-tool-frontend:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "anmelde-tool-frontend:serve:production"
+            }
           }
         }
       }
@@ -115,7 +157,9 @@
   },
   "cli": {
     "schematicCollections": [
-      "@angular-eslint/schematics"
+      "@cypress/schematic",
+      "@angular-eslint/schematics",
+      "@schematics/angular"
     ]
   }
 }

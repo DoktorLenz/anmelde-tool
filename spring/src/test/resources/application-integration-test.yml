@@ -2,7 +2,7 @@ spring:
   #  main:
   #    allow-bean-definition-overriding: true
 
-  # Set proper path to database
+  # Set proper path to tc-database
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:postgresql:14.0:///anmelde_tool?serverTimezone=Europe/Berlin?TC_DAEMON=true?user=anmelde_tool
@@ -13,8 +13,14 @@ spring:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
     drop-first: true
 
-  mail:
-    host:
-    port:
-    username:
-    password:
+anmelde-tool:
+  oauth2:
+    issuer-uri: "https://oidc-provider.test"
+    clientId: "1234567890@client"
+    secure-routes:
+      - "/api"
+      - "https://example.com"
+        
+logging:
+  level:
+    de.stinner.anmeldetool: DEBUG

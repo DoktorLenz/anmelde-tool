@@ -1,0 +1,60 @@
+#
+# Starts shared infrastructure required for running certain services of the Movie-DB.
+#
+version: "3.9"
+services:
+
+  mail_hog:
+    container_name: mailhog_dev
+    build:
+      context: ../..
+      dockerfile: docker/mailhog/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  db:
+    container_name: database_dev
+    image: postgres:15.3-alpine
+    environment:
+      - POSTGRES_USER=anmelde_tool
+      - POSTGRES_PASSWORD=anmelde_tool
+      - POSTGRES_DB=anmelde_tool
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+
+  zitadel:
+    container_name: zitadel_dev
+    restart: 'always'
+    image: 'ghcr.io/zitadel/zitadel:v2.27.0'
+    command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
+    environment:
+      - ZITADEL_LOG_LEVEL=debug
+      - ZITADEL_EXTERNALSECURE=false
+      - ZITADEL_DATABASE_COCKROACH_HOST=crdb
+    depends_on:
+      crdb:
+        condition: 'service_healthy'
+    ports:
+      - '8080:8080'
+
+  crdb:
+    container_name: cockroach_dev
+    restart: 'always'
+    build:
+      context: ../..
+      dockerfile: docker/cockroach/Dockerfile
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health?ready=1"]
+      interval: '10s'
+      timeout: '30s'
+      retries: 5
+      start_period: '20s'
+    volumes:
+      - "../../docker/cockroach/data.tar.gz:/cockroach/data.tar.gz:rw"
+      - "../../docker/cockroach/dump.sh:/cockroach/dump.sh:ro"
+    ports:
+      - '9090:8080'
+      - '26257:26257'

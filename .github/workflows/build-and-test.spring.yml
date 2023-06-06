@@ -80,7 +80,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Compile Tests
-        run: mvn test-compile
+        run: mvn clean resources:testResources compiler:compile compiler:testCompile
       
       - name: Run Unit Tests and Upload to Sonar
         env:

@@ -1,8 +1,11 @@
-FROM openjdk:17
+FROM openjdk:17-alpine
 
 COPY ./spring/target/*.jar /app/anmelde-tool.jar
 
-ENTRYPOINT ["java","-jar","/app/title-service.jar"]
+ENTRYPOINT ["java","-jar","/app/anmelde-tool.jar"]
 
-EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s \
+  CMD wget -qO- http://localhost:38080/actuator/health/readiness || exit 1
+
+EXPOSE 38080
 

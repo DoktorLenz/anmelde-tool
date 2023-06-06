@@ -10,7 +10,7 @@
     </parent>
     <groupId>de.stinner</groupId>
     <artifactId>anmelde-tool</artifactId>
-    <version>${version}</version>
+    <version>0.0.1</version>
     <name>Anmelde-Tool Backend</name>
     <description>Backend for Anmelde-Tool</description>
     <properties>
@@ -27,7 +27,7 @@
         <org.testcontainers.version>1.17.6</org.testcontainers.version>
         <org.checkstyle.plugin.version>3.2.1</org.checkstyle.plugin.version>
         <org.checkstyle.version>10.9.3</org.checkstyle.version>
-        <org.jacoco.version>0.8.8</org.jacoco.version>
+        <org.jacoco.version>0.8.10</org.jacoco.version>
 
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.thymeleaf.version>3.1.1.RELEASE</org.thymeleaf.version>
@@ -61,6 +61,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
 
         <dependency>
@@ -225,6 +230,14 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>de.stinner.anmeldetool.AnmeldeToolBackendApplication</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -292,6 +305,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${org.jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>de/stinner/anmeldetool/application/auth/WebSecurityConfiguration*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>
