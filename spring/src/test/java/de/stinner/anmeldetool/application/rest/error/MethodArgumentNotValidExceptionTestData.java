@@ -31,4 +31,16 @@ public class MethodArgumentNotValidExceptionTestData {
         return exception;
 
     }
+
+    @SneakyThrows
+    public static MethodArgumentNotValidException getMethodArgumentNotValidExceptionWithoutRejectedValue() {
+        FieldError fieldError1 = new FieldError("user", FIELD_NAME_1, null, false, null, null, null);
+
+        MethodArgumentNotValidException exception =
+                new MethodArgumentNotValidException(new MethodParameter(String.class.getMethod("toString"), -1), new MapBindingResult(Map.of(), "test"));
+
+        exception.getBindingResult().addError(fieldError1);
+
+        return exception;
+    }
 }

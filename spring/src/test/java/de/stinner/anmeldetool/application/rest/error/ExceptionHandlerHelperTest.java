@@ -23,4 +23,18 @@ class ExceptionHandlerHelperTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void when_getErrorsFromValidation_withNoRejectedValue_thenErrorReturned() {
+        List<String> expected = List.of(
+                "Field error on field '%s': rejected value [null], because null."
+                        .formatted(FIELD_NAME_1)
+        );
+
+        List<String> actual = ExceptionHandlerHelper.getErrorsFromValidation(
+                getMethodArgumentNotValidExceptionWithoutRejectedValue()
+        );
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }

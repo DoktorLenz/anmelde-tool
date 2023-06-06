@@ -6,6 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.http.*;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -51,14 +56,32 @@ class RestControllerExceptionHandlerTest {
     }
 
     @Nested
+    @ExtendWith(OutputCaptureExtension.class)
     class ResponseStatusExceptionTest {
         @Test
-        void responseStatusException500Returns500() {
+        void responseStatusException500Returns500(CapturedOutput output) {
             final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             final ResponseStatusException e = new ResponseStatusException(status);
             final ResponseEntity<ErrorResponse> response = handler.handleResponseStatusException(e, request);
 
             validate(response, status, ErrorMessages.INTERNAL_SERVER_ERROR);
+            // Internal Server error must be logged!!!
+            assertThat(output.getOut()).contains("Internal Server error occurred!", e.toString());
+        }
+
+        @Test
+        void responseStatusExceptionNullReturns500(CapturedOutput output) {
+            try (MockedStatic<HttpStatus> httpStatusMock = Mockito.mockStatic(HttpStatus.class)) {
+                httpStatusMock.when(() -> HttpStatus.resolve(Mockito.anyInt())).thenReturn(null);
+
+                final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+                final ResponseStatusException e = new ResponseStatusException(status);
+                final ResponseEntity<ErrorResponse> response = handler.handleResponseStatusException(e, request);
+
+                validate(response, status, ErrorMessages.INTERNAL_SERVER_ERROR);
+                // Internal Server error must be logged!!!
+                assertThat(output.getOut()).contains("Internal Server error occurred!", e.toString());
+            }
         }
 
         @Test
