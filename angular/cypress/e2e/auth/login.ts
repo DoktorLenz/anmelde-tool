@@ -9,5 +9,5 @@ Given('I login with email {string} and password {string}', (username: string, pa
   cy.get('#submit-button').click();
   cy.get('#password').type(password);
   cy.get('#submit-button').click();
-  cy.url().should('eq', 'http://localhost:4200/');
+  cy.url().should('eq', 'http://localhost:4200/home');
 });
