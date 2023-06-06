@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/auth/services/authentication.serv
 export class SignedOutComponent {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
-  protected triggerAuthentication(): void {
-    this.authenticationService.authenticate();
+  protected async triggerAuthentication(): Promise<void> {
+    await this.authenticationService.authenticate();
   }
 }

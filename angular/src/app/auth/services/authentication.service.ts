@@ -25,7 +25,7 @@ export class AuthenticationService {
     return this._authenticationChanged;
   }
 
-  public getOIDCUser(): Observable<any> {
+  public getOIDCUser(): Observable<object> {
     return from(this.oauthService.loadUserProfile());
   }
 
