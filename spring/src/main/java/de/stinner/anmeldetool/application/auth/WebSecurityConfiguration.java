@@ -1,6 +1,7 @@
 package de.stinner.anmeldetool.application.auth;
 
 import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
+import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,8 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 ActuatorEndpoints.READINESS,
-                                ActuatorEndpoints.LIVENESS
+                                ActuatorEndpoints.LIVENESS,
+                                ApiEndpoints.V1.CONFIGURATION
                         )
                         .permitAll()
                         .anyRequest()

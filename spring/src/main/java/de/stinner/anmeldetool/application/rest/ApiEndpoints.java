@@ -10,5 +10,7 @@ public final class ApiEndpoints {
     @UtilityClass
     public static class V1 {
         private static final String BASE_V1 = BASE + "/v1";
+
+        public static final String CONFIGURATION = BASE_V1 + "/configuration";
     }
 }

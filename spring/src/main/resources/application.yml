@@ -10,7 +10,6 @@ spring:
     url: jdbc:postgresql://${anmelde-tool.db.url}:${anmelde-tool.db.port}/${anmelde-tool.db.db-name}?useSSL=${anmelde-tool.db.useSSL}&serverTimezone=Europe/Berlin
     username: ${anmelde-tool.db.username}
     password: ${anmelde-tool.db.password}
-    driver-class-name: org.postgresql.Driver
 
   liquibase:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
@@ -20,11 +19,15 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080
-          jwk-set-uri: http://localhost:8080/oauth/v2/keys
+          issuer-uri: ${anmelde-tool.oauth2.issuer-uri}
 
 anmelde-tool:
   baseUrl: "http://localhost:4200"
+  oauth2:
+    issuer-uri: "http://localhost:8080"
+    clientId: "215538524160589831@anmelde-tool"
+    secure-routes:
+      - "/api"
   db:
     url: localhost
     port: 5432
