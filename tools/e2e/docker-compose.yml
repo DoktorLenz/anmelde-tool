@@ -34,11 +34,9 @@ services:
       - anmelde-tool.baseUrl=http://localhost
       - anmelde-tool.db.url=db
       - anmelde-tool.db.port=5432
-      - anmelde-tool.mail.host=mail_hog
-      - anmelde-tool.mail.port=1025
     restart: unless-stopped
     ports:
-      - "38080:8080"
+      - "38080:38080"
     depends_on:
       - db
 
