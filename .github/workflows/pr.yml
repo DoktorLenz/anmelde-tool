@@ -258,7 +258,7 @@ jobs:
   e2e-test:
     name: Run Cypress e2e Tests
     runs-on: ubuntu-latest
-    needs: [build-frontend, build-backend, sonar-frontend, unit-test-frontend, unit-test-backend, integration-test-backend]
+    needs: [sonar-frontend, unit-test-frontend, unit-test-backend, integration-test-backend]
     timeout-minutes: 10
 
     steps:
