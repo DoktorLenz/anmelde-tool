@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -109,6 +110,21 @@ public class RestControllerExceptionHandler {
                 responseStatus,
                 request
         ).withDetails(details).build();
+
+        return new ResponseEntity<>(errorResponse, responseStatus);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(
+            final HttpServletRequest request
+    ) {
+        final HttpStatus responseStatus = HttpStatus.BAD_REQUEST;
+
+        ErrorResponse errorResponse = new ErrorResponseBuilder(
+                ErrorMessages.MISSING_REQUEST_BODY,
+                responseStatus,
+                request
+        ).build();
 
         return new ResponseEntity<>(errorResponse, responseStatus);
     }

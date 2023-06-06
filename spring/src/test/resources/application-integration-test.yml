@@ -13,6 +13,13 @@ spring:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
     drop-first: true
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+          jwk-set-uri: http://localhost:8080/oauth/v2/keys
+
   mail:
     host:
     port:

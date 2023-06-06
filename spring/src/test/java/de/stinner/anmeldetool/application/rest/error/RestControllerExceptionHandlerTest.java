@@ -155,6 +155,18 @@ class RestControllerExceptionHandlerTest {
     }
 
     @Nested
+    class HttpMessageNotReadableExceptionTest {
+        @Test
+        void handleHttpMessageNotReadableExceptionReturns400() {
+            validate(
+                    handler.handleHttpMessageNotReadableException(request),
+                    HttpStatus.BAD_REQUEST,
+                    ErrorMessages.MISSING_REQUEST_BODY
+            );
+        }
+    }
+
+    @Nested
     class HttpRequestMethodNotSupportedExceptionTest {
         @Test
         void handleHttpRequestMethodNotSupportedExceptionReturns405() {
