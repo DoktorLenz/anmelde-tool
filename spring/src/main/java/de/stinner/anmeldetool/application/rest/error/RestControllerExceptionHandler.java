@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Slf4j
 @RestControllerAdvice
@@ -172,7 +173,7 @@ public class RestControllerExceptionHandler {
         HttpStatus responseStatus = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
 
         String errorMessage = ErrorMessages.getMediaTypeNotSupportedMessage(
-                e.getContentType().toString(),
+                Objects.requireNonNull(e.getContentType()).toString(),
                 e.getSupportedMediaTypes()
         );
 

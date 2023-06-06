@@ -20,17 +20,17 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     void when_tryInvalidHttpMethod_then_405_response() {
         given().contentType(ContentType.JSON)
                 .when().post(EXCEPTION_TEST_ENDPOINT)
-                .then().status(HttpStatus.METHOD_NOT_ALLOWED);
+                .then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
 
 
         given().contentType(ContentType.JSON)
                 .when().put(EXCEPTION_TEST_ENDPOINT)
-                .then().status(HttpStatus.METHOD_NOT_ALLOWED);
+                .then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
 
 
         given().contentType(ContentType.JSON)
                 .when().delete(EXCEPTION_TEST_ENDPOINT)
-                .then().status(HttpStatus.METHOD_NOT_ALLOWED);
+                .then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     @Test

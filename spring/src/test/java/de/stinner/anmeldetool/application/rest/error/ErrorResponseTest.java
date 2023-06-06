@@ -38,7 +38,7 @@ class ErrorResponseTest {
             mockedStatic.when(Instant::now).thenReturn(instant);
             ErrorResponse response = new ErrorResponse(null, null, 0, null);
 
-            assertThat(response.getTimestamp().toString()).isEqualTo(instantExpected);
+            assertThat(response.getTimestamp()).hasToString(instantExpected);
         }
     }
 }
