@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
@@ -15,7 +14,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "user_roles")
 public class UserRolesEntity {
@@ -30,6 +28,10 @@ public class UserRolesEntity {
 
     @Type(ListArrayType.class)
     private List<String> roles;
+
+    public UserRolesEntity() {
+        this.roles = new ArrayList<>();
+    }
 
     public UserRolesEntity(String subject) {
         this.subject = subject;
