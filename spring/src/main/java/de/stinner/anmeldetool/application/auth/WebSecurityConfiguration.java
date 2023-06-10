@@ -5,36 +5,48 @@ import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @RequiredArgsConstructor
 @Configuration
+@EnableMethodSecurity(
+        jsr250Enabled = true // allows use of @RolesAllowed
+)
 public class WebSecurityConfiguration {
+
+    private final GrantedAuthoritiesJwtConverter jwtAuthenticationConverter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+        // CSRF
         http
-                .csrf().csrfTokenRepository(new CookieCsrfTokenRepository())
-                .and()
-                .cors();
+                .csrf(httpSecurityCsrfConfigurer ->
+                        httpSecurityCsrfConfigurer.csrfTokenRepository(new CookieCsrfTokenRepository())
+                );
 
+        // AUTHENTICATION
         http
-                .httpBasic().disable()
-                .formLogin().disable()
-                .oauth2ResourceServer(
-                        httpSecurityOAuth2ResourceServerConfigurer -> httpSecurityOAuth2ResourceServerConfigurer
-                                .jwt(jwtConfigurer -> {
-                                }));
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
+                        httpSecurityOAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> {
+                                    jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
+                                }
+                        )
+                );
 
+        // SESSION
         http
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
+        // AUTHORIZATION
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(

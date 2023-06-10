@@ -155,6 +155,18 @@ class RestControllerExceptionHandlerTest {
     }
 
     @Nested
+    class AccessDeniedExceptionTest {
+        @Test
+        void handleAccessDeniedExceptionReturns403() {
+            validate(
+                    handler.handleAccessDeniedException(request),
+                    HttpStatus.FORBIDDEN,
+                    ErrorMessages.FORBIDDEN
+            );
+        }
+    }
+
+    @Nested
     class HttpMessageNotReadableExceptionTest {
         @Test
         void handleHttpMessageNotReadableExceptionReturns400() {

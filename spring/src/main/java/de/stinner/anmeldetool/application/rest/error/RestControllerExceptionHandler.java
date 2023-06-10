@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -95,6 +96,18 @@ public class RestControllerExceptionHandler {
             final HttpServletRequest request
     ) {
         return notFoundResponse(request);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity<ErrorResponse> handleAccessDeniedException(
+            final HttpServletRequest request
+    ) {
+        HttpStatus responseStatus = HttpStatus.FORBIDDEN;
+
+        ErrorResponse errorResponse =
+                new ErrorResponseBuilder(ErrorMessages.FORBIDDEN, responseStatus, request).build();
+
+        return new ResponseEntity<>(errorResponse, responseStatus);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

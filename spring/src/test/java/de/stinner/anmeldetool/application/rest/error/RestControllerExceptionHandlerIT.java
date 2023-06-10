@@ -170,6 +170,18 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     @Test
     @SneakyThrows
     @WithMockUser
+    void when_accessDeniedException_then_403_response() {
+        ErrorResponse errorResponse = given()
+                .when().get(ACCESS_DENIED_EXCEPTION_TEST_ENDPOINT)
+                .then().status(HttpStatus.FORBIDDEN)
+                .extract().as(ErrorResponse.class);
+
+        assertErrorResponse(errorResponse, HttpStatus.FORBIDDEN, ErrorMessages.FORBIDDEN);
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser
     void when_ResponseStatusExceptionThrown_then_properCodeReturned_404_withReason() {
         final String reason = "best reason!";
 
