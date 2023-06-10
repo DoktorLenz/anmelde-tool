@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,10 +29,10 @@ public class UserRolesEntity {
     private String subject;
 
     @Type(ListArrayType.class)
-    private Set<String> roles;
+    private List<String> roles;
 
     public UserRolesEntity(String subject) {
         this.subject = subject;
-        this.roles = new HashSet<>();
+        this.roles = new ArrayList<>();
     }
 }

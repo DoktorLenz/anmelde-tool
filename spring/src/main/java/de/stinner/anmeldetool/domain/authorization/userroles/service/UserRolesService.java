@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,13 +24,11 @@ public class UserRolesService {
      * @return roles for the given subject
      */
     @Transactional
-    public Set<String> getRolesFromSubject(String subject) {
-        List<UserRolesEntity> list = userRolesRepository.findAll();
-
-        return userRolesRepository.findById(subject).orElseGet(() -> addUserToUserRoles(subject)).getRoles();
+    public List<String> getRolesForSubject(String subject) {
+        return userRolesRepository.findById(subject).orElseGet(() -> addSubjectToUserRoles(subject)).getRoles();
     }
 
-    private UserRolesEntity addUserToUserRoles(String subject) {
+    private UserRolesEntity addSubjectToUserRoles(String subject) {
         UserRolesEntity entity = new UserRolesEntity(subject);
         return userRolesRepository.save(entity);
     }
