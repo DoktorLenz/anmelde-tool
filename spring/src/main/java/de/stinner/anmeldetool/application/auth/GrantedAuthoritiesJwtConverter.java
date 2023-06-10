@@ -22,14 +22,14 @@ public class GrantedAuthoritiesJwtConverter implements Converter<Jwt, JwtAuthent
 
     private final UserRolesService userRolesService;
     @Value("${anmelde-tool.oidc.superuser-sub}")
-    private String rootSub;
+    private String superuserSubject;
 
     @Override
     public JwtAuthenticationToken convert(@NonNull Jwt source) {
         final String subject = source.getSubject();
         final List<String> roles;
 
-        if (subject.equals(rootSub)) {
+        if (subject.equals(superuserSubject)) {
             roles = Role.SUPERUSER;
         } else {
             roles = userRolesService.getRolesForSubject(source.getSubject());
