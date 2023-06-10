@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.application.rest.error;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,6 +35,9 @@ public class ExceptionHandlerTestController {
 
     public static final String UNSUPPORTED_MEDIA_TYPE_EXCEPTION_TEST_ENDPOINT =
             "/test/exception/unsupported-media-type";
+
+    public static final String ACCESS_DENIED_EXCEPTION_TEST_ENDPOINT =
+            "/test/exception/access-denied";
 
     @GetMapping(value = EXCEPTION_TEST_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> exception() {
@@ -81,6 +85,12 @@ public class ExceptionHandlerTestController {
 
     @PostMapping(value = UNSUPPORTED_MEDIA_TYPE_EXCEPTION_TEST_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> unsupportedMediaTypeException(@RequestBody String value) {
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(ACCESS_DENIED_EXCEPTION_TEST_ENDPOINT)
+    @RolesAllowed("NEEDED_ROLE")
+    public ResponseEntity<Void> accessDeniedException() {
         return ResponseEntity.noContent().build();
     }
 
