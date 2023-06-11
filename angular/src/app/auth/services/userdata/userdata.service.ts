@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Role } from './models/role.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserdataService {
 
-  private _roles: string[] = [];
+  private _roles: Role[] = [];
 
-  public get roles(): string[] {
+  public get roles(): Role[] {
     return this._roles;
   }
 
@@ -17,15 +18,11 @@ export class UserdataService {
     this.securityService.checkSessionChanged$.subscribe(() => this.updateUserdata());
   }
 
-
   public updateUserdata(): void {
-    // this.securityService..subscribe((a) => console.warn(a));
-    this.http.get<string[]>('/api/v1/auth/user-roles').subscribe({
-      next: (a) => {
-        this._roles = a;
-        console.warn(a);
+    this.http.get<Role[]>('/api/v1/auth/user-roles').subscribe({
+      next: (roles) => {
+        this._roles = roles;
       },
     });
   }
-
 }
