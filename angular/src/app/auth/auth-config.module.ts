@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AuthModule, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
+import { AuthInterceptor, AuthModule, StsConfigHttpLoader, StsConfigLoader }
+  from 'angular-auth-oidc-client';
 import { map } from 'rxjs';
 import { Configuration } from '../lib/models/configuration/configuration';
 import { BaseRoute } from '../lib/routes/base-route';
@@ -35,5 +36,8 @@ export const httpLoaderFactory = (httpClient: HttpClient) => {
     },
   })],
   exports: [AuthModule],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
 })
 export class AuthConfigModule {}
