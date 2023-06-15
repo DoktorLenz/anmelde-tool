@@ -16,7 +16,7 @@ export class CallbackComponent implements OnInit {
   public ngOnInit(): void {
     this.securityService.checkAuth()
       .pipe(
-        switchMap(() =>{
+        switchMap(() => {
           return this.router.navigate([BaseRoute.HOME]);
         }),
       )
