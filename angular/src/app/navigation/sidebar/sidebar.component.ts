@@ -57,6 +57,7 @@ export class SidebarComponent {
     private readonly userDataService: UserDataService,
     private readonly cdr: ChangeDetectorRef,
   ) {
+
     this.userDataService.userData$.subscribe({
       next: (userData: UserData) => {
         this.menuItems = [...this.userMenuItems];
@@ -64,12 +65,6 @@ export class SidebarComponent {
           this.menuItems.push(...this.adminMenuItems);
         }
         this.cdr.detectChanges();
-      },
-      error: () => {
-        this.menuItems = [];
-      },
-      complete: () => {
-
       },
     });
   }
