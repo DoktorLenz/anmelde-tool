@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
     canActivate: [AutoLoginPartialRoutesGuard],
   },
+  { path: 'admin',
+    loadChildren: () => import('./pages/administration/administration.module')
+      .then(m => m.AdministrationModule),
+    canActivate: [AutoLoginPartialRoutesGuard],
+  },
 ];
 
 @NgModule({
