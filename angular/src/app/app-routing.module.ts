@@ -20,9 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
     canActivate: [AutoLoginPartialRoutesGuard],
   },
-  { path: 'admin',
-    loadChildren: () => import('./pages/administration/administration.module')
-      .then(m => m.AdministrationModule),
+  {
+    path: 'user-management',
+    loadChildren: () => import('./pages/user-management/user-management.module')
+      .then(m => m.UserManagementModule),
     canActivate: [AutoLoginPartialRoutesGuard],
   },
 ];
