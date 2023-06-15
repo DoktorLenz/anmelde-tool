@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NamiMembersComponent } from './nami-members/nami-members.component';
 import { OverviewComponent } from './overview/overview.component';
+import { UserManagementRoute } from 'src/app/lib/routes/user-management-route.enum';
 
 const routes: Routes = [
   {
@@ -10,11 +11,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'overview',
+    path: UserManagementRoute.OVERVIEW,
     component: OverviewComponent,
   },
   {
-    path: 'nami-members',
+    path: UserManagementRoute.NAMI_MEMBERS,
     component: NamiMembersComponent,
   },
 ];

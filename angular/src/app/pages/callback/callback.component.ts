@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { switchMap } from 'rxjs';
-import { BaseRoute } from 'src/app/lib/routes/base-route';
+import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
 
 @Component({
   template: '<p>You are logged in. Redirecting...</p>',

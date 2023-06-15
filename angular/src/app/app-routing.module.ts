@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BaseRoute } from './lib/routes/base-route';
-import { AuthRoute } from './lib/routes/auth-route';
+import { BaseRoute } from './lib/routes/base-route.enum';
+import { AuthRoute } from './lib/routes/auth-route.enum';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { AutoLoginPartialRoutesGuard } from 'angular-auth-oidc-client';
 
@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [AutoLoginPartialRoutesGuard],
   },
   {
-    path: 'user-management',
+    path: BaseRoute.USER_MANAGEMENT,
     loadChildren: () => import('./pages/user-management/user-management.module')
       .then(m => m.UserManagementModule),
     canActivate: [AutoLoginPartialRoutesGuard],
