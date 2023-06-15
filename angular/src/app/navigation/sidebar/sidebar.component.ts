@@ -55,7 +55,6 @@ export class SidebarComponent {
   constructor(
     private readonly navigationService: NavigationService,
     private readonly userDataService: UserDataService,
-    private readonly cdr: ChangeDetectorRef,
   ) {
 
     this.userDataService.userData$.subscribe({
@@ -64,7 +63,6 @@ export class SidebarComponent {
         if (userData.authorities?.find((role) => role === Role.ADMIN)) {
           this.menuItems.push(...this.adminMenuItems);
         }
-        this.cdr.detectChanges();
       },
     });
   }
