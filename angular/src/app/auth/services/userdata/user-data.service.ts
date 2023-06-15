@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventTypes, OidcClientNotification, PublicEventsService } from 'angular-auth-oidc-client';
-import { Role } from './models/role.enum';
 import { Observable, ReplaySubject, filter } from 'rxjs';
-import { UserData } from './models/user-data';
-import { OidcUserData } from './models/oidc-user-data';
+import { OidcUserData } from '../../models/oidc-user-data';
+import { UserData } from '../../models/user-data';
+import { Role } from '../../models/role.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,13 @@ export class UserDataService {
     private readonly http: HttpClient,
     private readonly eventService: PublicEventsService,
   ) {
+    this.eventService
+      .registerForEvents()
+      .pipe(
+        // filter((notification) => notification.type === EventTypes.NewAuthenticationResult),
+      )
+      .subscribe((x) => console.warn(x));
+
     this.eventService
       .registerForEvents()
       .pipe(

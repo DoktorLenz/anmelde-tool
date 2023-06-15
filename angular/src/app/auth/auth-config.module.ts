@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AuthInterceptor, AuthModule, StsConfigHttpLoader, StsConfigLoader }
   from 'angular-auth-oidc-client';
 import { map } from 'rxjs';
-import { Configuration } from '../lib/models/configuration/configuration';
+import { Configuration } from './models/configuration';
 import { BaseRoute } from '../lib/routes/base-route';
 import { AuthRoute } from '../lib/routes/auth-route';
 

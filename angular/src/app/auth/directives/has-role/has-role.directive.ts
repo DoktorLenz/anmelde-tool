@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserDataService } from '../../services/userdata/user-data.service';
-import { UserData } from '../../services/userdata/models/user-data';
+import { UserData } from '../../models/user-data';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

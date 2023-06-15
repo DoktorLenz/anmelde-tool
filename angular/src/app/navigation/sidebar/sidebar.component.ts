@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
 import { UserDataService } from 'src/app/auth/services/userdata/user-data.service';
-import { UserData } from 'src/app/auth/services/userdata/models/user-data';
-import { Role } from 'src/app/auth/services/userdata/models/role.enum';
+import { UserData } from 'src/app/auth/models/user-data';
+import { Role } from 'src/app/auth/models/role.enum';
 
 @Component({
   selector: 'at-sidebar',
