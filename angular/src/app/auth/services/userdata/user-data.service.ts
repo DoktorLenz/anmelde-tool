@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventTypes, OidcClientNotification, PublicEventsService } from 'angular-auth-oidc-client';
-import { BehaviorSubject, Observable, filter } from 'rxjs';
+import { BehaviorSubject, Observable, filter, map } from 'rxjs';
 import { OidcUserData } from '../../models/oidc-user-data';
 import { UserData } from '../../models/user-data';
 import { Role } from '../../models/role.enum';
@@ -43,5 +43,13 @@ export class UserDataService {
         },
       });
 
+  }
+
+  public hasRole(role: Role): Observable<boolean> {
+    return this.userData$.pipe(
+      map((userData) => {
+        return userData.authorities?.find((authority) => authority === role) ? true : false;
+      }),
+    );
   }
 }

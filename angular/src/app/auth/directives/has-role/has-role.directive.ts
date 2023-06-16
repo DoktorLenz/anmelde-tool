@@ -1,6 +1,7 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserDataService } from '../../services/userdata/user-data.service';
 import { UserData } from '../../models/user-data';
+import { Role } from '../../models/role.enum';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -8,7 +9,7 @@ import { UserData } from '../../models/user-data';
 })
 export class HasRoleDirective implements OnInit {
 
-  private _requiredRoles: string[] = [];
+  private _requiredRole!: Role;
 
   private _isHidden = true;
 
@@ -29,15 +30,15 @@ export class HasRoleDirective implements OnInit {
    * One of the role is sufficient
    */
   @Input()
-  set hasRole(roles: string[]) {
-    this._requiredRoles = roles;
+  set hasRole(role: Role) {
+    this._requiredRole = role;
     this.updateView();
   }
 
   private updateView(): void {
-    this.userDataService.userData$.subscribe({
-      next: (userData: UserData) => {
-        if (this.checkRole(userData)) {
+    this.userDataService.hasRole(this._requiredRole).subscribe({
+      next: (hasRole: boolean) => {
+        if (hasRole) {
           if (this._isHidden) {
             this.viewContainer.createEmbeddedView(this.templateRef);
             this._isHidden = false;
@@ -47,29 +48,6 @@ export class HasRoleDirective implements OnInit {
           this.viewContainer.clear();
         }
       },
-      error: () => console.error('ERROR'),
-      complete: () => console.warn('COMPLETE'),
     });
-
   }
-
-  private checkRole(userData: UserData): boolean {
-    let hasRole = false;
-
-    if (this._requiredRoles.length === 0) {
-      return true;
-    }
-
-    if (userData.authorities) {
-      for (const neededRole of this._requiredRoles) {
-        hasRole = userData.authorities.find(role => role.toString() === neededRole) ? true : false;
-        if (hasRole) {
-          break;
-        }
-      }
-    }
-
-    return hasRole;
-  }
-
 }
