@@ -1,6 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserDataService } from '../../services/userdata/user-data.service';
-import { UserData } from '../../models/user-data';
 import { Role } from '../../models/role.enum';
 
 @Directive({
