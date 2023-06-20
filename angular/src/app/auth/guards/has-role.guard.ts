@@ -9,23 +9,19 @@ export function hasRoleGuard(requiredRole: Role): CanActivateFn {
     const userDataService: UserDataService = inject(UserDataService);
     const router: Router = inject(Router);
 
-    if (requiredRole) {
-      return userDataService.hasRole(requiredRole)
-        .pipe(
-          map((hasRole: boolean) => {
-            if (hasRole) {
-              return true;
-            } else {
+    return userDataService.hasRole(requiredRole)
+      .pipe(
+        map((hasRole: boolean) => {
+          if (hasRole) {
+            return true;
+          } else {
 
-              const history = router.config;
-              const previousUrl = history[history.length - 2].path;
-              console.warn(previousUrl);
-              return router.createUrlTree([previousUrl]);
-            }
-          }),
-        );
-    } else {
-      throw new Error('[HasRoleGuard]: No role in route data');
-    }
+            const history = router.config;
+            const previousUrl = history[history.length - 2].path;
+            console.warn(previousUrl);
+            return router.createUrlTree([previousUrl]);
+          }
+        }),
+      );
   };
 }
