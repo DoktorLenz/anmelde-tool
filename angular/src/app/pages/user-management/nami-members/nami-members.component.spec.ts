@@ -8,7 +8,7 @@ describe('NamiMembersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NamiMembersComponent]
+      declarations: [NamiMembersComponent],
     });
     fixture = TestBed.createComponent(NamiMembersComponent);
     component = fixture.componentInstance;

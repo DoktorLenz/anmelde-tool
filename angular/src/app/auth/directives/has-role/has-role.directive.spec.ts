@@ -2,7 +2,7 @@ import { MockBuilder, MockRender } from 'ng-mocks';
 import { HasRoleDirective } from './has-role.directive';
 import { Role } from '../../models/role.enum';
 import { UserDataService } from '../../services/userdata/user-data.service';
-import { BehaviorSubject, EMPTY, Subject, of } from 'rxjs';
+import { BehaviorSubject, EMPTY, of } from 'rxjs';
 import { UserData } from '../../models/user-data';
 import { TestBed } from '@angular/core/testing';
 

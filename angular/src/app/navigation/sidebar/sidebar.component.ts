@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { NavigationService } from '../navigation.service';
-import { Observable, filter, tap } from 'rxjs';
+import { Observable, filter } from 'rxjs';
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
 import { UserDataService } from 'src/app/auth/services/userdata/user-data.service';
