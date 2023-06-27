@@ -1,6 +1,7 @@
 <p-menubar>
   <ng-template pTemplate="start">
     <p-button *breakpoint="Breakpoint.LARGE; comparator NumberComparator.lessEquals"
+              data-testid="menu-button"
               (click)="showSidebar()"
               icon="pi pi-bars"></p-button>
     <img src="assets/images/dpsg_ohne.png"
