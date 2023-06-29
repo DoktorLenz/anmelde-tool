@@ -6,7 +6,6 @@ import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum
 @Component({
   selector: 'at-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
