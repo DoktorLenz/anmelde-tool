@@ -28,6 +28,11 @@ updates:
     target-branch: "master"
     labels:
       - "npm dependencies"
+    ignore:
+      # ignore all patches
+      - dependency-name: *
+        update-types: ["version-update:semver-patch"]
+
       
   - package-ecosystem: "maven"
     directory: "/spring"
@@ -36,3 +41,7 @@ updates:
     target-branch: "master"
     labels:
       - "maven dependencies"
+    ignore:
+      # ignore all patches
+      - dependency-name: *
+        update-types: ["version-update:semver-patch"]
