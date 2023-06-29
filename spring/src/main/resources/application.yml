@@ -30,7 +30,7 @@ anmelde-tool:
   oidc:
     # The user with the superuser-sub will have full API access
     # The superuser-sub will be taken from the oauth2 jwt (subject) therefore it is none fungible
-    superuser-sub: "215538795716542471"
+    superuser-sub: ""
   db:
     url: localhost
     port: 5432

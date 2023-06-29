@@ -12,5 +12,12 @@ public final class ApiEndpoints {
         private static final String BASE_V1 = BASE + "/v1";
 
         public static final String CONFIGURATION = BASE_V1 + "/configuration";
+
+        @UtilityClass
+        public static class Auth {
+            private static final String BASE_AUTH = BASE_V1 + "/auth";
+
+            public static final String USERROLES = BASE_AUTH + "/user-roles";
+        }
     }
 }

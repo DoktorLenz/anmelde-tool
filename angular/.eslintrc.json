@@ -47,7 +47,6 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "at",
             "style": "camelCase"
           }
         ],

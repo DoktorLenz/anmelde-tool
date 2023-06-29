@@ -267,6 +267,9 @@
                 <configuration>
                     <excludes>
                         <exclude>de/stinner/anmeldetool/application/auth/WebSecurityConfiguration*</exclude>
+                        <exclude>de/stinner/anmeldetool/application/logging/*</exclude>
+                        <exclude>de/stinner/anmeldetool/**/*DTO.*</exclude>
+                        <exclude>de/stinner/anmeldetool/**/*Entity.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

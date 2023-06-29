@@ -16,10 +16,6 @@ $breakpoint-xl: 1200px;
 
 body {
   margin: 0px;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--gray-300);
 }
 
 .error-color {
@@ -28,12 +24,4 @@ body {
 
 .check-color {
   color: var(--check-color) !important;
-}
-
-.auth-card {
-  @media screen and (min-width: 350px) {
-    width: 350px;
-  }
-
-  width: 100%;
 }

@@ -1,0 +1,17 @@
+<p-menubar>
+  <ng-template pTemplate="start">
+    <p-button *breakpoint="Breakpoint.LARGE; comparator NumberComparator.lessEquals"
+              data-testid="menu-button"
+              (click)="showSidebar()"
+              icon="pi pi-bars"></p-button>
+    <img src="assets/images/dpsg_ohne.png"
+         alt="DPSG-Logo"
+         height="44" />
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-avatar shape="circle"
+              size="large"
+              icon="pi pi-user"
+              styleClass="mr-2"></p-avatar>
+  </ng-template>
+</p-menubar>

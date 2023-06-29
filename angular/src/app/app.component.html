@@ -1,2 +1,10 @@
-<p-toast [breakpoints]="{'600px': {width: '100%', right: '0', left: '0'}}"></p-toast>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <at-header class="app-header"></at-header>
+  <div class="app-content">
+    <at-sidebar class="app-sidebar"></at-sidebar>
+    <div class="app-router-outlet">
+      <router-outlet></router-outlet>
+      <at-footer></at-footer>
+    </div>
+  </div>
+</div>
