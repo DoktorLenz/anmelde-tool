@@ -13,6 +13,7 @@ public final class ApiEndpoints {
 
         public static final String CONFIGURATION = BASE_V1 + "/configuration";
 
+        @UtilityClass
         public static class Auth {
             private static final String BASE_AUTH = BASE_V1 + "/auth";
 
