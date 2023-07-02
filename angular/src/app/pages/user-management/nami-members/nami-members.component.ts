@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SortEvent } from 'primeng/api';
 import { NamiMember } from 'src/app/user-management/nami-members/model/nami-member';
 import { NamiMembersService } from 'src/app/user-management/nami-members/services/nami-members.service';
 

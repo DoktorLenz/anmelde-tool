@@ -23,11 +23,7 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF
-//        http
-//                .csrf(httpSecurityCsrfConfigurer ->
-//                        httpSecurityCsrfConfigurer.csrfTokenRepository(new CookieCsrfTokenRepository())
-//                );
-        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 
         // AUTHENTICATION
         http
