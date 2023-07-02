@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.stinner.anmeldetool.domain.shared.model.Gender;
 import de.stinner.anmeldetool.domain.shared.model.Rank;
-import de.stinner.anmeldetool.domain.usermanagement.namimembers.persistence.NamiMemberEntity;
+import de.stinner.anmeldetool.domain.usermanagement.namimember.persistence.NamiMemberEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.usermanagement.namimembers.persistence;
+package de.stinner.anmeldetool.domain.usermanagement.namimember.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

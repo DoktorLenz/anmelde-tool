@@ -1,7 +1,8 @@
-package de.stinner.anmeldetool.domain.usermanagement.namimembers.persistence;
+package de.stinner.anmeldetool.domain.usermanagement.namimember.persistence;
 
 import de.stinner.anmeldetool.domain.shared.model.Gender;
 import de.stinner.anmeldetool.domain.shared.model.Rank;
+import de.stinner.anmeldetool.domain.usermanagement.namimember.api.models.NamiMemberDto;
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,4 +31,15 @@ public class NamiMemberEntity {
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
     private Gender gender;
+
+
+    public NamiMemberDto toDto() {
+        NamiMemberDto dto = new NamiMemberDto();
+        dto.setMemberId(memberId);
+        dto.setFirstname(firstname);
+        dto.setLastname(lastname);
+        dto.setRank(rank);
+        dto.setGender(gender);
+        return dto;
+    }
 }

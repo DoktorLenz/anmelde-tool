@@ -12,6 +12,10 @@ $breakpoint-xl: 1200px;
 :root {
   --error-color: #e24c4c;
   --check-color: var(--primary-color);
+  --rank-color-woelfling: #ff6400;
+  --rank-color-jungpfadfinder: #2f53a7;
+  --rank-color-pfadfinder: #00823c;
+  --rank-color-rover: #cc1f2f;
 }
 
 body {
@@ -24,4 +28,28 @@ body {
 
 .check-color {
   color: var(--check-color) !important;
+}
+
+.p-password.p-component.p-input-icon-right {
+  width: 100%;
+
+  .p-inputtext.p-component.p-password-input {
+    width: inherit;
+  }
+}
+
+.bg-woelfling {
+  background-color: var(--rank-color-woelfling) !important;
+}
+
+.bg-jungpfadfinder {
+  background-color: var(--rank-color-jungpfadfinder) !important;
+}
+
+.bg-pfadfinder {
+  background-color: var(--rank-color-pfadfinder) !important;
+}
+
+.bg-rover {
+  background-color: var(--rank-color-rover) !important;
 }

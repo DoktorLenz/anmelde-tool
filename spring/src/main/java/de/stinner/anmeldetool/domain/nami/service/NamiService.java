@@ -5,7 +5,7 @@ import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
 import de.stinner.anmeldetool.domain.nami.service.models.NamiMember;
 import de.stinner.anmeldetool.domain.nami.service.models.NamiMembersWrapper;
-import de.stinner.anmeldetool.domain.usermanagement.namimembers.service.NamiMemberService;
+import de.stinner.anmeldetool.domain.usermanagement.namimember.service.NamiMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
