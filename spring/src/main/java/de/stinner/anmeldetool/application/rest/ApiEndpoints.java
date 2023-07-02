@@ -25,5 +25,11 @@ public final class ApiEndpoints {
             private static final String BASE_NAMI = BASE_V1 + "/nami";
             public static final String MEMBER_FETCH = BASE_NAMI + "/member-fetch";
         }
+
+        @UtilityClass
+        public static class Usermanagement {
+            private static final String BASE_USERMANAGEMENT = BASE_V1 + "/usermanagement";
+            public static final String NAMI_MEMBERS = BASE_USERMANAGEMENT + "/nami-members";
+        }
     }
 }

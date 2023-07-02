@@ -1,7 +1,8 @@
-package de.stinner.anmeldetool.domain.usermanagement.namimembers.service;
+package de.stinner.anmeldetool.domain.usermanagement.namimember.service;
 
 import de.stinner.anmeldetool.domain.nami.service.models.NamiMember;
-import de.stinner.anmeldetool.domain.usermanagement.namimembers.persistence.NamiMemberRepository;
+import de.stinner.anmeldetool.domain.usermanagement.namimember.persistence.NamiMemberEntity;
+import de.stinner.anmeldetool.domain.usermanagement.namimember.persistence.NamiMemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,10 @@ public class NamiMemberService {
     @Transactional
     public void importNamiMembers(List<NamiMember> namiMembers) {
         namiMemberRepository.saveAll(namiMembers.stream().map(NamiMember::toNamiMemberEntity).toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<NamiMemberEntity> getAllNamiMembers() {
+        return namiMemberRepository.findAll();
     }
 }
