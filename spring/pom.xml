@@ -40,6 +40,9 @@
         <org.springframework.cloud.wiremock.version>4.0.3</org.springframework.cloud.wiremock.version>
         <com.fasterxml.jackson.datatype.jsr310.version>2.15.2</com.fasterxml.jackson.datatype.jsr310.version>
 
+        <archunit.version>1.0.1</archunit.version>
+        <arch-unit-maven-plugin.version>3.0.0</arch-unit-maven-plugin.version>
+
         <!-- non-dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Sonar-->
@@ -205,6 +208,14 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${archunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -319,6 +330,53 @@
                     </includes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.societegenerale.commons</groupId>
+                <artifactId>arch-unit-maven-plugin</artifactId>
+                <version>${arch-unit-maven-plugin.version}</version>
+                <configuration>
+                    <properties>
+                        <archRule.failOnEmptyShould>false</archRule.failOnEmptyShould>
+                    </properties>
+                    <rules>
+                        <preConfiguredRules>
+                            <rule>com.societegenerale.commons.plugin.rules.NoAutowiredFieldTest</rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoInjectedFieldTest</rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoJavaUtilDateRuleTest</rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoJunitAssertRuleTest</rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoPowerMockRuleTest</rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoPrefixForInterfacesRuleTest</rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoPublicFieldRuleTest</rule>
+                            <!-- No Calls to System.out or System.error -->
+                            <rule>com.societegenerale.commons.plugin.rules.NoStandardStreamRuleTest</rule>
+                            <rule>
+                                com.societegenerale.commons.plugin.rules.StringFieldsThatAreActuallyDatesRuleTest
+                            </rule>
+                            <rule>com.societegenerale.commons.plugin.rules.NoTestIgnoreWithoutCommentRuleTest</rule>
+                        </preConfiguredRules>
+                        <configurableRules>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.ArchUnitMainTests</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool.test</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.TestClassNaming</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool.test</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>test</scope>
+                                </applyOn>
+                            </configurableRule>
+                        </configurableRules>
+                    </rules>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
