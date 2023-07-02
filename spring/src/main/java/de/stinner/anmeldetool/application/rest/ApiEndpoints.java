@@ -6,6 +6,8 @@ import lombok.experimental.UtilityClass;
 public final class ApiEndpoints {
 
     private static final String BASE = "/api";
+    public static final String API_DOCS = BASE + "/api-docs/**";
+    public static final String SWAGGER = BASE + "/swagger/**";
 
     @UtilityClass
     public static class V1 {

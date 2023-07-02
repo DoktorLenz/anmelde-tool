@@ -20,6 +20,7 @@ spring:
         jwt:
           issuer-uri: ${anmelde-tool.oauth2.issuer-uri}
 
+
 anmelde-tool:
   baseUrl: "http://localhost:4200"
   oauth2:
@@ -58,3 +59,8 @@ management:
   endpoints:
     web:
       base-path: /actuator
+springdoc:
+  api-docs:
+    path: /api/api-docs
+  swagger-ui:
+    path: /api/swagger/swagger.html
