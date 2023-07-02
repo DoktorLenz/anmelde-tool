@@ -256,4 +256,28 @@ class RestControllerExceptionHandlerTest {
             );
         }
     }
+
+    @Nested
+    class NamiLoginFailedExceptionTest {
+        @Test
+        void handleNamiLoginFailedExceptionReturns401() {
+            validate(
+                    handler.handleNamiLoginFailedException(request),
+                    HttpStatus.UNAUTHORIZED,
+                    ErrorMessages.NAMI_LOGIN_FAILED
+            );
+        }
+    }
+
+    @Nested
+    class NamiAccessViolationExceptionTest {
+        @Test
+        void handleNamiAccessViolationExceptionReturns403() {
+            validate(
+                    handler.handleNamiAccessViolationException(request),
+                    HttpStatus.FORBIDDEN,
+                    ErrorMessages.NAMI_ACCESS_VIOLATION
+            );
+        }
+    }
 }

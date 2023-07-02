@@ -1,6 +1,6 @@
 spring:
-  #  main:
-  #    allow-bean-definition-overriding: true
+  main:
+    allow-bean-definition-overriding: true
 
   # Set proper path to tc-database
   datasource:
@@ -20,7 +20,5 @@ anmelde-tool:
     secure-routes:
       - "/api"
       - "https://example.com"
-        
-logging:
-  level:
-    de.stinner.anmeldetool: DEBUG
+  nami:
+    uri: "http://localhost:43500"

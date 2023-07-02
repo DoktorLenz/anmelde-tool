@@ -179,6 +179,31 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
         assertErrorResponse(errorResponse, HttpStatus.FORBIDDEN, ErrorMessages.FORBIDDEN);
     }
 
+
+    @Test
+    @SneakyThrows
+    @WithMockUser
+    void when_namiLoginFailedException_then_401_response() {
+        ErrorResponse errorResponse = given()
+                .when().get(NAMI_LOGIN_FAILED_TEST_ENDPOINT)
+                .then().status(HttpStatus.UNAUTHORIZED)
+                .extract().as(ErrorResponse.class);
+
+        assertErrorResponse(errorResponse, HttpStatus.UNAUTHORIZED, ErrorMessages.NAMI_LOGIN_FAILED);
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser
+    void when_namiAccessViolationException_then_401_response() {
+        ErrorResponse errorResponse = given()
+                .when().get(NAMI_ACCESS_VIOLATION_TEST_ENDPOINT)
+                .then().status(HttpStatus.FORBIDDEN)
+                .extract().as(ErrorResponse.class);
+
+        assertErrorResponse(errorResponse, HttpStatus.FORBIDDEN, ErrorMessages.NAMI_ACCESS_VIOLATION);
+    }
+
     @Test
     @SneakyThrows
     @WithMockUser

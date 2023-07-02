@@ -38,6 +38,8 @@ anmelde-tool:
     username: "anmelde_tool"
     password: "anmelde_tool"
     db-name: "anmelde_tool"
+  nami:
+    uri: "https://nami.dpsg.de"
   logging:
     file:
       size-limit: 5MB
