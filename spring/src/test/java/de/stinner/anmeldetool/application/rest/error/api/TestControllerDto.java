@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.application.rest.error.api;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

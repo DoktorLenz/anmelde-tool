@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.application.rest.error;
 
+import de.stinner.anmeldetool.application.rest.error.api.TestControllerDto;
 import de.stinner.anmeldetool.base.BaseControllerTest;
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
@@ -8,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import static de.stinner.anmeldetool.application.rest.error.ExceptionHandlerTestController.*;
+import static de.stinner.anmeldetool.application.rest.error.api.ExceptionHandlerTestController.*;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
