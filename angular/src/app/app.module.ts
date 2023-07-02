@@ -26,8 +26,6 @@ import { NavigationModule } from './navigation/navigation.module';
     AuthDirectivesModule,
     NavigationModule,
   ],
-  providers: [
-  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
