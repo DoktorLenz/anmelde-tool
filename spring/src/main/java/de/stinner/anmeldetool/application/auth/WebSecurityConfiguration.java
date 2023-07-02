@@ -48,7 +48,9 @@ public class WebSecurityConfiguration {
                         .requestMatchers(
                                 ActuatorEndpoints.READINESS,
                                 ActuatorEndpoints.LIVENESS,
-                                ApiEndpoints.V1.CONFIGURATION
+                                ApiEndpoints.V1.CONFIGURATION,
+                                ApiEndpoints.API_DOCS,
+                                ApiEndpoints.SWAGGER
                         )
                         .permitAll()
                         .anyRequest()

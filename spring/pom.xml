@@ -29,6 +29,8 @@
         <org.checkstyle.version>10.12.0</org.checkstyle.version>
         <org.jacoco.version>0.8.10</org.jacoco.version>
 
+        <org.springdoc-openapi-starter-webmvc-ui.version>2.1.0</org.springdoc-openapi-starter-webmvc-ui.version>
+
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.jsoup.version>1.16.1</org.jsoup.version>
         <org.hamcrest.version>2.2</org.hamcrest.version>
@@ -126,6 +128,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!--Documentation-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${org.springdoc-openapi-starter-webmvc-ui.version}</version>
+        </dependency>
+
         <!--Test-dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -195,7 +204,7 @@
             <version>${org.springframework.cloud.wiremock.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
     <build>
