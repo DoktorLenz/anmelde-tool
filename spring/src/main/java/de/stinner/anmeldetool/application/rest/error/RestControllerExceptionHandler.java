@@ -1,6 +1,8 @@
 package de.stinner.anmeldetool.application.rest.error;
 
 
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -196,6 +198,36 @@ public class RestControllerExceptionHandler {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ErrorResponse errorResponse = new ErrorResponseBuilder(errorMessage, responseStatus, request).build();
+
+        return new ResponseEntity<>(errorResponse, headers, responseStatus);
+    }
+
+    @ExceptionHandler(NamiLoginFailedException.class)
+    protected ResponseEntity<ErrorResponse> handleNamiLoginFailedException(final HttpServletRequest request) {
+        HttpStatus responseStatus = HttpStatus.UNAUTHORIZED;
+
+        //Workaround to force "application/json" in response. If not present, Spring would view the response of this
+        //handler as an error, as the wrong content type were returned.
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ErrorResponse errorResponse =
+                new ErrorResponseBuilder(ErrorMessages.NAMI_LOGIN_FAILED, responseStatus, request).build();
+
+        return new ResponseEntity<>(errorResponse, headers, responseStatus);
+    }
+
+    @ExceptionHandler(NamiAccessViolationException.class)
+    protected ResponseEntity<ErrorResponse> handleNamiAccessViolationException(final HttpServletRequest request) {
+        HttpStatus responseStatus = HttpStatus.FORBIDDEN;
+
+        //Workaround to force "application/json" in response. If not present, Spring would view the response of this
+        //handler as an error, as the wrong content type were returned.
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ErrorResponse errorResponse =
+                new ErrorResponseBuilder(ErrorMessages.NAMI_ACCESS_VIOLATION, responseStatus, request).build();
 
         return new ResponseEntity<>(errorResponse, headers, responseStatus);
     }
