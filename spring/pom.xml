@@ -35,6 +35,8 @@
         <io.rest-assured.version>5.3.0</io.rest-assured.version>
         <org.surefire.plugin.version>3.1.2</org.surefire.plugin.version>
         <org.failsafe.plugin.version>3.1.2</org.failsafe.plugin.version>
+        <org.springframework.cloud.wiremock.version>4.0.3</org.springframework.cloud.wiremock.version>
+        <com.fasterxml.jackson.datatype.jsr310.version>2.15.2</com.fasterxml.jackson.datatype.jsr310.version>
 
         <!-- non-dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -170,6 +172,7 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>${org.hamcrest.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -183,8 +186,16 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${org.jsoup.version}</version>
+            <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-contract-wiremock</artifactId>
+            <version>${org.springframework.cloud.wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
     </dependencies>
 
     <build>

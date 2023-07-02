@@ -71,11 +71,11 @@ public class NamiService {
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
 
-        ResponseEntity<String> responseEntity = namiApiRestTemplate.exchange(
+        ResponseEntity<Void> responseEntity = namiApiRestTemplate.exchange(
                 NamiApiEndpoints.LOGIN,
                 HttpMethod.POST,
                 entity,
-                String.class
+                Void.class
         );
 
         return handleSessionStartupResponse(responseEntity);
@@ -103,7 +103,7 @@ public class NamiService {
         throw new NamiAccessViolationException(namiMembersWrapper.getMessage());
     }
 
-    private String handleSessionStartupResponse(ResponseEntity<String> responseEntity) {
+    private String handleSessionStartupResponse(ResponseEntity<Void> responseEntity) {
         if (responseEntity.getStatusCode().is3xxRedirection()) {
             return responseEntity.getHeaders().getFirst(HttpHeaders.LOCATION);
         } else {
