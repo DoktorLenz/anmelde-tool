@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.stinner.anmeldetool.domain.shared.model.Gender;
 import de.stinner.anmeldetool.domain.shared.model.Rank;
+import de.stinner.anmeldetool.domain.usermanagement.namimembers.persistence.NamiMemberEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -23,4 +24,15 @@ public class NamiMember {
     private Rank rank;
     @JsonProperty("entries_geschlecht")
     private Gender gender;
+
+    public NamiMemberEntity toNamiMemberEntity() {
+        NamiMemberEntity entity = new NamiMemberEntity();
+        entity.setMemberId(memberId);
+        entity.setFirstname(firstname);
+        entity.setLastname(lastname);
+        entity.setDateOfBirth(dateOfBirth.toLocalDate());
+        entity.setRank(rank);
+        entity.setGender(gender);
+        return entity;
+    }
 }
