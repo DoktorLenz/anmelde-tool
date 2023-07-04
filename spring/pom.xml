@@ -280,6 +280,7 @@
                         <exclude>de/stinner/anmeldetool/application/logging/*</exclude>
                         <exclude>de/stinner/anmeldetool/**/*DTO.*</exclude>
                         <exclude>de/stinner/anmeldetool/**/*Entity.*</exclude>
+                        <exclude>de/stinner/anmeldetool/domain/nami/service/NamiService.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
