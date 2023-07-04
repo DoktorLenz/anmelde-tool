@@ -33,7 +33,7 @@ updates:
       - "npm dependencies"
     ignore:
       # ignore all patches
-      - dependency-name: *
+      - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
 
       
@@ -47,5 +47,5 @@ updates:
       - "maven dependencies"
     ignore:
       # ignore all patches
-      - dependency-name: *
+      - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
