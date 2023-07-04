@@ -10,6 +10,7 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "master"
+    open-pull-requests-limit: 0
     labels:
       - "github-actions dependencies"
       
@@ -18,6 +19,7 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "master"
+    open-pull-requests-limit: 0
     labels:
       - "docker image-version"
       
@@ -26,6 +28,7 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "master"
+    open-pull-requests-limit: 0
     labels:
       - "npm dependencies"
     ignore:
@@ -39,6 +42,7 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "master"
+    open-pull-requests-limit: 0
     labels:
       - "maven dependencies"
     ignore:
