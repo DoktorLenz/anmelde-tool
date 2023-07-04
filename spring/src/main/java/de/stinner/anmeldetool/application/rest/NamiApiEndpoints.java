@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.nami.service;
+package de.stinner.anmeldetool.application.rest;
 
 import lombok.experimental.UtilityClass;
 

@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.domain.nami.service;
 
+import de.stinner.anmeldetool.application.rest.NamiApiEndpoints;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
