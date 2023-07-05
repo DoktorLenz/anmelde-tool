@@ -1,15 +1,15 @@
-package de.stinner.anmeldetool.domain.nami.service.models;
+package de.stinner.anmeldetool.domain.nami.service.client.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.List;
+import java.util.Collection;
 
 @Data
 public class NamiMembersWrapper {
     @JsonProperty("success")
     private boolean success;
-    private List<NamiMember> data;
+    private Collection<NamiMember> data;
     @JsonProperty("responseType")
     private ResponseType responseType;
     private int totalEntries;

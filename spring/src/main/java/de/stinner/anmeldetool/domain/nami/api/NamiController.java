@@ -48,7 +48,7 @@ public class NamiController {
     @RolesAllowed({Role.ADMIN})
     @PostMapping(ApiEndpoints.V1.Nami.MEMBER_FETCH)
     public ResponseEntity<Void> fetchAllNamiMembers(@RequestBody NamiFetchDetailsDto fetchDetailsDto) {
-        namiService.namiImport(fetchDetailsDto.getUsername(), fetchDetailsDto.getPassword(), fetchDetailsDto.getGroupId());
+        namiService.namiImport(fetchDetailsDto.getUsername(), fetchDetailsDto.getPassword(), fetchDetailsDto.getGroupingId());
 
         return ResponseEntity.noContent().build();
     }

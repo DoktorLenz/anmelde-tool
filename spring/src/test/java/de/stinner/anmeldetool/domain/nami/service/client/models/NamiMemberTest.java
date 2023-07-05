@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.nami.service.models;
+package de.stinner.anmeldetool.domain.nami.service.client.models;
 
 import de.stinner.anmeldetool.domain.shared.model.Gender;
 import de.stinner.anmeldetool.domain.shared.model.Rank;

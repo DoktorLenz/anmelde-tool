@@ -14,6 +14,6 @@ class NamiApiEndpointsTest {
     @Test
     void build_url_with_groupId() {
         String groupId = "12345";
-        assertThat(NamiApiEndpoints.allMembers(groupId)).isEqualTo("/ica/rest/nami/mitglied/filtered-for-navigation/gruppierung/gruppierung/" + groupId + "/flist");
+        assertThat(NamiApiEndpoints.allMembersOfGrouping(groupId)).isEqualTo("/ica/rest/nami/mitglied/filtered-for-navigation/gruppierung/gruppierung/" + groupId + "/flist");
     }
 }
