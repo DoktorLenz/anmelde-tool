@@ -26,6 +26,7 @@
         <org.mockito.version>5.2.0</org.mockito.version>
         <org.testcontainers.version>1.18.3</org.testcontainers.version>
         <org.jacoco.version>0.8.10</org.jacoco.version>
+        <org.apache.httpcomponents.client5.version>5.2.1</org.apache.httpcomponents.client5.version>
 
         <org.springdoc-openapi-starter-webmvc-ui.version>2.1.0</org.springdoc-openapi-starter-webmvc-ui.version>
 
@@ -95,8 +96,11 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!--        Documentation        -->
-
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5-fluent</artifactId>
+            <version>${org.apache.httpcomponents.client5.version}</version>
+        </dependency>
 
         <!--Database-->
         <dependency>
