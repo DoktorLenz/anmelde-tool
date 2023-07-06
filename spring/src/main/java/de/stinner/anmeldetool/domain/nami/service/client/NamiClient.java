@@ -1,9 +1,13 @@
 package de.stinner.anmeldetool.domain.nami.service.client;
 
 import de.stinner.anmeldetool.application.rest.NamiApiEndpoints;
+import de.stinner.anmeldetool.domain.nami.service.client.models.NamiLoginResponse;
 import de.stinner.anmeldetool.domain.nami.service.client.models.NamiMember;
 import de.stinner.anmeldetool.domain.nami.service.client.models.NamiMembersWrapper;
-import de.stinner.anmeldetool.domain.nami.service.exceptions.*;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiSessionExpiredException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.cookie.CookieStore;
@@ -11,18 +15,16 @@ import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.springframework.http.*;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.lang.NonNull;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.DefaultResponseErrorHandler;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Collection;
+import java.util.List;
 
 @Slf4j
 public class NamiClient implements AutoCloseable {
@@ -49,31 +51,44 @@ public class NamiClient implements AutoCloseable {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("username", username);
         map.add("password", password);
-        map.add("redirectTo", "./pages/loggedin.jsp");
         map.add("Login", "API");
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
+        ResponseEntity<NamiLoginResponse> loginResponse;
 
-        ResponseEntity<String> loginResponse = namiRestTemplate.exchange(
+        loginResponse = namiRestTemplate.exchange(
                 namiUri + NamiApiEndpoints.LOGIN,
                 HttpMethod.POST,
                 entity,
-                String.class
+                NamiLoginResponse.class
         );
 
         verifyLogin(loginResponse);
     }
 
-    private void verifyLogin(ResponseEntity<String> loginResponse) {
-        if (!loginResponse.getStatusCode().is2xxSuccessful()) {
-            throw new NamiException();
+    private void verifyLogin(ResponseEntity<NamiLoginResponse> responseEntity) {
+        HttpStatus statusCode = HttpStatus.resolve(responseEntity.getStatusCode().value());
+
+        if (statusCode == HttpStatus.NO_CONTENT) {
+            throw new NamiException("Session activation error");
         }
+
+        if (statusCode != HttpStatus.OK) {
+            throw new NamiException("Unexpected status code " + statusCode);
+        }
+
         if (cookieStore.getCookies().stream().noneMatch(c -> c.getName().equals("JSESSIONID"))) {
-            throw new NamiException();
+            throw new NamiException("No session cookie received");
         }
-        String body = loginResponse.getBody();
-        if (null == body || body.contains(NamiApiEndpoints.LOGIN)) {
-            throw new NamiLoginFailedException();
+
+        NamiLoginResponse loginResponse = responseEntity.getBody();
+
+        if (loginResponse == null) {
+            throw new NamiException("Empty body");
+        }
+
+        if (loginResponse.getStatusCode() == 3000) {
+            throw new NamiLoginFailedException(loginResponse.getStatusMessage());
         }
     }
 
@@ -106,18 +121,14 @@ public class NamiClient implements AutoCloseable {
     private RestTemplate buildNamiRestTemplate() {
         RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
 
-        restTemplate.setErrorHandler(new DefaultResponseErrorHandler() {
-            @Override
-            public boolean hasError(@NonNull ClientHttpResponse response) {
-                try {
-                    return super.hasError(response);
-                } catch (HttpStatusCodeException exception) {
-                    throw new NamiException();
-                } catch (IOException exception) {
-                    throw new NamiUnavailableException();
-                }
-            }
-        });
+        restTemplate.setErrorHandler(new NamiResponseErrorHandler());
+
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setSupportedMediaTypes(
+                List.of(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM)
+        );
+
+        restTemplate.setMessageConverters(List.of(converter, new FormHttpMessageConverter()));
 
         return restTemplate;
     }

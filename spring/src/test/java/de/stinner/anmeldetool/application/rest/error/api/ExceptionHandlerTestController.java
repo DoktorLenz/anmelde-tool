@@ -104,7 +104,7 @@ public class ExceptionHandlerTestController {
 
     @GetMapping(NAMI_LOGIN_FAILED_TEST_ENDPOINT)
     public ResponseEntity<Void> namiLoginFailedException() {
-        throw new NamiLoginFailedException();
+        throw new NamiLoginFailedException("Benutzer nicht gefunden oder Passwort falsch.");
     }
 
     @GetMapping(NAMI_ACCESS_VIOLATION_TEST_ENDPOINT)

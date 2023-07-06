@@ -203,7 +203,10 @@ public class RestControllerExceptionHandler {
     }
 
     @ExceptionHandler(NamiLoginFailedException.class)
-    protected ResponseEntity<ErrorResponse> handleNamiLoginFailedException(final HttpServletRequest request) {
+    protected ResponseEntity<ErrorResponse> handleNamiLoginFailedException(
+            final NamiLoginFailedException e,
+            final HttpServletRequest request
+    ) {
         HttpStatus responseStatus = HttpStatus.UNAUTHORIZED;
 
         //Workaround to force "application/json" in response. If not present, Spring would view the response of this
@@ -212,7 +215,9 @@ public class RestControllerExceptionHandler {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ErrorResponse errorResponse =
-                new ErrorResponseBuilder(ErrorMessages.NAMI_LOGIN_FAILED, responseStatus, request).build();
+                new ErrorResponseBuilder(ErrorMessages.NAMI_LOGIN_FAILED, responseStatus, request)
+                        .withDetails(List.of(e.getMessage()))
+                        .build();
 
         return new ResponseEntity<>(errorResponse, headers, responseStatus);
     }
