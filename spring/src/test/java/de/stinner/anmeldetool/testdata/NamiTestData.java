@@ -2,7 +2,6 @@ package de.stinner.anmeldetool.testdata;
 
 import de.stinner.anmeldetool.domain.nami.service.client.models.NamiMember;
 import de.stinner.anmeldetool.domain.nami.service.client.models.NamiMembersWrapper;
-import de.stinner.anmeldetool.domain.nami.service.client.models.ResponseType;
 import de.stinner.anmeldetool.domain.shared.model.Gender;
 import de.stinner.anmeldetool.domain.shared.model.Rank;
 
@@ -29,7 +28,7 @@ public class NamiTestData {
         );
 
         namiMembersWrapper.setSuccess(true);
-        namiMembersWrapper.setResponseType(ResponseType.OK);
+        namiMembersWrapper.setResponseType("OK");
         namiMembersWrapper.setData(namiMembers);
         namiMembersWrapper.setTotalEntries(namiMembers.size());
 

@@ -2,16 +2,23 @@ package de.stinner.anmeldetool.domain.nami.service.client;
 
 import de.stinner.anmeldetool.base.BaseIntegrationTest;
 import de.stinner.anmeldetool.domain.nami.service.client.models.NamiMember;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiSessionExpiredException;
 import de.stinner.anmeldetool.testdata.NamiTestData;
 import de.stinner.anmeldetool.wiremock.NamiClientWiremockConfigurator;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.client5.http.cookie.CookieStore;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collection;
 
@@ -21,24 +28,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 @AutoConfigureWireMock(port = 43500)
 @Slf4j
+@ExtendWith(OutputCaptureExtension.class)
 class NamiClientIT extends BaseIntegrationTest {
+
+    String username = "username";
+    String password = "password";
+    String groupingId = "groupingId";
 
     @Value("${anmelde-tool.nami.uri}")
     private String namiUri;
 
     @Test
     void when_namiImport_with_workingCredentials_then_get_namiMembers() {
-        String username = "username";
-        String password = "password";
-        String groupingId = "groupingId";
-
-        NamiClientWiremockConfigurator.INSTANCE
-                .success(success -> success
-                        .login(username, password)
-                        .activateLogin()
-                        .getAllNamiMembers(groupingId)
-                        .logout()
-                );
+        NamiClientWiremockConfigurator.INSTANCE.allSuccessful(username, password, groupingId);
 
         Collection<NamiMember> namiMembers;
         try (NamiClient namiClient = new NamiClient(namiUri, username, password)) {
@@ -50,11 +52,93 @@ class NamiClientIT extends BaseIntegrationTest {
                 .containsExactlyInAnyOrderElementsOf(NamiTestData.namiMembersWrapperSuccessTestData.getData());
     }
 
+    @Test
+    void when_NamiLogout_successful_then_cookieStore_shouldBe_clear(CapturedOutput output) {
+        NamiClientWiremockConfigurator.INSTANCE.allSuccessful(username, password, groupingId);
+
+        NamiClient namiClient = new NamiClient(namiUri, username, password);
+        namiClient.close();
+
+        assertThat(output.getOut()).isEmpty();
+
+        CookieStore cookieStore = (CookieStore) ReflectionTestUtils.getField(namiClient, "cookieStore");
+        assertThat(cookieStore).isNotNull();
+        assertThat(cookieStore.getCookies()).isEmpty();
+    }
+
+    @Nested
+    class NamiImportFailureTests {
+
+        @Test
+        void body_isNull_then_throw_NamiException() {
+            NamiClientWiremockConfigurator.INSTANCE
+                    .success(success -> success.login(username, password).activateLogin().logout())
+                    .failure(failure -> failure.noBodyGetAllNamiMembers(groupingId));
+
+            try (NamiClient namiClient = new NamiClient(namiUri, username, password)) {
+                assertThatThrownBy(() -> {
+                    namiClient.getAllMembersOfGrouping(groupingId);
+                }).isInstanceOf(NamiException.class).hasMessageMatching("Empty body");
+            }
+        }
+
+        @Test
+        void body_isEmpty_then_throw_NamiException() {
+            NamiClientWiremockConfigurator.INSTANCE
+                    .success(success -> success.login(username, password).activateLogin().logout())
+                    .failure(failure -> failure.emptyBodyGetAllNamiMembers(groupingId));
+
+            try (NamiClient namiClient = new NamiClient(namiUri, username, password)) {
+                assertThatThrownBy(() -> {
+                    namiClient.getAllMembersOfGrouping(groupingId);
+                }).isInstanceOf(NamiException.class).hasMessageMatching("Empty body");
+            }
+        }
+
+        @Test
+        void session_expired_then_throw_NamiSessionExpiredException() {
+            NamiClientWiremockConfigurator.INSTANCE
+                    .success(success -> success.login(username, password).activateLogin().logout())
+                    .failure((failure -> failure.sessionExpiredGetAllNamiMembers(groupingId)));
+
+            try (NamiClient namiClient = new NamiClient(namiUri, username, password)) {
+                assertThatThrownBy(() -> {
+                    namiClient.getAllMembersOfGrouping(groupingId);
+                }).isInstanceOf(NamiSessionExpiredException.class);
+            }
+        }
+
+        @Test
+        void accessViolation_then_throw_NamiAccessViolationException() {
+            NamiClientWiremockConfigurator.INSTANCE
+                    .success(success -> success.login(username, password).activateLogin().logout())
+                    .failure((failure -> failure.accessViolationGetAllNamiMembers(groupingId)));
+
+            try (NamiClient namiClient = new NamiClient(namiUri, username, password)) {
+                assertThatThrownBy(() -> {
+                    namiClient.getAllMembersOfGrouping(groupingId);
+                }).isInstanceOf(NamiAccessViolationException.class);
+            }
+        }
+
+        @Test
+        void no_responseType_then_throw_NamiException() {
+            NamiClientWiremockConfigurator.INSTANCE
+                    .success(success -> success.login(username, password).activateLogin().logout())
+                    .failure((failure -> failure.noResponseTypeGetAllNamiMembers(groupingId)));
+
+            try (NamiClient namiClient = new NamiClient(namiUri, username, password)) {
+                assertThatThrownBy(() -> {
+                    namiClient.getAllMembersOfGrouping(groupingId);
+                })
+                        .isInstanceOf(NamiException.class)
+                        .hasMessageMatching("Unhandled responseType: UNKNOWN. Message: Unknown responseType");
+            }
+        }
+    }
 
     @Nested
     class NamiLoginFailureTests {
-        String username = "username";
-        String password = "password";
 
         @Test
         void loginIs5xx_then_throw_NamiException() {
@@ -148,4 +232,20 @@ class NamiClientIT extends BaseIntegrationTest {
         }
     }
 
+
+    @Nested
+    @ExtendWith(OutputCaptureExtension.class)
+    class NamiLogoutFailureTests {
+        @Test
+        void logoutCookieNotExpired_then_log_warning(CapturedOutput output) {
+            NamiClientWiremockConfigurator.INSTANCE
+                    .success(success -> success.login(username, password).activateLogin())
+                    .failure(NamiClientWiremockConfigurator.NamiClientWiremockFailureConfigurator::noCookieExpirationlogout);
+
+            NamiClient namiClient = new NamiClient(namiUri, username, password);
+            namiClient.close();
+
+            assertThat(output.getOut()).contains("Nami logout not successful. Cookie was not expired.");
+        }
+    }
 }

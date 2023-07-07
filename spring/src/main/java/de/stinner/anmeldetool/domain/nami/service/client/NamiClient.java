@@ -105,16 +105,19 @@ public class NamiClient implements AutoCloseable {
 
     private Collection<NamiMember> verifyGetAllMembersOfGrouping(ResponseEntity<NamiMembersWrapper> responseEntity) {
         NamiMembersWrapper namiMembersWrapper = responseEntity.getBody();
-        if (!responseEntity.getStatusCode().is2xxSuccessful() || null == namiMembersWrapper) {
-            throw new NamiException();
+        if (null == namiMembersWrapper) {
+            throw new NamiException("Empty body");
         }
-        switch (namiMembersWrapper.getResponseType()) {
-            case OK -> {
-                return namiMembersWrapper.getData();
-            }
-            case ERROR -> throw new NamiSessionExpiredException();
-            case EXCEPTION -> throw new NamiAccessViolationException();
-            default -> throw new NamiException();
+        String responseType = namiMembersWrapper.getResponseType();
+        if ("OK".equals(responseType)) {
+            return namiMembersWrapper.getData();
+        } else if ("ERROR".equals(responseType)) {
+            throw new NamiSessionExpiredException();
+        } else if ("EXCEPTION".equals(responseType)) {
+            throw new NamiAccessViolationException();
+        } else {
+            throw new NamiException("Unhandled responseType: " + responseType +
+                    ". Message: " + namiMembersWrapper.getMessage());
         }
     }
 
@@ -144,21 +147,18 @@ public class NamiClient implements AutoCloseable {
     }
 
     private void logout() {
-        ResponseEntity<Void> logoutResponse = namiRestTemplate.exchange(
+        namiRestTemplate.exchange(
                 namiUri + NamiApiEndpoints.LOGOUT,
                 HttpMethod.GET,
                 null,
                 Void.class
         );
 
-        verifyLogout(logoutResponse);
+        verifyLogout();
     }
 
-    private void verifyLogout(ResponseEntity<?> logoutResponse) {
+    private void verifyLogout() {
         cookieStore.clearExpired(Instant.now());
-        if (!logoutResponse.getStatusCode().is2xxSuccessful()) {
-            log.warn("Nami logout not successful. Returned " + logoutResponse.getStatusCode() + ".");
-        }
         if (cookieStore.getCookies().stream().anyMatch(c -> c.getName().equals("JSESSIONID"))) {
             log.warn("Nami logout not successful. Cookie was not expired.");
         }
