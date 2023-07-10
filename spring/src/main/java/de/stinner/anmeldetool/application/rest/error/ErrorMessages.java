@@ -20,6 +20,7 @@ public final class ErrorMessages {
     public static final String MISSING_REQUEST_BODY = "Request body is missing.";
     public static final String NAMI_LOGIN_FAILED = "Could not login with provided Nami credentials.";
     public static final String NAMI_ACCESS_VIOLATION = "Nami user does not have sufficient permissions.";
+    public static final String NAMI_UNAVAILABLE = "Nami is currently unavailable. Please try again later.";
     public static final String RELATION_NOT_FULFILLED = "Relation was not fulfilled.";
 
     /* 5xx */

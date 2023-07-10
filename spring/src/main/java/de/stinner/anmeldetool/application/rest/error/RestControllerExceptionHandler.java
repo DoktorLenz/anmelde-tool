@@ -3,6 +3,7 @@ package de.stinner.anmeldetool.application.rest.error;
 
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiUnavailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -209,32 +210,32 @@ public class RestControllerExceptionHandler {
     ) {
         HttpStatus responseStatus = HttpStatus.UNAUTHORIZED;
 
-        //Workaround to force "application/json" in response. If not present, Spring would view the response of this
-        //handler as an error, as the wrong content type were returned.
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
         ErrorResponse errorResponse =
                 new ErrorResponseBuilder(ErrorMessages.NAMI_LOGIN_FAILED, responseStatus, request)
                         .withDetails(List.of(e.getMessage()))
                         .build();
 
-        return new ResponseEntity<>(errorResponse, headers, responseStatus);
+        return new ResponseEntity<>(errorResponse, responseStatus);
     }
 
     @ExceptionHandler(NamiAccessViolationException.class)
     protected ResponseEntity<ErrorResponse> handleNamiAccessViolationException(final HttpServletRequest request) {
         HttpStatus responseStatus = HttpStatus.FORBIDDEN;
 
-        //Workaround to force "application/json" in response. If not present, Spring would view the response of this
-        //handler as an error, as the wrong content type were returned.
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
         ErrorResponse errorResponse =
                 new ErrorResponseBuilder(ErrorMessages.NAMI_ACCESS_VIOLATION, responseStatus, request).build();
 
-        return new ResponseEntity<>(errorResponse, headers, responseStatus);
+        return new ResponseEntity<>(errorResponse, responseStatus);
+    }
+
+    @ExceptionHandler(NamiUnavailableException.class)
+    protected ResponseEntity<ErrorResponse> handleNamiUnavailableException(final HttpServletRequest request) {
+        HttpStatus responseStatus = HttpStatus.SERVICE_UNAVAILABLE;
+
+        ErrorResponse errorResponse = new ErrorResponseBuilder(ErrorMessages.NAMI_UNAVAILABLE, responseStatus, request)
+                .build();
+
+        return new ResponseEntity<>(errorResponse, responseStatus);
     }
 
 

@@ -2,6 +2,7 @@ package de.stinner.anmeldetool.application.rest.error.api;
 
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiUnavailableException;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
@@ -46,6 +47,9 @@ public class ExceptionHandlerTestController {
 
     public static final String NAMI_ACCESS_VIOLATION_TEST_ENDPOINT =
             "/test/exception/nami-access-violation";
+
+    public static final String NAMI_UNAVAILABLE_TEST_ENDPOINT =
+            "/test/exception/nami-unavailable";
 
     @GetMapping(value = EXCEPTION_TEST_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> exception() {
@@ -110,6 +114,11 @@ public class ExceptionHandlerTestController {
     @GetMapping(NAMI_ACCESS_VIOLATION_TEST_ENDPOINT)
     public ResponseEntity<Void> namiAccessViolationException() {
         throw new NamiAccessViolationException();
+    }
+
+    @GetMapping(NAMI_UNAVAILABLE_TEST_ENDPOINT)
+    public ResponseEntity<Void> namiUnavailableException() {
+        throw new NamiUnavailableException();
     }
 
 }

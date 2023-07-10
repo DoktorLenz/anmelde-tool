@@ -219,6 +219,18 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     @Test
     @SneakyThrows
     @WithMockUser
+    void when_namiUnavailableException_then_503_response() {
+        ErrorResponse errorResponse = given()
+                .when().get(NAMI_UNAVAILABLE_TEST_ENDPOINT)
+                .then().status(HttpStatus.SERVICE_UNAVAILABLE)
+                .extract().as(ErrorResponse.class);
+
+        assertErrorResponse(errorResponse, HttpStatus.SERVICE_UNAVAILABLE, ErrorMessages.NAMI_UNAVAILABLE);
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser
     void when_ResponseStatusExceptionThrown_then_properCodeReturned_404_withReason() {
         final String reason = "best reason!";
 

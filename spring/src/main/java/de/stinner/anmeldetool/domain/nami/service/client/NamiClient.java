@@ -15,16 +15,11 @@ import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.springframework.http.*;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 import java.util.Collection;
-import java.util.List;
 
 @Slf4j
 public class NamiClient implements AutoCloseable {
@@ -37,7 +32,7 @@ public class NamiClient implements AutoCloseable {
             .setRedirectStrategy(DefaultRedirectStrategy.INSTANCE)
             .build();
 
-    private final RestTemplate namiRestTemplate = buildNamiRestTemplate();
+    private final NamiRestTemplate namiRestTemplate = new NamiRestTemplate(httpClient);
 
     public NamiClient(String namiUri, String username, String password) {
         this.namiUri = namiUri;
@@ -119,21 +114,6 @@ public class NamiClient implements AutoCloseable {
             throw new NamiException("Unhandled responseType: " + responseType +
                     ". Message: " + namiMembersWrapper.getMessage());
         }
-    }
-
-    private RestTemplate buildNamiRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
-
-        restTemplate.setErrorHandler(new NamiResponseErrorHandler());
-
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(
-                List.of(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM)
-        );
-
-        restTemplate.setMessageConverters(List.of(converter, new FormHttpMessageConverter()));
-
-        return restTemplate;
     }
 
     @Override

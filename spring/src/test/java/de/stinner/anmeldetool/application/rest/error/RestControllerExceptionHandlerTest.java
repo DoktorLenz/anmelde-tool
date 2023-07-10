@@ -284,4 +284,16 @@ class RestControllerExceptionHandlerTest {
             );
         }
     }
+
+    @Nested
+    class NamiUnavailableExceptionTest {
+        @Test
+        void handleNamiUnavailableExceptionReturns503() {
+            validate(
+                    handler.handleNamiUnavailableException(request),
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    ErrorMessages.NAMI_UNAVAILABLE
+            );
+        }
+    }
 }
