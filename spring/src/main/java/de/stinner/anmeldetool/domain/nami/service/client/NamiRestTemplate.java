@@ -21,7 +21,6 @@ public class NamiRestTemplate extends RestTemplate {
         super(new HttpComponentsClientHttpRequestFactory(httpClient));
 
         setErrorHandler(new NamiResponseErrorHandler());
-
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setSupportedMediaTypes(
                 List.of(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM)
