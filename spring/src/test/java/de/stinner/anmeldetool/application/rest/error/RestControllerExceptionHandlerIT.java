@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.List;
+
 import static de.stinner.anmeldetool.application.rest.error.api.ExceptionHandlerTestController.*;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,9 +74,13 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     }
 
     private static void assertErrorResponse(ErrorResponse errorResponse, HttpStatus httpStatus, String errorMessage) {
-        assertThat(errorResponse.getDetails()).isEmpty();
+        assertErrorResponse(errorResponse, httpStatus, errorMessage, List.of());
+    }
+
+    private static void assertErrorResponse(ErrorResponse errorResponse, HttpStatus httpStatus, String errorMessage, List<String> details) {
         assertThat(errorResponse.getStatus()).isEqualTo(httpStatus.value());
         assertThat(errorResponse.getErrorMessage()).isEqualTo(errorMessage);
+        assertThat(errorResponse.getDetails()).isEqualTo(details);
     }
 
     @Test
@@ -190,7 +196,12 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
                 .then().status(HttpStatus.UNAUTHORIZED)
                 .extract().as(ErrorResponse.class);
 
-        assertErrorResponse(errorResponse, HttpStatus.UNAUTHORIZED, ErrorMessages.NAMI_LOGIN_FAILED);
+        assertErrorResponse(
+                errorResponse,
+                HttpStatus.UNAUTHORIZED,
+                ErrorMessages.NAMI_LOGIN_FAILED,
+                List.of("Benutzer nicht gefunden oder Passwort falsch.")
+        );
     }
 
     @Test
@@ -203,6 +214,18 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
                 .extract().as(ErrorResponse.class);
 
         assertErrorResponse(errorResponse, HttpStatus.FORBIDDEN, ErrorMessages.NAMI_ACCESS_VIOLATION);
+    }
+
+    @Test
+    @SneakyThrows
+    @WithMockUser
+    void when_namiUnavailableException_then_503_response() {
+        ErrorResponse errorResponse = given()
+                .when().get(NAMI_UNAVAILABLE_TEST_ENDPOINT)
+                .then().status(HttpStatus.SERVICE_UNAVAILABLE)
+                .extract().as(ErrorResponse.class);
+
+        assertErrorResponse(errorResponse, HttpStatus.SERVICE_UNAVAILABLE, ErrorMessages.NAMI_UNAVAILABLE);
     }
 
     @Test

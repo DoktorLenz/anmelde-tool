@@ -6,5 +6,5 @@ import lombok.Data;
 public class NamiFetchDetailsDto {
     private String username;
     private String password;
-    private String groupId;
+    private String groupingId;
 }

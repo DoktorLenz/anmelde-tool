@@ -1,6 +1,7 @@
 package de.stinner.anmeldetool.application.rest.error;
 
 
+import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -262,7 +263,10 @@ class RestControllerExceptionHandlerTest {
         @Test
         void handleNamiLoginFailedExceptionReturns401() {
             validate(
-                    handler.handleNamiLoginFailedException(request),
+                    handler.handleNamiLoginFailedException(
+                            new NamiLoginFailedException("Benutzer nicht gefunden oder Passwort falsch."),
+                            request
+                    ),
                     HttpStatus.UNAUTHORIZED,
                     ErrorMessages.NAMI_LOGIN_FAILED
             );
@@ -277,6 +281,18 @@ class RestControllerExceptionHandlerTest {
                     handler.handleNamiAccessViolationException(request),
                     HttpStatus.FORBIDDEN,
                     ErrorMessages.NAMI_ACCESS_VIOLATION
+            );
+        }
+    }
+
+    @Nested
+    class NamiUnavailableExceptionTest {
+        @Test
+        void handleNamiUnavailableExceptionReturns503() {
+            validate(
+                    handler.handleNamiUnavailableException(request),
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    ErrorMessages.NAMI_UNAVAILABLE
             );
         }
     }

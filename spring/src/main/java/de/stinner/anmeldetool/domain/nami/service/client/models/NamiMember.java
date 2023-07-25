@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.nami.service.models;
+package de.stinner.anmeldetool.domain.nami.service.client.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

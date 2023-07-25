@@ -26,6 +26,7 @@
         <org.mockito.version>5.2.0</org.mockito.version>
         <org.testcontainers.version>1.18.3</org.testcontainers.version>
         <org.jacoco.version>0.8.10</org.jacoco.version>
+        <org.apache.httpcomponents.client5.version>5.2.1</org.apache.httpcomponents.client5.version>
 
         <org.springdoc-openapi-starter-webmvc-ui.version>2.1.0</org.springdoc-openapi-starter-webmvc-ui.version>
 
@@ -36,7 +37,6 @@
         <org.surefire.plugin.version>3.1.2</org.surefire.plugin.version>
         <org.failsafe.plugin.version>3.1.2</org.failsafe.plugin.version>
         <org.springframework.cloud.wiremock.version>4.0.3</org.springframework.cloud.wiremock.version>
-        <com.fasterxml.jackson.datatype.jsr310.version>2.15.2</com.fasterxml.jackson.datatype.jsr310.version>
 
         <archunit.version>1.0.1</archunit.version>
         <arch-unit-maven-plugin.version>3.0.0</arch-unit-maven-plugin.version>
@@ -95,8 +95,11 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!--        Documentation        -->
-
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5-fluent</artifactId>
+            <version>${org.apache.httpcomponents.client5.version}</version>
+        </dependency>
 
         <!--Database-->
         <dependency>
@@ -276,7 +279,7 @@
                 <version>${org.jacoco.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>de/stinner/anmeldetool/application/auth/WebSecurityConfiguration*</exclude>
+                        <exclude>de/stinner/anmeldetool/application/auth/WebSecurityConfiguration.*</exclude>
                         <exclude>de/stinner/anmeldetool/application/logging/*</exclude>
                         <exclude>de/stinner/anmeldetool/**/*DTO.*</exclude>
                         <exclude>de/stinner/anmeldetool/**/*Entity.*</exclude>
