@@ -1,4 +1,5 @@
 # Image containing a postgres server containing keycloak data prepared for movie-db.
+
 FROM postgres:15.3
 
 # Default postgres-port
