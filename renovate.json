@@ -5,6 +5,40 @@
   ],
   "packageRules": [
     {
+      "matchManagers": [
+        "npm"
+      ],
+      "addLabels": [
+        "npm dependency"
+      ]
+    },
+    {
+      "matchManagers": [
+        "maven",
+        "maven-wrapper"
+      ],
+      "addLabels": [
+        "maven dependency"
+      ]
+    },
+    {
+      "matchManagers": [
+        "dockerfile",
+        "docker-compose"
+      ],
+      "addLabels": [
+        "docker image version"
+      ]
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "addLabels": [
+        "github action version"
+      ]
+    },
+    {
       "groupName": "angular eslint packages",
       "matchPackagePatterns": [
         "^@angular-eslint/",
