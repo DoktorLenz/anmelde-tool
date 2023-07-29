@@ -36,7 +36,7 @@
         <io.rest-assured.version>5.3.1</io.rest-assured.version>
         <org.surefire.plugin.version>3.1.2</org.surefire.plugin.version>
         <org.failsafe.plugin.version>3.1.2</org.failsafe.plugin.version>
-        <org.springframework.cloud.wiremock.version>4.0.3</org.springframework.cloud.wiremock.version>
+        <org.springframework.cloud.wiremock.version>4.0.4</org.springframework.cloud.wiremock.version>
 
         <archunit.version>1.0.1</archunit.version>
         <arch-unit-maven-plugin.version>3.0.0</arch-unit-maven-plugin.version>
