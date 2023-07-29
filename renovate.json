@@ -4,7 +4,7 @@
     "config:base"
   ],
   "schedule": [
-    "between 4 AM and 6AM"
+    "* 4-6 * * *"
   ],
   "prHourlyLimit": 4,
   "packageRules": [
@@ -54,7 +54,7 @@
         "eslint-config-airbnb-typescript"
       ],
       "automerge": true,
-      "automergeSchedule": "between 7 AM and 9 AM"
+      "automergeSchedule": "* 7-9 * * *"
     },
     {
       "groupName": "angular main packages",
