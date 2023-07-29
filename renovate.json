@@ -3,6 +3,10 @@
   "extends": [
     "config:base"
   ],
+  "schedule": [
+    "0 2 * * *"
+  ],
+  "prHourlyLimit": 4,
   "packageRules": [
     {
       "matchManagers": [
@@ -48,7 +52,9 @@
       "matchPackageNames": [
         "eslint",
         "eslint-config-airbnb-typescript"
-      ]
+      ],
+      "automerge": true,
+      "automergeSchedule": "0 3 * * *"
     },
     {
       "groupName": "angular main packages",
@@ -78,7 +84,8 @@
         "^@cypress/",
         "^@testing-library/",
         "^karma"
-      ]
+      ],
+      "automerge": "true"
     }
   ]
 }
