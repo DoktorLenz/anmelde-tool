@@ -85,7 +85,8 @@
         "^@testing-library/",
         "^karma"
       ],
-      "automerge": "true"
+      "automerge": true,
+      "automergeSchedule": "* 7-9 * * *"
     }
   ]
 }
