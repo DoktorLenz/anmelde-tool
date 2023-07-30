@@ -42,9 +42,6 @@ jobs:
       - name: Clean Distribution Directory
         run: npm run ci:clean
 
-      - name: Set Configuration
-        run: npm run config
-
       - name: Build Application
         run: npm run ci:build
 
@@ -81,7 +78,6 @@ jobs:
 
       - name: Run Linter
         run: npm run ci:lint
-        continue-on-error: true
 
       - name: Change eslint relative to absolute path
         run: sed -i 's+/home/runner/work/anmelde-tool/anmelde-tool/+/github/workspace/+g' eslint/result.json
@@ -123,12 +119,8 @@ jobs:
       - name: Clean Distribution Directory
         run: npm run ci:clean
 
-      - name: Set Configuration
-        run: npm run config
-
       - name: Run Unit Tests
         run: npm run ci:test
-        continue-on-error: true
 
       - name: Upload converage reports to Codecov
         uses: codecov/codecov-action@v3
