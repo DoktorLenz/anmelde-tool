@@ -44,7 +44,7 @@
     "@angular-eslint/template-parser": "16.1.0",
     "@angular/cli": "16.1.6",
     "@angular/compiler-cli": "16.1.7",
-    "@badeball/cypress-cucumber-preprocessor": "18.0.3",
+    "@badeball/cypress-cucumber-preprocessor": "18.0.4",
     "@cypress/schematic": "2.5.0",
     "@cypress/webpack-preprocessor": "5.17.1",
     "@testing-library/angular": "14.2.0",
