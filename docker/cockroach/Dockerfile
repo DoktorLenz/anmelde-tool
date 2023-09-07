@@ -1,4 +1,4 @@
-FROM cockroachdb/cockroach:v23.1.6
+FROM cockroachdb/cockroach:v23.1.9
 
 ADD ./docker/cockroach/data.tar.gz /cockroach
 
