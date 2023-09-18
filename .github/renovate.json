@@ -8,6 +8,7 @@
     "labels": [
         "renovate"
     ],
+    "prHourlyLimit": 0,
     "packageRules": [
         {
             "matchUpdateTypes": [
