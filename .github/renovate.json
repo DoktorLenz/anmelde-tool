@@ -34,10 +34,10 @@
         },
         {
             "groupName": "Angular - Main",
-            "extends": [
-                "monorepo:angular",
-                "monorepo:angular-cli",
-                "monorepo:angular-eslint"
+            "matchSourceUrls": [
+                "https://github.com/angular/angular",
+                "https://github.com/angular/angular-cli",
+                "https://github.com/angular-eslint/angular-eslint"
             ],
             "matchPackagePatterns": [
                 "^@angular-devkit/"
