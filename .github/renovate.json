@@ -18,7 +18,7 @@
                 "docker-compose"
             ],
             "automerge": true,
-            "addLables": [
+            "addLabels": [
                 "automerge"
             ]
         },
@@ -28,7 +28,7 @@
             ],
             "rangeStrategy": "auto",
             "automerge": true,
-            "addLables": [
+            "addLabels": [
                 "automerge"
             ]
         }
