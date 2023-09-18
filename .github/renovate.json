@@ -1,0 +1,36 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:best-practices"
+    ],
+    "labels": [
+        "renovate"
+    ],
+    "packageRules": [
+        {
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin"
+            ],
+            "matchManagers": [
+                "dockerfile",
+                "docker-compose"
+            ],
+            "automerge": true,
+            "addLables": [
+                "automerge"
+            ]
+        },
+        {
+            "matchPackagePatterns": [
+                "^@angular/"
+            ],
+            "rangeStrategy": "auto",
+            "automerge": true,
+            "addLables": [
+                "automerge"
+            ]
+        }
+    ]
+}
