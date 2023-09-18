@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine
+FROM openjdk:17-alpine@sha256:4b6abae565492dbe9e7a894137c966a7485154238902f2f25e9dbd9784383d81
 
 COPY ./spring/target/*.jar /app/anmelde-tool.jar
 
