@@ -4,7 +4,7 @@ on:
 
 jobs:
   ort:
-    runs-on: ubunti-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
