@@ -1,7 +1,8 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:best-practices"
+        "config:best-practices",
+        "npm:unpublishSafe"
     ],
     "recreateWhen": "always",
     "labels": [
@@ -33,10 +34,19 @@
         },
         {
             "groupName": "Angular - Main",
+            "extends": [
+                "monorepo:angular",
+                "monorepo:angular-cli",
+                "monorepo:angular-eslint"
+            ],
             "matchPackagePatterns": [
-                "^@angular/",
-                "^@angular-eslint/",
-                "^@angular-devkit"
+                "^@angular-devkit/"
+            ]
+        },
+        {
+            "groupName": "Angular - Lint",
+            "extends": [
+                "packages:eslint"
             ]
         },
         {
@@ -52,8 +62,7 @@
             "matchPackagePatterns": [
                 "^@cypress/",
                 "^@testing-library/",
-                "^karma",
-                "^eslint"
+                "^karma"
             ]
         },
         {
