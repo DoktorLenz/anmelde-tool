@@ -9,9 +9,10 @@
     ],
     "packageRules": [
         {
-            "groupName": "Docker",
-            "matchDatasources": [
-                "docker"
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin"
             ],
             "automerge": true,
             "addLabels": [
@@ -19,13 +20,39 @@
             ]
         },
         {
+            "groupName": "Docker",
+            "matchDatasources": [
+                "docker"
+            ]
+        },
+        {
             "groupName": "Github Actions",
             "matchManagers": [
                 "github-actions"
+            ]
+        },
+        {
+            "groupName": "Angular - Main",
+            "matchPackagePatterns": [
+                "^@angular/",
+                "^@angular-eslint/"
+            ]
+        },
+        {
+            "groupName": "Angular - Testing",
+            "matchPackageNames": [
+                "ng-mocks",
+                "@badeball/cypress-cucumber-preprocessor",
+                "@types/jasmine",
+                "@types/testing-library__jasmine-dom",
+                "jasmine-core",
+                "cypress"
             ],
-            "automerge": true,
-            "addLabels": [
-                "automerge"
+            "matchPackagePatterns": [
+                "^@cypress/",
+                "^@testing-library/",
+                "^karma",
+                "^eslint"
             ]
         }
     ]
