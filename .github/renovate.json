@@ -17,6 +17,16 @@
             "addLabels": [
                 "automerge"
             ]
+        },
+        {
+            "groupName": "Github Actions",
+            "matchManagers": [
+                "github-actions"
+            ],
+            "automerge": true,
+            "addLabels": [
+                "automerge"
+            ]
         }
     ]
 }
