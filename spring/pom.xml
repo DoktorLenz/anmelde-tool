@@ -22,9 +22,9 @@
         <hibernate.jpamodelgen.version>6.2.0.Final</hibernate.jpamodelgen.version>
         <org.liquibase.version>4.23.0</org.liquibase.version>
         <io.hypersistence.version>3.5.1</io.hypersistence.version>
-        <org.springframework.security.test.version>6.1.2</org.springframework.security.test.version>
+        <org.springframework.security.test.version>6.1.4</org.springframework.security.test.version>
         <org.mockito.version>5.2.0</org.mockito.version>
-        <org.testcontainers.version>1.18.3</org.testcontainers.version>
+        <org.testcontainers.version>1.19.0</org.testcontainers.version>
         <org.jacoco.version>0.8.10</org.jacoco.version>
         <org.apache.httpcomponents.client5.version>5.2.1</org.apache.httpcomponents.client5.version>
 
@@ -33,12 +33,12 @@
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.jsoup.version>1.16.1</org.jsoup.version>
         <org.hamcrest.version>2.2</org.hamcrest.version>
-        <io.rest-assured.version>5.3.1</io.rest-assured.version>
+        <io.rest-assured.version>5.3.2</io.rest-assured.version>
         <org.surefire.plugin.version>3.1.2</org.surefire.plugin.version>
         <org.failsafe.plugin.version>3.1.2</org.failsafe.plugin.version>
         <org.springframework.cloud.wiremock.version>4.0.4</org.springframework.cloud.wiremock.version>
 
-        <archunit.version>1.0.1</archunit.version>
+        <archunit.version>1.1.0</archunit.version>
         <arch-unit-maven-plugin.version>3.0.0</arch-unit-maven-plugin.version>
 
         <!-- non-dependencies -->
