@@ -8,25 +8,9 @@
     ],
     "packageRules": [
         {
-            "matchUpdateTypes": [
-                "minor",
-                "patch",
-                "pin"
+            "matchDatasources": [
+                "docker"
             ],
-            "matchManagers": [
-                "dockerfile",
-                "docker-compose"
-            ],
-            "automerge": true,
-            "addLabels": [
-                "automerge"
-            ]
-        },
-        {
-            "matchPackagePatterns": [
-                "^@angular/"
-            ],
-            "rangeStrategy": "auto",
             "automerge": true,
             "addLabels": [
                 "automerge"
