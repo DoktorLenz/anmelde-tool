@@ -34,19 +34,24 @@
         },
         {
             "groupName": "Angular - Main",
-            "matchSourceUrls": [
-                "https://github.com/angular/angular",
-                "https://github.com/angular/angular-cli",
-                "https://github.com/angular-eslint/angular-eslint"
-            ],
             "matchPackagePatterns": [
-                "^@angular-devkit/"
+                "^@angular/",
+                "^@angular-devkit/",
+                "^@angular-eslint/"
+            ],
+            "matchPackageNames": [
+                "zone.js"
             ]
         },
         {
             "groupName": "Angular - Lint",
-            "extends": [
-                "packages:eslint"
+            "matchPackageNames": [
+                "@types/eslint",
+                "babel-eslint"
+            ],
+            "matchPackagePrefixes": [
+                "@typescript-eslint/",
+                "eslint"
             ]
         },
         {
@@ -59,10 +64,10 @@
                 "jasmine-core",
                 "cypress"
             ],
-            "matchPackagePatterns": [
-                "^@cypress/",
-                "^@testing-library/",
-                "^karma"
+            "matchPackagePrefixes": [
+                "@cypress/",
+                "@testing-library/",
+                "karma"
             ]
         },
         {
