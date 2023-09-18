@@ -9,6 +9,7 @@
     ],
     "packageRules": [
         {
+            "groupName": "Docker",
             "matchDatasources": [
                 "docker"
             ],
