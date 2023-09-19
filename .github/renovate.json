@@ -1,0 +1,110 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:best-practices",
+        "npm:unpublishSafe"
+    ],
+    "labels": [
+        "renovate"
+    ],
+    "prHourlyLimit": 0,
+    "packageRules": [
+        {
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin"
+            ],
+            "automerge": true,
+            "addLabels": [
+                "automerge"
+            ]
+        },
+        {
+            "groupName": "Docker",
+            "matchDatasources": [
+                "docker"
+            ]
+        },
+        {
+            "groupName": "Github Actions",
+            "matchManagers": [
+                "github-actions"
+            ]
+        },
+        {
+            "groupName": "Angular - Main",
+            "matchPackagePatterns": [
+                "^@angular/",
+                "^@angular-devkit/",
+                "^@angular-eslint/"
+            ],
+            "matchPackageNames": [
+                "zone.js"
+            ]
+        },
+        {
+            "groupName": "Angular - Lint",
+            "matchPackageNames": [
+                "@types/eslint",
+                "babel-eslint"
+            ],
+            "matchPackagePrefixes": [
+                "@typescript-eslint/",
+                "eslint"
+            ]
+        },
+        {
+            "groupName": "Angular - Testing",
+            "matchPackageNames": [
+                "ng-mocks",
+                "@badeball/cypress-cucumber-preprocessor",
+                "@types/jasmine",
+                "@types/testing-library__jasmine-dom",
+                "jasmine-core",
+                "cypress"
+            ],
+            "matchPackagePrefixes": [
+                "@cypress/",
+                "@testing-library/",
+                "karma"
+            ]
+        },
+        {
+            "groupName": "Spring - Main",
+            "matchPackagePrefixes": [
+                "org.springframework.boot:",
+                "org.projectlombok:"
+            ]
+        },
+        {
+            "groupName": "Spring - Database",
+            "matchPackagePrefixes": [
+                "org.postgresql:",
+                "org.liquibase:",
+                "io.hypersistence:"
+            ]
+        },
+        {
+            "groupName": "Spring - Documentation",
+            "matchPackagePrefixes": [
+                "org.springdoc:"
+            ]
+        },
+        {
+            "groupName": "Spring - Testing",
+            "matchPackageNames": [
+                "org.springframework.security:spring-security-test",
+                "org.springframework.cloud:spring-cloud-contract-wiremock"
+            ],
+            "matchPackagePrefixes": [
+                "org.mockito:",
+                "org.testcontainers:",
+                "org.hamcrest:",
+                "io.rest-assured:",
+                "org.jsoup:",
+                "com.tngtech.archunit:"
+            ]
+        }
+    ]
+}
