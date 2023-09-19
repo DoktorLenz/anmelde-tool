@@ -4,7 +4,6 @@
         "config:best-practices",
         "npm:unpublishSafe"
     ],
-    "recreateWhen": "always",
     "labels": [
         "renovate"
     ],
