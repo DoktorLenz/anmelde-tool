@@ -2,9 +2,9 @@ package de.stinner.anmeldetool.domain.nami.service.client.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.stinner.anmeldetool.domain.shared.model.Gender;
-import de.stinner.anmeldetool.domain.shared.model.Rank;
-import de.stinner.anmeldetool.domain.usermanagement.namimember.persistence.NamiMemberEntity;
+import de.stinner.anmeldetool.hexagonal.domain.models.Gender;
+import de.stinner.anmeldetool.hexagonal.domain.models.Rank;
+import de.stinner.anmeldetool.hexagonal.infrastructure.jpa.models.NamiMemberEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ public class NamiMember {
 
     public NamiMemberEntity toNamiMemberEntity() {
         NamiMemberEntity entity = new NamiMemberEntity();
-        entity.setMemberId(memberId);
+        entity.setMemberId(memberId.longValue());
         entity.setFirstname(firstname);
         entity.setLastname(lastname);
         entity.setDateOfBirth(dateOfBirth.toLocalDate());

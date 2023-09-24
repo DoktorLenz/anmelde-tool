@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.domain.nami.service.client.models;
 
-import de.stinner.anmeldetool.domain.shared.model.Gender;
-import de.stinner.anmeldetool.domain.shared.model.Rank;
-import de.stinner.anmeldetool.domain.usermanagement.namimember.persistence.NamiMemberEntity;
+import de.stinner.anmeldetool.hexagonal.domain.models.Gender;
+import de.stinner.anmeldetool.hexagonal.domain.models.Rank;
+import de.stinner.anmeldetool.hexagonal.infrastructure.jpa.models.NamiMemberEntity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ class NamiMemberTest {
 
         NamiMemberEntity entity = namiMember.toNamiMemberEntity();
 
-        assertThat(entity.getMemberId()).isEqualTo(namiMember.getMemberId());
+        assertThat(entity.getMemberId()).isEqualTo(namiMember.getMemberId().longValue());
         assertThat(entity.getFirstname()).isEqualTo(namiMember.getFirstname());
         assertThat(entity.getLastname()).isEqualTo(namiMember.getLastname());
         assertThat(entity.getDateOfBirth()).isEqualTo(namiMember.getDateOfBirth().toLocalDate());

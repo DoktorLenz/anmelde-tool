@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.shared.model;
+package de.stinner.anmeldetool.hexagonal.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;

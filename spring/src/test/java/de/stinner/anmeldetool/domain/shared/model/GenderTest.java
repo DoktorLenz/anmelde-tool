@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.domain.shared.model;
 
+import de.stinner.anmeldetool.hexagonal.domain.models.Gender;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
