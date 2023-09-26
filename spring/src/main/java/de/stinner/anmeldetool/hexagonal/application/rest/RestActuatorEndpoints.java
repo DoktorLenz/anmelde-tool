@@ -1,9 +1,9 @@
-package de.stinner.anmeldetool.application.rest;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class ActuatorEndpoints {
+public final class RestActuatorEndpoints {
     private static final String BASE = "/actuator";
     private static final String HEALTH = BASE + "/health";
     public static final String READINESS = HEALTH + "/readiness";

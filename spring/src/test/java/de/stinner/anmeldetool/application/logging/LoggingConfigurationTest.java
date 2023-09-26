@@ -1,7 +1,7 @@
 package de.stinner.anmeldetool.application.logging;
 
 import com.sun.security.auth.UserPrincipal;
-import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
+import de.stinner.anmeldetool.hexagonal.application.rest.RestActuatorEndpoints;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ class LoggingConfigurationTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
         MockFilterChain chain = new MockFilterChain();
 
-        request.setRequestURI(ActuatorEndpoints.LIVENESS);
+        request.setRequestURI(RestActuatorEndpoints.LIVENESS);
 
         filter.doFilter(request, response, chain);
 
@@ -49,7 +49,7 @@ class LoggingConfigurationTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
         MockFilterChain chain = new MockFilterChain();
 
-        request.setRequestURI(ActuatorEndpoints.READINESS);
+        request.setRequestURI(RestActuatorEndpoints.READINESS);
 
         filter.doFilter(request, response, chain);
 

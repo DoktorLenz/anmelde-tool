@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.rest;
+package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

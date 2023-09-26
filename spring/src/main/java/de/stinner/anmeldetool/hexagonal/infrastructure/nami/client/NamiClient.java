@@ -1,6 +1,5 @@
 package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
-import de.stinner.anmeldetool.application.rest.NamiApiEndpoints;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;

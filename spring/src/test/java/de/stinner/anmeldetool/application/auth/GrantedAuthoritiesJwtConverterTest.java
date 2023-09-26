@@ -2,6 +2,7 @@ package de.stinner.anmeldetool.application.auth;
 
 import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
 import de.stinner.anmeldetool.domain.authorization.userroles.service.UserRolesService;
+import de.stinner.anmeldetool.hexagonal.application.rest.security.GrantedAuthoritiesJwtConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;

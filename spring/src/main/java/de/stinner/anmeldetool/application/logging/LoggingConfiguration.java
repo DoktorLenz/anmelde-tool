@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.application.logging;
 
-import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
+import de.stinner.anmeldetool.hexagonal.application.rest.RestActuatorEndpoints;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -58,8 +58,8 @@ class LoggingConfiguration {
             }
 
             // Do not log probing, as it would just clog up the log.
-            if (request.getRequestURI().equals(ActuatorEndpoints.LIVENESS)
-                    || request.getRequestURI().equals(ActuatorEndpoints.READINESS)) {
+            if (request.getRequestURI().equals(RestActuatorEndpoints.LIVENESS)
+                    || request.getRequestURI().equals(RestActuatorEndpoints.READINESS)) {
                 return;
             }
 
@@ -102,8 +102,8 @@ class LoggingConfiguration {
             }
 
             // Do not log probing, as it would just clog up the log.
-            if (request.getRequestURI().equals(ActuatorEndpoints.LIVENESS)
-                    || request.getRequestURI().equals(ActuatorEndpoints.READINESS)) {
+            if (request.getRequestURI().equals(RestActuatorEndpoints.LIVENESS)
+                    || request.getRequestURI().equals(RestActuatorEndpoints.READINESS)) {
                 LoggingTracker.stop();
                 return;
             }

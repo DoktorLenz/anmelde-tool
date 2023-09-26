@@ -1,11 +1,7 @@
-package de.stinner.anmeldetool.wiremock;
+package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import de.stinner.anmeldetool.application.rest.NamiApiEndpoints;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.NamiLoginResponse;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.NamiMembersWrapper;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.NamiTestData;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

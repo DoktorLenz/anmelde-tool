@@ -5,7 +5,6 @@ import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.Na
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiSessionExpiredException;
-import de.stinner.anmeldetool.wiremock.NamiClientWiremockConfigurator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.cookie.CookieStore;
 import org.junit.jupiter.api.Nested;

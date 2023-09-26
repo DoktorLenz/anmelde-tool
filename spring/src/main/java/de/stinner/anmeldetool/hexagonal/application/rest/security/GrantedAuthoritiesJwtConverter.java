@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.auth;
+package de.stinner.anmeldetool.hexagonal.application.rest.security;
 
 import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
 import de.stinner.anmeldetool.domain.authorization.userroles.service.UserRolesService;

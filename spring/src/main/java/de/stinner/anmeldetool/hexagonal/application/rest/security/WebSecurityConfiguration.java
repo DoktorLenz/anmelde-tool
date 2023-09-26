@@ -1,6 +1,6 @@
-package de.stinner.anmeldetool.application.auth;
+package de.stinner.anmeldetool.hexagonal.application.rest.security;
 
-import de.stinner.anmeldetool.application.rest.ActuatorEndpoints;
+import de.stinner.anmeldetool.hexagonal.application.rest.RestActuatorEndpoints;
 import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -46,8 +46,8 @@ public class WebSecurityConfiguration {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
-                                ActuatorEndpoints.READINESS,
-                                ActuatorEndpoints.LIVENESS,
+                                RestActuatorEndpoints.READINESS,
+                                RestActuatorEndpoints.LIVENESS,
                                 RestApiEndpoints.V1.CONFIGURATION,
                                 RestApiEndpoints.API_DOCS,
                                 RestApiEndpoints.SWAGGER
