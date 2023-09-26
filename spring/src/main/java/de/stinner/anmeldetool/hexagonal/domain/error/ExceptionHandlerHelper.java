@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.domain.error;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.validation.FieldError;
@@ -13,7 +13,7 @@ public class ExceptionHandlerHelper {
     private static final String NULL_LITERAL = "null";
 
 
-    static List<String> getErrorsFromValidation(MethodArgumentNotValidException e) {
+    public static List<String> getErrorsFromValidation(MethodArgumentNotValidException e) {
         return e.getBindingResult()
                 .getAllErrors()
                 .stream()

@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.rest.error.api;
+package de.stinner.anmeldetool.hexagonal.domain.error.api;
 
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;

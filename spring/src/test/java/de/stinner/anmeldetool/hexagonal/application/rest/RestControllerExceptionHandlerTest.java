@@ -1,6 +1,9 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
 
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorMessages;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorResponse;
+import de.stinner.anmeldetool.hexagonal.domain.error.MethodArgumentNotValidExceptionTestData;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;

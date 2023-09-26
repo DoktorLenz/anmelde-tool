@@ -1,10 +1,10 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.domain.error;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static de.stinner.anmeldetool.application.rest.error.MethodArgumentNotValidExceptionTestData.*;
+import static de.stinner.anmeldetool.hexagonal.domain.error.MethodArgumentNotValidExceptionTestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ExceptionHandlerHelperTest {

@@ -1,11 +1,11 @@
 package de.stinner.anmeldetool.hexagonal.application.rest.controllers;
 
-import de.stinner.anmeldetool.application.rest.error.ErrorMessages;
-import de.stinner.anmeldetool.application.rest.error.ErrorResponse;
 import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
 import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import de.stinner.anmeldetool.hexagonal.application.rest.models.NamiImportDetailsDto;
 import de.stinner.anmeldetool.hexagonal.application.rest.models.NamiMemberDto;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorMessages;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorResponse;
 import de.stinner.anmeldetool.hexagonal.domain.ports.api.NamiMemberService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

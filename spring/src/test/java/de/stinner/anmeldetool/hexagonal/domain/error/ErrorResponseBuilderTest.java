@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.domain.error;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;

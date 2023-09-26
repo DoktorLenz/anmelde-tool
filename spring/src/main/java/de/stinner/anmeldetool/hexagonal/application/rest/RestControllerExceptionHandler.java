@@ -1,6 +1,10 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
 
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorMessages;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorResponse;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorResponseBuilder;
+import de.stinner.anmeldetool.hexagonal.domain.error.ExceptionHandlerHelper;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiAccessViolationException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
 import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiUnavailableException;

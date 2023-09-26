@@ -1,7 +1,9 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
-import de.stinner.anmeldetool.application.rest.error.api.TestControllerDto;
 import de.stinner.anmeldetool.base.BaseControllerTest;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorMessages;
+import de.stinner.anmeldetool.hexagonal.domain.error.ErrorResponse;
+import de.stinner.anmeldetool.hexagonal.domain.error.api.TestControllerDto;
 import io.restassured.http.ContentType;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
 
-import static de.stinner.anmeldetool.application.rest.error.api.ExceptionHandlerTestController.*;
+import static de.stinner.anmeldetool.hexagonal.domain.error.api.ExceptionHandlerTestController.*;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.assertj.core.api.Assertions.assertThat;
 

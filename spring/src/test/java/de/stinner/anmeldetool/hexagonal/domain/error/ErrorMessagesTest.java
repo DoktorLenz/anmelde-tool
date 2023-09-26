@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.rest.error;
+package de.stinner.anmeldetool.hexagonal.domain.error;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

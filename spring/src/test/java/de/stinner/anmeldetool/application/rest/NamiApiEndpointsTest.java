@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.application.rest;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,7 +9,7 @@ class NamiApiEndpointsTest {
 
     @Test
     void correctNamiLoginPath() {
-        assertThat(NamiApiEndpoints.LOGIN).isEqualTo("/ica/rest/nami/auth/manual/sessionStartup");
+        Assertions.assertThat(NamiApiEndpoints.LOGIN).isEqualTo("/ica/rest/nami/auth/manual/sessionStartup");
     }
 
     @Test

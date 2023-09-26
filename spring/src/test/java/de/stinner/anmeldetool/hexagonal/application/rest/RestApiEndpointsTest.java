@@ -1,6 +1,5 @@
-package de.stinner.anmeldetool.application.rest;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
-import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-class ApiEndpointsTest {
+class RestApiEndpointsTest {
     @Test
     void allPathsMustContainApi() {
         assertThatFieldsContainingString(RestApiEndpoints.class, "/api");
