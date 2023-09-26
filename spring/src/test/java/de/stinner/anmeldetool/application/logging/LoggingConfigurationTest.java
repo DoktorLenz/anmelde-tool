@@ -2,6 +2,7 @@ package de.stinner.anmeldetool.application.logging;
 
 import com.sun.security.auth.UserPrincipal;
 import de.stinner.anmeldetool.hexagonal.application.rest.RestActuatorEndpoints;
+import de.stinner.anmeldetool.hexagonal.application.rest.logging.LoggingConfiguration;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

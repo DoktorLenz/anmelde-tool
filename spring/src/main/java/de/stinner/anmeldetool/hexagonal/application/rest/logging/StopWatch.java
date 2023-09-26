@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.logging;
+package de.stinner.anmeldetool.hexagonal.application.rest.logging;
 
 import java.time.Duration;
 
