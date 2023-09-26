@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.domain.authorization.userroles.api;
 
-import de.stinner.anmeldetool.application.rest.ApiEndpoints;
+import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,7 +27,7 @@ public class UserRolesController {
                     )
             }
     )
-    @GetMapping(ApiEndpoints.V1.Auth.USERROLES)
+    @GetMapping(RestApiEndpoints.V1.Auth.USERROLES)
     public ResponseEntity<List<String>> getUserRoles(Authentication authentication) {
         List<String> userRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         return ResponseEntity.ok(userRoles);

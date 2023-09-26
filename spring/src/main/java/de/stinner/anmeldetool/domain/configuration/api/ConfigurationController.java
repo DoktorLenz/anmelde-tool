@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.domain.configuration.api;
 
-import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import de.stinner.anmeldetool.domain.configuration.api.models.ConfigurationDto;
 import de.stinner.anmeldetool.domain.configuration.api.models.OAuth2ConfigurationDto;
+import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +28,7 @@ public class ConfigurationController {
                     )
             }
     )
-    @GetMapping(ApiEndpoints.V1.CONFIGURATION)
+    @GetMapping(RestApiEndpoints.V1.CONFIGURATION)
     public ResponseEntity<ConfigurationDto> getConfiguration() {
         OAuth2ConfigurationDto oauth2Dto = OAuth2ConfigurationDto.of(oAuth2Configuration);
         ConfigurationDto dto = new ConfigurationDto(oauth2Dto);

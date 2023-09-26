@@ -1,9 +1,9 @@
-package de.stinner.anmeldetool.hexagonal.application.rest;
+package de.stinner.anmeldetool.hexagonal.application.rest.controllers;
 
-import de.stinner.anmeldetool.application.rest.ApiEndpoints;
 import de.stinner.anmeldetool.application.rest.error.ErrorMessages;
 import de.stinner.anmeldetool.application.rest.error.ErrorResponse;
 import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
+import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import de.stinner.anmeldetool.hexagonal.application.rest.models.NamiImportDetailsDto;
 import de.stinner.anmeldetool.hexagonal.application.rest.models.NamiMemberDto;
 import de.stinner.anmeldetool.hexagonal.domain.ports.api.NamiMemberService;
@@ -24,11 +24,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class NamiMemberController {
+public class UserManagementController {
 
     private final NamiMemberService namiMemberService;
 
-    @GetMapping(ApiEndpoints.V1.Usermanagement.NAMI_MEMBERS)
+    @GetMapping(RestApiEndpoints.V1.Usermanagement.NAMI_MEMBERS)
     public ResponseEntity<List<NamiMemberDto>> getNamiMembers() {
         List<NamiMemberDto> namiMembers = namiMemberService.getNamiMembers()
                 .stream()
@@ -61,7 +61,7 @@ public class NamiMemberController {
                     })
     })
     @RolesAllowed({Role.ADMIN})
-    @PostMapping(ApiEndpoints.V1.Nami.MEMBER_FETCH)
+    @PostMapping(RestApiEndpoints.V1.Usermanagement.TRIGGER_IMPORT)
     public ResponseEntity<Void> triggerNamiImport(@RequestBody NamiImportDetailsDto namiImportDetailsDto) {
         namiMemberService.triggerImport(
                 namiImportDetailsDto.getUsername(),

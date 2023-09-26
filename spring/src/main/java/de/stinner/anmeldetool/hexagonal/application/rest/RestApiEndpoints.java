@@ -1,9 +1,9 @@
-package de.stinner.anmeldetool.application.rest;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public final class ApiEndpoints {
+public final class RestApiEndpoints {
 
     private static final String BASE = "/api";
     public static final String API_DOCS = BASE + "/api-docs/**";
@@ -23,15 +23,10 @@ public final class ApiEndpoints {
         }
 
         @UtilityClass
-        public static class Nami {
-            private static final String BASE_NAMI = BASE_V1 + "/nami";
-            public static final String MEMBER_FETCH = BASE_NAMI + "/member-fetch";
-        }
-
-        @UtilityClass
         public static class Usermanagement {
             private static final String BASE_USERMANAGEMENT = BASE_V1 + "/usermanagement";
             public static final String NAMI_MEMBERS = BASE_USERMANAGEMENT + "/nami-members";
+            public static final String TRIGGER_IMPORT = BASE_USERMANAGEMENT + "/trigger-import";
         }
     }
 }

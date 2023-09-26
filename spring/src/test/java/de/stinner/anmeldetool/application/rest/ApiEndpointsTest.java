@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.application.rest;
 
+import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -15,17 +16,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ApiEndpointsTest {
     @Test
     void allPathsMustContainApi() {
-        assertThatFieldsContainingString(ApiEndpoints.class, "/api");
+        assertThatFieldsContainingString(RestApiEndpoints.class, "/api");
     }
 
     @Test
     void allPathsInV1MustContainV1() {
-        assertThatFieldsContainingString(ApiEndpoints.V1.class, "/v1");
+        assertThatFieldsContainingString(RestApiEndpoints.V1.class, "/v1");
     }
 
     @Test
     void allPathsInAuthMustContainAuth() {
-        assertThatFieldsContainingString(ApiEndpoints.V1.Auth.class, "/auth");
+        assertThatFieldsContainingString(RestApiEndpoints.V1.Auth.class, "/auth");
     }
 
     private void assertThatFieldsContainingString(Class<?> c, String contains) {
