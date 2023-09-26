@@ -1,9 +1,9 @@
 package de.stinner.anmeldetool.application.rest.error;
 
 
-import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiAccessViolationException;
-import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
-import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiUnavailableException;
+import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiAccessViolationException;
+import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiUnavailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;

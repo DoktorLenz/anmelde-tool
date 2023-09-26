@@ -1,7 +1,7 @@
 package de.stinner.anmeldetool.application.rest.error;
 
 
-import de.stinner.anmeldetool.domain.nami.service.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;

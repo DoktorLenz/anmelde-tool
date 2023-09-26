@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface NamiMemberService {
     List<NamiMember> getNamiMembers();
+
+    void triggerImport(String username, String password, String groupingId);
 }
