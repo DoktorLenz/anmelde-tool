@@ -1,7 +1,6 @@
 package de.stinner.anmeldetool.hexagonal.application.rest.security;
 
-import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
-import de.stinner.anmeldetool.domain.authorization.userroles.service.UserRolesService;
+import de.stinner.anmeldetool.hexagonal.domain.ports.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 @Configuration
 public class GrantedAuthoritiesJwtConverter implements Converter<Jwt, JwtAuthenticationToken> {
 
-    private final UserRolesService userRolesService;
+    private final UserService userService;
     @Value("${anmelde-tool.oidc.superuser-sub}")
     private String superuserSubject;
 
@@ -32,7 +31,7 @@ public class GrantedAuthoritiesJwtConverter implements Converter<Jwt, JwtAuthent
         if (subject.equals(superuserSubject)) {
             roles = Role.SUPERUSER;
         } else {
-            roles = userRolesService.getRolesForSubject(source.getSubject());
+            roles = userService.getRolesForSubject(source.getSubject());
         }
 
         final Set<GrantedAuthority> grantedAuthorities = roles.stream()

@@ -1,21 +1,25 @@
-package de.stinner.anmeldetool.domain.authorization.userroles.persistence;
+package de.stinner.anmeldetool.hexagonal.infrastructure.jpa.models;
 
+import de.stinner.anmeldetool.hexagonal.domain.models.UserRoles;
 import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "user_roles")
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserRolesEntity {
 
     /**
@@ -29,12 +33,21 @@ public class UserRolesEntity {
     @Type(ListArrayType.class)
     private List<String> roles;
 
-    public UserRolesEntity() {
-        this.roles = new ArrayList<>();
-    }
-
     public UserRolesEntity(String subject) {
         this.subject = subject;
-        this.roles = new ArrayList<>();
+    }
+
+    public static UserRolesEntity fromDomain(UserRoles domain) {
+        return new UserRolesEntity(
+                domain.getSubject(),
+                domain.getRoles()
+        );
+    }
+
+    public UserRoles toDomain() {
+        return new UserRoles(
+                subject,
+                roles
+        );
     }
 }

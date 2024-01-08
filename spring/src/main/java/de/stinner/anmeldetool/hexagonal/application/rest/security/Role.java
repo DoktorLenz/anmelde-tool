@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.authorization.userroles.model;
+package de.stinner.anmeldetool.hexagonal.application.rest.security;
 
 import lombok.experimental.UtilityClass;
 

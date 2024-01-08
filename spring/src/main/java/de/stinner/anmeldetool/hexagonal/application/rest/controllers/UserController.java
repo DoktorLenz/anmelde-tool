@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.authorization.userroles.api;
+package de.stinner.anmeldetool.hexagonal.application.rest.controllers;
 
 import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class UserRolesController {
+public class UserController {
 
     @ApiResponse(
             responseCode = "200",
@@ -27,6 +27,7 @@ public class UserRolesController {
                     )
             }
     )
+
     @GetMapping(RestApiEndpoints.V1.Auth.USERROLES)
     public ResponseEntity<List<String>> getUserRoles(Authentication authentication) {
         List<String> userRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
