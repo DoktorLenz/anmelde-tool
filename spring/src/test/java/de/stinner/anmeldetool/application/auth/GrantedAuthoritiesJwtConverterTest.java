@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.application.auth;
 
-import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
-import de.stinner.anmeldetool.domain.authorization.userroles.service.UserRolesService;
 import de.stinner.anmeldetool.hexagonal.application.rest.security.GrantedAuthoritiesJwtConverter;
+import de.stinner.anmeldetool.hexagonal.application.rest.security.Role;
+import de.stinner.anmeldetool.hexagonal.domain.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -20,13 +20,13 @@ class GrantedAuthoritiesJwtConverterTest {
 
     @Test
     void when_standardUser_then_getRolesFromService() {
-        UserRolesService userRolesService = mock(UserRolesService.class);
-        when(userRolesService.getRolesForSubject(anyString())).thenReturn(List.of(Role.VERIFIED));
+        UserServiceImpl userServiceImpl = mock(UserServiceImpl.class);
+        when(userServiceImpl.getRolesForSubject(anyString())).thenReturn(List.of(Role.VERIFIED));
 
         Jwt token = mock(Jwt.class);
         when(token.getSubject()).thenReturn("standardUser");
 
-        GrantedAuthoritiesJwtConverter converter = new GrantedAuthoritiesJwtConverter(userRolesService);
+        GrantedAuthoritiesJwtConverter converter = new GrantedAuthoritiesJwtConverter(userServiceImpl);
 
         JwtAuthenticationToken authenticationToken = converter.convert(token);
 
@@ -45,13 +45,13 @@ class GrantedAuthoritiesJwtConverterTest {
     void when_superuser_then_superuserRoles() {
         String superuserSubject = "superuser";
 
-        UserRolesService userRolesService = mock(UserRolesService.class);
-        when(userRolesService.getRolesForSubject(anyString())).thenReturn(List.of(Role.VERIFIED));
+        UserServiceImpl userServiceImpl = mock(UserServiceImpl.class);
+        when(userServiceImpl.getRolesForSubject(anyString())).thenReturn(List.of(Role.VERIFIED));
 
         Jwt token = mock(Jwt.class);
         when(token.getSubject()).thenReturn(superuserSubject);
 
-        GrantedAuthoritiesJwtConverter converter = new GrantedAuthoritiesJwtConverter(userRolesService);
+        GrantedAuthoritiesJwtConverter converter = new GrantedAuthoritiesJwtConverter(userServiceImpl);
         ReflectionTestUtils.setField(converter, "superuserSubject", superuserSubject);
 
         JwtAuthenticationToken authenticationToken = converter.convert(token);

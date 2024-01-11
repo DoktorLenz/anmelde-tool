@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.domain.authorization.userroles.persistence;
 
+import de.stinner.anmeldetool.hexagonal.infrastructure.jpa.models.UserRolesEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

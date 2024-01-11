@@ -17,7 +17,7 @@ import java.security.Principal;
 
 @Slf4j
 @Configuration
-class LoggingConfiguration {
+public class LoggingConfiguration {
 
     private static final String ANONYMOUS_USER = "Anonymous User";
 

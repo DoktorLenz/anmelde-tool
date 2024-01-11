@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.domain.authorization.userroles.service;
 
-import de.stinner.anmeldetool.domain.authorization.userroles.model.Role;
-import de.stinner.anmeldetool.domain.authorization.userroles.persistence.UserRolesEntity;
-import de.stinner.anmeldetool.domain.authorization.userroles.persistence.UserRolesRepository;
+import de.stinner.anmeldetool.hexagonal.application.rest.security.Role;
+import de.stinner.anmeldetool.hexagonal.domain.service.UserServiceImpl;
+import de.stinner.anmeldetool.hexagonal.infrastructure.jpa.models.UserRolesEntity;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -24,7 +24,7 @@ class UserRoleServiceTest {
         UserRolesRepository repository = mock(UserRolesRepository.class);
         when(repository.findById(anyString())).thenReturn(Optional.of(entity));
 
-        UserRolesService service = new UserRolesService(repository);
+        UserServiceImpl service = new UserServiceImpl(repository);
 
         List<String> roles = service.getRolesForSubject("");
 
@@ -38,7 +38,7 @@ class UserRoleServiceTest {
         when(repository.save(any(UserRolesEntity.class)))
                 .thenAnswer(invocationOnMock -> invocationOnMock.getArgument(0));
 
-        UserRolesService service = new UserRolesService(repository);
+        UserServiceImpl service = new UserServiceImpl(repository);
 
         List<String> roles = service.getRolesForSubject("");
 
