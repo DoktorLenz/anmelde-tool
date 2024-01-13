@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.application.logging;
 
-import de.stinner.anmeldetool.hexagonal.application.rest.logging.LoggingTracker;
+import de.stinner.anmeldetool.application.rest.logging.LoggingTracker;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;

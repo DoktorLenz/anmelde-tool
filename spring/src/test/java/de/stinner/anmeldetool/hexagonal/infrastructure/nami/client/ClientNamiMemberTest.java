@@ -1,6 +1,9 @@
 package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
-import de.stinner.anmeldetool.hexagonal.domain.models.NamiMember;
+import de.stinner.anmeldetool.domain.models.NamiMember;
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientGender;
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientNamiMember;
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientRank;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,10 @@
 package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientGender;
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientNamiMember;
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientRank;
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiMembersWrapper;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;

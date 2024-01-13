@@ -1,5 +1,7 @@
 package de.stinner.anmeldetool.hexagonal.domain.error;
 
+import de.stinner.anmeldetool.domain.error.ErrorResponse;
+import de.stinner.anmeldetool.domain.error.ErrorResponseBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

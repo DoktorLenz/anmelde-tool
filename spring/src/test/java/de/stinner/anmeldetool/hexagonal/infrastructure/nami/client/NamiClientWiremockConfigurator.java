@@ -2,6 +2,9 @@ package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiApiEndpoints;
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiLoginResponse;
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiMembersWrapper;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

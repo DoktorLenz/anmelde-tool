@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.hexagonal.application.rest;
 
+import de.stinner.anmeldetool.application.rest.RestApiEndpoints;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.application.auth;
 
-import de.stinner.anmeldetool.hexagonal.application.rest.security.GrantedAuthoritiesJwtConverter;
-import de.stinner.anmeldetool.hexagonal.application.rest.security.Role;
-import de.stinner.anmeldetool.hexagonal.domain.service.UserServiceImpl;
+import de.stinner.anmeldetool.application.rest.security.GrantedAuthoritiesJwtConverter;
+import de.stinner.anmeldetool.application.rest.security.Role;
+import de.stinner.anmeldetool.domain.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;

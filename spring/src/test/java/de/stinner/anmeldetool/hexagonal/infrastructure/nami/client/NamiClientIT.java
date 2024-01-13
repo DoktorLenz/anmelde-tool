@@ -1,10 +1,12 @@
 package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
 import de.stinner.anmeldetool.base.BaseIntegrationTest;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiAccessViolationException;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiException;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiSessionExpiredException;
+import de.stinner.anmeldetool.infrastructure.nami.client.ClientNamiMember;
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiClient;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiAccessViolationException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiSessionExpiredException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.cookie.CookieStore;
 import org.junit.jupiter.api.Nested;

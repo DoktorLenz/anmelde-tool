@@ -1,8 +1,9 @@
 package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
 import de.stinner.anmeldetool.base.BaseIntegrationTest;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiException;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiUnavailableException;
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiRestTemplate;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiUnavailableException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.classic.HttpClients;

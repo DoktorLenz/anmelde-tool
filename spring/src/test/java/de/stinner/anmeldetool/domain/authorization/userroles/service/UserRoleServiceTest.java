@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.domain.authorization.userroles.service;
 
-import de.stinner.anmeldetool.hexagonal.application.rest.security.Role;
-import de.stinner.anmeldetool.hexagonal.domain.service.UserServiceImpl;
-import de.stinner.anmeldetool.hexagonal.infrastructure.jpa.models.UserRolesEntity;
+import de.stinner.anmeldetool.application.rest.security.Role;
+import de.stinner.anmeldetool.domain.service.UserServiceImpl;
+import de.stinner.anmeldetool.infrastructure.jpa.models.UserRolesEntity;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.hexagonal.domain.error;
 
+import de.stinner.anmeldetool.domain.error.ErrorResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.springframework.http.HttpStatus;

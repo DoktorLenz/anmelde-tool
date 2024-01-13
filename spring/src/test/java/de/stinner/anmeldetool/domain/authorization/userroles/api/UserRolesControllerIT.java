@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.domain.authorization.userroles.api;
 
 import de.stinner.anmeldetool.base.BaseControllerTest;
-import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
-import de.stinner.anmeldetool.hexagonal.application.rest.security.Role;
+import de.stinner.anmeldetool.application.rest.RestApiEndpoints;
+import de.stinner.anmeldetool.application.rest.security.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.test.context.support.WithMockUser;

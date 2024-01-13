@@ -1,7 +1,7 @@
 package de.stinner.anmeldetool.application.auth;
 
 import de.stinner.anmeldetool.base.BaseControllerTest;
-import de.stinner.anmeldetool.hexagonal.application.rest.RestActuatorEndpoints;
+import de.stinner.anmeldetool.application.rest.RestActuatorEndpoints;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 

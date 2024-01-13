@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.hexagonal.infrastructure.nami.client;
 
+import de.stinner.anmeldetool.infrastructure.nami.client.NamiApiEndpoints;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

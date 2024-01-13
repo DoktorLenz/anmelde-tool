@@ -1,10 +1,11 @@
 package de.stinner.anmeldetool.hexagonal.application.rest;
 
 
-import de.stinner.anmeldetool.hexagonal.domain.error.ErrorMessages;
-import de.stinner.anmeldetool.hexagonal.domain.error.ErrorResponse;
+import de.stinner.anmeldetool.domain.error.ErrorMessages;
+import de.stinner.anmeldetool.domain.error.ErrorResponse;
 import de.stinner.anmeldetool.hexagonal.domain.error.MethodArgumentNotValidExceptionTestData;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.application.rest.RestControllerExceptionHandler;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;

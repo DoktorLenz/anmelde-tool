@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.hexagonal.domain.error.api;
 
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiAccessViolationException;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiLoginFailedException;
-import de.stinner.anmeldetool.hexagonal.infrastructure.nami.client.exceptions.NamiUnavailableException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiAccessViolationException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiUnavailableException;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;

@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.hexagonal.domain.error;
 
+import de.stinner.anmeldetool.domain.error.ExceptionHandlerHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
