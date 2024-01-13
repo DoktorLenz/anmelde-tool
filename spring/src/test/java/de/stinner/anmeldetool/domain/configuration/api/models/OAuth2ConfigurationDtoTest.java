@@ -1,6 +1,7 @@
 package de.stinner.anmeldetool.domain.configuration.api.models;
 
-import de.stinner.anmeldetool.domain.configuration.api.OAuth2Configuration;
+import de.stinner.anmeldetool.hexagonal.application.rest.security.OAuth2Configuration;
+import de.stinner.anmeldetool.hexagonal.application.rest.models.OAuth2ConfigurationDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

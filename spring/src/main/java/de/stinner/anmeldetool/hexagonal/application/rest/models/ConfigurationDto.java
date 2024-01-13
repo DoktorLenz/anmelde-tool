@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.configuration.api.models;
+package de.stinner.anmeldetool.hexagonal.application.rest.models;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

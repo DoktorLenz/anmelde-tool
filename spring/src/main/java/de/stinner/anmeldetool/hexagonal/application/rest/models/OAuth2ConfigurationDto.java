@@ -1,6 +1,6 @@
-package de.stinner.anmeldetool.domain.configuration.api.models;
+package de.stinner.anmeldetool.hexagonal.application.rest.models;
 
-import de.stinner.anmeldetool.domain.configuration.api.OAuth2Configuration;
+import de.stinner.anmeldetool.hexagonal.application.rest.security.OAuth2Configuration;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,8 @@
-package de.stinner.anmeldetool.domain.configuration.api;
+package de.stinner.anmeldetool.hexagonal.application.rest.controllers;
 
-import de.stinner.anmeldetool.domain.configuration.api.models.ConfigurationDto;
-import de.stinner.anmeldetool.domain.configuration.api.models.OAuth2ConfigurationDto;
+import de.stinner.anmeldetool.hexagonal.application.rest.security.OAuth2Configuration;
+import de.stinner.anmeldetool.hexagonal.application.rest.models.ConfigurationDto;
+import de.stinner.anmeldetool.hexagonal.application.rest.models.OAuth2ConfigurationDto;
 import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class ConfigurationController {
+public class ClientConfigurationController {
 
     private final OAuth2Configuration oAuth2Configuration;
 
@@ -30,10 +31,9 @@ public class ConfigurationController {
     )
     @GetMapping(RestApiEndpoints.V1.CONFIGURATION)
     public ResponseEntity<ConfigurationDto> getConfiguration() {
-        OAuth2ConfigurationDto oauth2Dto = OAuth2ConfigurationDto.of(oAuth2Configuration);
-        ConfigurationDto dto = new ConfigurationDto(oauth2Dto);
+        OAuth2ConfigurationDto oAuth2ConfigurationDto = OAuth2ConfigurationDto.of(oAuth2Configuration);
+        ConfigurationDto dto = new ConfigurationDto(oAuth2ConfigurationDto);
 
         return ResponseEntity.ok(dto);
     }
-
 }

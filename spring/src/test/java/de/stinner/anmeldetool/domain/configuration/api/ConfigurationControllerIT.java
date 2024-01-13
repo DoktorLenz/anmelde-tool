@@ -1,7 +1,7 @@
 package de.stinner.anmeldetool.domain.configuration.api;
 
 import de.stinner.anmeldetool.base.BaseControllerTest;
-import de.stinner.anmeldetool.domain.configuration.api.models.ConfigurationDto;
+import de.stinner.anmeldetool.hexagonal.application.rest.models.ConfigurationDto;
 import de.stinner.anmeldetool.hexagonal.application.rest.RestApiEndpoints;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
