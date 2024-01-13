@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,6 +36,7 @@ public class UserRolesEntity {
 
     public UserRolesEntity(String subject) {
         this.subject = subject;
+        this.roles = new ArrayList<>();
     }
 
     public static UserRolesEntity fromDomain(UserRoles domain) {
@@ -49,5 +51,13 @@ public class UserRolesEntity {
                 subject,
                 roles
         );
+    }
+
+    public List<String> getRoles() {
+        return this.roles.isEmpty() ? new ArrayList<>() : this.roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles.isEmpty() ? new ArrayList<>() : roles;
     }
 }
