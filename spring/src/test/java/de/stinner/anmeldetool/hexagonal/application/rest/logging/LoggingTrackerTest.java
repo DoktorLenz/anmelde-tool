@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.logging;
+package de.stinner.anmeldetool.hexagonal.application.rest.logging;
 
 import de.stinner.anmeldetool.application.rest.logging.LoggingTracker;
 import lombok.SneakyThrows;

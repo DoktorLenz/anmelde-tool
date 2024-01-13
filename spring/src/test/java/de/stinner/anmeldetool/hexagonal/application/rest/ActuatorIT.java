@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.application.auth;
+package de.stinner.anmeldetool.hexagonal.application.rest;
 
 import de.stinner.anmeldetool.base.BaseControllerTest;
 import de.stinner.anmeldetool.application.rest.RestActuatorEndpoints;
