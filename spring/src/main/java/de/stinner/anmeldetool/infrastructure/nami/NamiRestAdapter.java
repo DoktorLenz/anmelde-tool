@@ -1,16 +1,16 @@
 package de.stinner.anmeldetool.infrastructure.nami;
 
-import de.stinner.anmeldetool.domain.ports.spi.NamiAdapter;
 import de.stinner.anmeldetool.domain.models.NamiMember;
+import de.stinner.anmeldetool.domain.ports.spi.NamiAdapter;
 import de.stinner.anmeldetool.infrastructure.nami.client.ClientNamiMember;
 import de.stinner.anmeldetool.infrastructure.nami.client.NamiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class NamiRestAdapter implements NamiAdapter {
 

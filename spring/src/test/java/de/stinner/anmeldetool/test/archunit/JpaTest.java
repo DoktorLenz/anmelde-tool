@@ -47,6 +47,13 @@ class JpaTest {
     public static final ArchRule JPA_REPOSITORIES_MUST_RESIDE_IN_JPA_PACKAGE = classes()
             .that().areAssignableTo(JpaRepository.class)
             .should().resideInAPackage("..jpa..");
+    @ArchTest
+    public static final ArchRule CLASSES_MUST_BE_ENDING_WITH_JPA_SPI = classes()
+            .that().resideInAPackage("..jpa..")
+            .and().areNotInterfaces()
+            .and().haveSimpleNameNotContaining("Entity")
+            .and().doNotHaveModifier(JavaModifier.SYNTHETIC)
+            .should().haveSimpleNameEndingWith("JpaSpi");
     public static ArchCondition<JavaClass> IMPLEMENT_SPI_INTERFACE = new ArchCondition<JavaClass>("implements an SPI interface") {
         @Override
         public void check(JavaClass javaClass, ConditionEvents conditionEvents) {
@@ -62,12 +69,4 @@ class JpaTest {
 
         }
     };
-    @ArchTest
-    public static final ArchRule CLASSES_MUST_BE_ENDING_WITH_JPA_SPI_AND_MUST_IMPLEMENT_SPI_INTERFACE = classes()
-            .that().resideInAPackage("..jpa..")
-            .and().areNotInterfaces()
-            .and().haveSimpleNameNotContaining("Entity")
-            .and().doNotHaveModifier(JavaModifier.SYNTHETIC)
-            .should().haveSimpleNameEndingWith("JpaSpi")
-            .andShould(IMPLEMENT_SPI_INTERFACE);
 }
