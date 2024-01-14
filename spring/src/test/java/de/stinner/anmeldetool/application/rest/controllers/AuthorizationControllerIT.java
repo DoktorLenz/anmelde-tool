@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.old.domain.authorization.userroles.api;
+package de.stinner.anmeldetool.application.rest.controllers;
 
 import de.stinner.anmeldetool.application.rest.RestApiEndpoints;
 import de.stinner.anmeldetool.application.rest.security.Role;
@@ -10,8 +10,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserRolesControllerIT extends BaseControllerTest {
-
+class AuthorizationControllerIT extends BaseControllerTest {
     @Test
     @WithMockUser(roles = {"VERIFIED"})
     void when_getUserRoles_with_verified_user_then_ResponseEntity_with_200_and_verify_role_returned() {

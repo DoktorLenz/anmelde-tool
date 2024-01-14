@@ -1,6 +1,5 @@
-package de.stinner.anmeldetool.old.domain.authorization.userroles.model;
+package de.stinner.anmeldetool.application.rest.security;
 
-import de.stinner.anmeldetool.application.rest.security.Role;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 

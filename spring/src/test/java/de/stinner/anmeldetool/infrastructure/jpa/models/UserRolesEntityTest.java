@@ -1,6 +1,5 @@
-package de.stinner.anmeldetool.old.domain.authorization.userroles.persistence;
+package de.stinner.anmeldetool.infrastructure.jpa.models;
 
-import de.stinner.anmeldetool.infrastructure.jpa.models.UserRolesEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

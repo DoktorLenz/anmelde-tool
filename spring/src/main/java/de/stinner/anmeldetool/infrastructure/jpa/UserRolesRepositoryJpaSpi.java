@@ -1,5 +1,6 @@
 package de.stinner.anmeldetool.infrastructure.jpa;
 
+import de.stinner.anmeldetool.domain.models.UserRoles;
 import de.stinner.anmeldetool.domain.ports.spi.UserRolesRepository;
 import de.stinner.anmeldetool.infrastructure.jpa.models.UserRolesEntity;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,10 @@ public class UserRolesRepositoryJpaSpi implements UserRolesRepository {
 
     @Transactional
     @Override
-    public UserRolesEntity findBySubject(String subject) {
-        return userRolesJpaRepository.findById(subject).orElseGet(() -> addSubjectToUserRoles(subject));
+    public UserRoles findBySubject(String subject) {
+        return userRolesJpaRepository.findById(subject)
+                .orElseGet(() -> addSubjectToUserRoles(subject))
+                .toDomain();
     }
 
     private UserRolesEntity addSubjectToUserRoles(String subject) {

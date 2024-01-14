@@ -1,7 +1,7 @@
 package de.stinner.anmeldetool.domain.ports.spi;
 
-import de.stinner.anmeldetool.infrastructure.jpa.models.UserRolesEntity;
+import de.stinner.anmeldetool.domain.models.UserRoles;
 
 public interface UserRolesRepository {
-    UserRolesEntity findBySubject(String subject);
+    UserRoles findBySubject(String subject);
 }
