@@ -1,6 +1,5 @@
-package de.stinner.anmeldetool.old.domain.configuration.api.models;
+package de.stinner.anmeldetool.application.rest.models;
 
-import de.stinner.anmeldetool.application.rest.models.OAuth2ConfigurationDto;
 import de.stinner.anmeldetool.application.rest.security.OAuth2Configuration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

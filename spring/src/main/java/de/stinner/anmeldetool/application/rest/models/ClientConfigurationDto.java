@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ConfigurationDto {
+public class ClientConfigurationDto {
     @NotNull
     private OAuth2ConfigurationDto oauth2Configuration;
 }
