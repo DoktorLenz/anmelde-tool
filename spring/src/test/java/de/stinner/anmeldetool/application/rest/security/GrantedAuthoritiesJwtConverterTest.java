@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.application.rest.security;
 
-import de.stinner.anmeldetool.domain.service.UserServiceImpl;
+import de.stinner.anmeldetool.domain.services.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;

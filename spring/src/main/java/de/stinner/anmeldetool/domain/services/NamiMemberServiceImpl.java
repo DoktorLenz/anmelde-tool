@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.domain.service;
+package de.stinner.anmeldetool.domain.services;
 
 import de.stinner.anmeldetool.domain.models.NamiMember;
 import de.stinner.anmeldetool.domain.ports.api.NamiMemberService;
