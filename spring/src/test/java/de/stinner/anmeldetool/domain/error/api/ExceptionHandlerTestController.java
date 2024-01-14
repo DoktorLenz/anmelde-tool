@@ -1,8 +1,8 @@
 package de.stinner.anmeldetool.domain.error.api;
 
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiAccessViolationException;
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiLoginFailedException;
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiUnavailableException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiAccessViolationException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiLoginFailedException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiUnavailableException;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;

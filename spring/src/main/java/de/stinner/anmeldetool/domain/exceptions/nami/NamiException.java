@@ -1,4 +1,4 @@
-package de.stinner.anmeldetool.infrastructure.nami.client.exceptions;
+package de.stinner.anmeldetool.domain.exceptions.nami;
 
 public class NamiException extends RuntimeException {
     public NamiException(String message) {

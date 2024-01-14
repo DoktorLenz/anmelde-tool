@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.infrastructure.nami.client;
 
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiException;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

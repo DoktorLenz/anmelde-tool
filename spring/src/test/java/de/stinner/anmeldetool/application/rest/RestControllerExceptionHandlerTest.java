@@ -4,7 +4,7 @@ package de.stinner.anmeldetool.application.rest;
 import de.stinner.anmeldetool.domain.error.ErrorMessages;
 import de.stinner.anmeldetool.domain.error.ErrorResponse;
 import de.stinner.anmeldetool.domain.error.MethodArgumentNotValidExceptionTestData;
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiLoginFailedException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiLoginFailedException;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;

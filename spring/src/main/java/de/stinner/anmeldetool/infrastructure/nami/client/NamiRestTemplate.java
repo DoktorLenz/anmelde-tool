@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.infrastructure.nami.client;
 
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiUnavailableException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiUnavailableException;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

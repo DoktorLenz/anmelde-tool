@@ -1,6 +1,6 @@
 package de.stinner.anmeldetool.infrastructure.nami.client;
 
-import de.stinner.anmeldetool.infrastructure.nami.client.exceptions.NamiException;
+import de.stinner.anmeldetool.domain.exceptions.nami.NamiException;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
 
