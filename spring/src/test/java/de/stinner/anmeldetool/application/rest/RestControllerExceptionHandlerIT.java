@@ -90,7 +90,7 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     @WithMockUser
     void when_ResponseStatusExceptionThrown_then_properCodeReturned_500() {
         ErrorResponse errorResponse = given()
-                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()))
                 .then().status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .extract().as(ErrorResponse.class);
 
@@ -102,7 +102,7 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     @WithMockUser
     void when_ResponseStatusExceptionThrown_then_properCodeReturned_404_noReason() {
         ErrorResponse errorResponse = given()
-                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, HttpStatus.NOT_FOUND.value())
+                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, Integer.toString(HttpStatus.NOT_FOUND.value()))
                 .then().status(HttpStatus.NOT_FOUND)
                 .extract().as(ErrorResponse.class);
 
@@ -113,8 +113,8 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     @SneakyThrows
     @WithMockUser
     void when_requestWithInvalidUrlConstraints_then_400_response() {
-        ErrorResponse errorResponse = given()
-                .when().get(ExceptionHandlerTestController.URL_CONSTRAINT_VIOLATION_EXCEPTION_TEST_ENDPOINT, "violated!")
+        ErrorResponse errorResponse = given().contentType(MediaType.APPLICATION_JSON)
+                .when().get(ExceptionHandlerTestController.URL_CONSTRAINT_VIOLATION_EXCEPTION_TEST_ENDPOINT, "violated")
                 .then().status(HttpStatus.BAD_REQUEST)
                 .extract().as(ErrorResponse.class);
 
@@ -237,7 +237,7 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
         final String reason = "best reason!";
 
         ErrorResponse errorResponse = given().queryParam("reason", reason)
-                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, HttpStatus.NOT_FOUND.value())
+                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, Integer.toString(HttpStatus.NOT_FOUND.value()))
                 .then().status(HttpStatus.NOT_FOUND)
                 .extract().as(ErrorResponse.class);
 
@@ -249,7 +249,7 @@ class RestControllerExceptionHandlerIT extends BaseControllerTest {
     @WithMockUser
     void when_ResponseStatusExceptionThrown_then_properCodeReturned_noSpecificHandling() {
         ErrorResponse errorResponse = given()
-                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, HttpStatus.I_AM_A_TEAPOT.value())
+                .when().get(ExceptionHandlerTestController.RESPONSE_STATUS_EXCEPTION_TEST_ENDPOINT, Integer.toString(HttpStatus.I_AM_A_TEAPOT.value()))
                 .then().status(HttpStatus.I_AM_A_TEAPOT)
                 .extract().as(ErrorResponse.class);
 
