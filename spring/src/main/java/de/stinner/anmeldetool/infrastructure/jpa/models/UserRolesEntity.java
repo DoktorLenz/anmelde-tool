@@ -32,11 +32,10 @@ public class UserRolesEntity {
     private String subject;
 
     @Type(ListArrayType.class)
-    private List<String> roles;
+    private List<String> roles = new ArrayList<>();
 
     public UserRolesEntity(String subject) {
         this.subject = subject;
-        this.roles = new ArrayList<>();
     }
 
     public static UserRolesEntity fromDomain(UserRoles domain) {
