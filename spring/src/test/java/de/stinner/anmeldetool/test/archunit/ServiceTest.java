@@ -21,4 +21,9 @@ public class ServiceTest {
     public static final ArchRule SERVICES_MUST_RESIDE_IN_PACKAGE_SERVICES = classes()
             .that().areAnnotatedWith(Service.class)
             .should().resideInAnyPackage("..services..");
+
+    @ArchTest
+    public static final ArchRule SERVICES_MUST_NOT_RESIDE_OUTSIDE_DOMAIN = classes()
+            .that().areAnnotatedWith(Service.class)
+            .should().resideInAPackage("..domain..");
 }

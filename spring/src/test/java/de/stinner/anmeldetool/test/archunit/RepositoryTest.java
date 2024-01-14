@@ -25,7 +25,7 @@ public class RepositoryTest {
     public static final ArchRule REPOSITORIES_MUST_RESIDE_IN_INFRASTRUCTURE = classes()
             .that().areAnnotatedWith(Repository.class)
             .should().resideInAPackage("..infrastructure..");
-    
+
     public static ArchCondition<JavaClass> IMPLEMENT_SPI_INTERFACE = new ArchCondition<JavaClass>("implements an SPI interface") {
         @Override
         public void check(JavaClass javaClass, ConditionEvents conditionEvents) {
@@ -45,6 +45,5 @@ public class RepositoryTest {
     public static final ArchRule REPOSITORIES_MUST_IMPLEMENT_SPI = classes()
             .that().areAnnotatedWith(Repository.class)
             .should(IMPLEMENT_SPI_INTERFACE);
-
 
 }

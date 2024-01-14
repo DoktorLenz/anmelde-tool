@@ -17,4 +17,9 @@ public class DtoTest {
             .that().resideInAPackage("..application..models..")
             .and().doNotHaveModifier(JavaModifier.SYNTHETIC)
             .should().haveSimpleNameEndingWith("Dto");
+
+    @ArchTest
+    public static final ArchRule DTO_MUST_RESIDE_INSIDE_APPLICATION = classes()
+            .that().haveSimpleNameContaining("Dto")
+            .should().resideInAPackage("..application..");
 }

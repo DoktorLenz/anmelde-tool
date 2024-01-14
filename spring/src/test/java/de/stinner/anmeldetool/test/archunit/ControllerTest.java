@@ -30,6 +30,12 @@ public class ControllerTest {
             .haveSimpleNameEndingWith("Controller");
 
     @ArchTest
+    public static final ArchRule ALL_CONTROLLERS_MUST_RESIDE_INSIDE_APPLICATION = classes()
+            .that().areAnnotatedWith(Controller.class)
+            .or().areAnnotatedWith(RestController.class)
+            .should().resideInAPackage("..application..");
+
+    @ArchTest
     public static final ArchRule REST_CONTROLLERS_MUST_RESIDE_INSIDE_REST_CONTROLLER_PACKAGE = classes()
             .that().areAnnotatedWith(RestController.class)
             .should().resideInAPackage("..rest.controllers..");
