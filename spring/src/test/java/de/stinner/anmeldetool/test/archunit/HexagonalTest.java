@@ -11,11 +11,24 @@ import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 @AnalyzeClasses(packages = "de.stinner.anmeldetool", importOptions = {ImportOption.DoNotIncludeTests.class})
 public class HexagonalTest {
     @ArchTest
-    public static final ArchRule CONTROLLERS_MAY_ONLY_ACCESS_DOMAIN_LAYER = layeredArchitecture().consideringAllDependencies()
+    public static final ArchRule LAYER_SEPARATION = layeredArchitecture().consideringAllDependencies()
             .layer("Application").definedBy("..application..")
             .layer("Domain").definedBy("..domain..")
             .layer("Infrastructure").definedBy("..infrastructure..")
             .whereLayer("Application").mayNotBeAccessedByAnyLayer()
             .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure")
+            .whereLayer("Infrastructure").mayNotBeAccessedByAnyLayer();
+
+
+    @ArchTest
+    public static final ArchRule CONTROLLERS_MAY_NOT_DIRECTLY_ACCESS_API_SERVICES = layeredArchitecture().consideringAllDependencies()
+            .layer("Controllers").definedBy("..controllers")
+            .layer("Services").definedBy("..services..")
+            .whereLayer("Services").mayNotBeAccessedByAnyLayer();
+
+    @ArchTest
+    public static final ArchRule SERVICES_MAY_NOT_DIRECTLY_ACCESS_SPI = layeredArchitecture().consideringAllDependencies()
+            .layer("Services").definedBy("..services..")
+            .layer("Infrastructure").definedBy("..infrastructure..")
             .whereLayer("Infrastructure").mayNotBeAccessedByAnyLayer();
 }
