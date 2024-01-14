@@ -19,32 +19,34 @@ import java.util.Set;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @SuppressWarnings("unused")
-@AnalyzeClasses(packages = "de.stinner.anmeldetool.infrastructure.jpa", importOptions = ImportOption.DoNotIncludeTests.class)
+@AnalyzeClasses(packages = "de.stinner.anmeldetool", importOptions = ImportOption.DoNotIncludeTests.class)
 class JpaTest {
 
     @ArchTest
-    public static final ArchRule INTERFACES_EXTENDING_JPAREPOSITORY_MUST_BE_ENDING_WITH_JPAREPOSITORY = classes()
+    public static final ArchRule INTERFACES_EXTENDING_JPA_REPOSITORY_MUST_BE_ENDING_WITH_JPA_REPOSITORY = classes()
             .that().areInterfaces().and().areAssignableTo(JpaRepository.class)
             .should().haveSimpleNameEndingWith("JpaRepository");
 
 
     @ArchTest
-    public static final ArchRule CLASSES_MUST_NOT_BE_ENDING_WITH_JPAREPOSITORY = classes()
+    public static final ArchRule CLASSES_MUST_NOT_BE_ENDING_WITH_JPA_REPOSITORY = classes()
             .that().areNotInterfaces()
             .should().haveSimpleNameNotEndingWith("JpaRepository");
 
 
     @ArchTest
-    public static final ArchRule CLASSES_MUST_BE_ENDING_WITH_JPASPI = classes()
-            .that().areNotInterfaces()
-            .and().haveSimpleNameNotContaining("Entity")
-            .and().doNotHaveModifier(JavaModifier.SYNTHETIC)
-            .should().haveSimpleNameEndingWith("JpaSpi");
-    @ArchTest
     public static final ArchRule ONLY_ENTITIES_IN_MODELS_PACKAGE = classes()
             .that().resideInAPackage("de.stinner.anmeldetool.infrastructure.jpa.models")
             .and().doNotHaveModifier(JavaModifier.SYNTHETIC)
             .should().haveSimpleNameEndingWith("Entity");
+    @ArchTest
+    public static final ArchRule JPA_SPI_CLASSES_MUST_RESIDE_IN_JPA_PACKAGE = classes()
+            .that().haveSimpleNameEndingWith("JpaSpi")
+            .should().resideInAPackage("..jpa..");
+    @ArchTest
+    public static final ArchRule JPA_REPOSITORIES_MUST_RESIDE_IN_JPA_PACKAGE = classes()
+            .that().areAssignableTo(JpaRepository.class)
+            .should().resideInAPackage("..jpa..");
     public static ArchCondition<JavaClass> IMPLEMENT_SPI_INTERFACE = new ArchCondition<JavaClass>("implements an SPI interface") {
         @Override
         public void check(JavaClass javaClass, ConditionEvents conditionEvents) {
@@ -61,9 +63,11 @@ class JpaTest {
         }
     };
     @ArchTest
-    public static final ArchRule CLASSES_MUST_IMPLEMENT_SPI_INTERFACES = classes()
-            .that().areNotInterfaces()
+    public static final ArchRule CLASSES_MUST_BE_ENDING_WITH_JPA_SPI_AND_MUST_IMPLEMENT_SPI_INTERFACE = classes()
+            .that().resideInAPackage("..jpa..")
+            .and().areNotInterfaces()
             .and().haveSimpleNameNotContaining("Entity")
             .and().doNotHaveModifier(JavaModifier.SYNTHETIC)
-            .should(IMPLEMENT_SPI_INTERFACE);
+            .should().haveSimpleNameEndingWith("JpaSpi")
+            .andShould(IMPLEMENT_SPI_INTERFACE);
 }

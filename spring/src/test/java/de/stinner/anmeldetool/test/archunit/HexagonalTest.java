@@ -11,7 +11,7 @@ import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 @AnalyzeClasses(packages = "de.stinner.anmeldetool", importOptions = {ImportOption.DoNotIncludeTests.class})
 public class HexagonalTest {
     @ArchTest
-    static final ArchRule CONTROLLERS_MAY_ONLY_ACCESS_DOMAIN_LAYER = layeredArchitecture().consideringAllDependencies()
+    public static final ArchRule CONTROLLERS_MAY_ONLY_ACCESS_DOMAIN_LAYER = layeredArchitecture().consideringAllDependencies()
             .layer("Application").definedBy("..application..")
             .layer("Domain").definedBy("..domain..")
             .layer("Infrastructure").definedBy("..infrastructure..")

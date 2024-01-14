@@ -1,6 +1,8 @@
 package de.stinner.anmeldetool.test.archunit;
 
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
+import com.tngtech.archunit.core.domain.JavaType;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
@@ -21,19 +23,55 @@ public class PortsTest {
 
     @ArchTest
     public static final ArchRule SPI_INTERFACES_MUST_HAVE_SPECIFIC_ENDINGS = classes()
-            .that().resideInAPackage("de.stinner.anmeldetool.domain.ports.spi")
+            .that().resideInAPackage("..spi..")
             .should().haveSimpleNameEndingWith("Adapter").orShould().haveSimpleNameEndingWith("Repository");
     @ArchTest
     public static final ArchRule API_INTERFACES_MUST_BE_ENDING_WITH_SERVICE = classes()
-            .that().resideInAPackage("de.stinner.anmeldetool.domain.ports.api")
+            .that().resideInAPackage("..api..")
             .should().haveSimpleNameEndingWith("Service");
     @ArchTest
     public static final ArchRule PACKAGE_API_AND_SPI_SHOULD_ONLY_CONTAIN_INTERFACES = classes()
             .that().resideInAnyPackage(
-                    "de.stinner.anmeldetool.domain.ports.api",
-                    "de.stinner.anmeldetool.domain.ports.spi"
+                    "..api..",
+                    "..spi.."
             )
             .should().beInterfaces();
+
+    public static DescribedPredicate<JavaClass> IMPLEMENT_SPI_INTERFACE = new DescribedPredicate<JavaClass>("implements an spi interface") {
+        @Override
+        public boolean test(JavaClass javaClass) {
+            for (JavaType i : javaClass.getInterfaces()) {
+                String name = i.getName();
+                if (name.contains("ports.spi")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
+
+    @ArchTest
+    public static final ArchRule SPI_IMPLEMENTATIONS_MUST_RESIDE_IN_INFRASTRUCTURE = classes()
+            .that(IMPLEMENT_SPI_INTERFACE)
+            .should().resideInAPackage("..infrastructure..");
+    
+    public static DescribedPredicate<JavaClass> IMPLEMENT_API_INTERFACE = new DescribedPredicate<JavaClass>("implements an api interface") {
+        @Override
+        public boolean test(JavaClass javaClass) {
+            for (JavaType i : javaClass.getInterfaces()) {
+                String name = i.getName();
+                if (name.contains("ports.api")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
+
+    @ArchTest
+    public static final ArchRule API_IMPLEMENTATIONS_MUST_RESIDE_IN_SERVICES = classes()
+            .that(IMPLEMENT_API_INTERFACE)
+            .should().resideInAPackage("..domain.service..");
     public static ArchCondition<JavaClass> HAVE_IMPLEMENTATION_IN_INFRASTRUCTURE = new ArchCondition<JavaClass>("has an implementation in package 'de.stinner.anmeldetool.infrastructure'") {
         @Override
         public void check(JavaClass item, ConditionEvents events) {
@@ -46,7 +84,7 @@ public class PortsTest {
     };
     @ArchTest
     public static final ArchRule SPI_INTERFACES_MUST_HAVE_IMPLEMENTATION = classes()
-            .that().resideInAPackage("de.stinner.anmeldetool.domain.ports.spi")
+            .that().resideInAPackage("..spi..")
             .and().areInterfaces()
             .should(HAVE_IMPLEMENTATION_IN_INFRASTRUCTURE);
     public static ArchCondition<JavaClass> HAVE_IMPLEMENTATION_IN_SERVICES = new ArchCondition<JavaClass>("has an implementation in package 'de.stinner.anmeldetool.domain.service'") {
@@ -61,7 +99,7 @@ public class PortsTest {
     };
     @ArchTest
     public static final ArchRule API_INTERFACES_MUST_HAVE_IMPLEMENTATION = classes()
-            .that().resideInAPackage("de.stinner.anmeldetool.domain.ports.api")
+            .that().resideInAPackage("..api..")
             .and().areInterfaces()
             .should(HAVE_IMPLEMENTATION_IN_SERVICES);
 }

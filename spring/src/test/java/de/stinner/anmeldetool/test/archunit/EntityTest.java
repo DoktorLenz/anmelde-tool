@@ -13,10 +13,16 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 public class EntityTest {
 
     @ArchTest
-    static final ArchRule ALL_ENTITIES_MATCHING_NAMING_PATTERN =
+    public static final ArchRule ALL_ENTITIES_MATCHING_NAMING_PATTERN =
             classes()
                     .that()
                     .areAnnotatedWith(Entity.class)
                     .should()
                     .haveSimpleNameEndingWith("Entity");
+
+    @ArchTest
+    public static final ArchRule ALL_ENTITIES_MUST_RESIDE_IN_INFRASTRUCTURE = classes()
+            .that().areAnnotatedWith(Entity.class)
+            .or().haveSimpleNameEndingWith("Entity")
+            .should().resideInAPackage("..infrastructure..");
 }
