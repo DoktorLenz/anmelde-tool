@@ -15,12 +15,12 @@ public class NamiMemberRepositoryJpaSpi implements NamiMemberRepository {
     private final NamiMemberJpaRepository namiMemberJpaRepository;
 
     @Override
-    public List<NamiMember> saveNamiMembers(List<NamiMember> namiMembers) {
-        return namiMemberJpaRepository.saveAll(
+    public void saveNamiMembers(List<NamiMember> namiMembers) {
+        namiMemberJpaRepository.saveAll(
                 namiMembers.stream()
                         .map(NamiMemberEntity::fromNamiMember)
                         .toList()
-        ).stream().map(NamiMemberEntity::toNamiMember).toList();
+        );
     }
 
     @Override
