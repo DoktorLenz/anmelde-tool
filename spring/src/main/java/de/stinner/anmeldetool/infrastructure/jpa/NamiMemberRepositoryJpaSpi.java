@@ -5,11 +5,13 @@ import de.stinner.anmeldetool.domain.ports.spi.NamiMemberRepository;
 import de.stinner.anmeldetool.infrastructure.jpa.models.NamiMemberEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Repository
 public class NamiMemberRepositoryJpaSpi implements NamiMemberRepository {
 
     private final NamiMemberJpaRepository namiMemberJpaRepository;

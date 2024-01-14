@@ -5,12 +5,12 @@ import de.stinner.anmeldetool.domain.ports.spi.UserRolesRepository;
 import de.stinner.anmeldetool.infrastructure.jpa.models.UserRolesEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
+@Repository
 public class UserRolesRepositoryJpaSpi implements UserRolesRepository {
 
     private final UserRolesJpaRepository userRolesJpaRepository;
