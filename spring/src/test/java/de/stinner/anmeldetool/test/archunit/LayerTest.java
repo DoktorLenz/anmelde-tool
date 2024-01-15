@@ -9,7 +9,7 @@ import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
 @SuppressWarnings("unused")
 @AnalyzeClasses(packages = "de.stinner.anmeldetool", importOptions = {ImportOption.DoNotIncludeTests.class})
-public class HexagonalTest {
+public class LayerTest {
     @ArchTest
     public static final ArchRule LAYER_SEPARATION = layeredArchitecture().consideringAllDependencies()
             .layer("Application").definedBy("..application..")
