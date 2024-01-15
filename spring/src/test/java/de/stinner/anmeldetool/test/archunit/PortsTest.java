@@ -54,7 +54,7 @@ public class PortsTest {
     public static final ArchRule SPI_IMPLEMENTATIONS_MUST_RESIDE_IN_INFRASTRUCTURE = classes()
             .that(IMPLEMENT_SPI_INTERFACE)
             .should().resideInAPackage("..infrastructure..");
-    
+
     public static DescribedPredicate<JavaClass> IMPLEMENT_API_INTERFACE = new DescribedPredicate<JavaClass>("implements an api interface") {
         @Override
         public boolean test(JavaClass javaClass) {
@@ -71,7 +71,7 @@ public class PortsTest {
     @ArchTest
     public static final ArchRule API_IMPLEMENTATIONS_MUST_RESIDE_IN_SERVICES = classes()
             .that(IMPLEMENT_API_INTERFACE)
-            .should().resideInAPackage("..domain.service..");
+            .should().resideInAPackage("..domain.services..");
     public static ArchCondition<JavaClass> HAVE_IMPLEMENTATION_IN_INFRASTRUCTURE = new ArchCondition<JavaClass>("has an implementation in package 'de.stinner.anmeldetool.infrastructure'") {
         @Override
         public void check(JavaClass item, ConditionEvents events) {
@@ -87,14 +87,14 @@ public class PortsTest {
             .that().resideInAPackage("..spi..")
             .and().areInterfaces()
             .should(HAVE_IMPLEMENTATION_IN_INFRASTRUCTURE);
-    public static ArchCondition<JavaClass> HAVE_IMPLEMENTATION_IN_SERVICES = new ArchCondition<JavaClass>("has an implementation in package 'de.stinner.anmeldetool.domain.service'") {
+    public static ArchCondition<JavaClass> HAVE_IMPLEMENTATION_IN_SERVICES = new ArchCondition<JavaClass>("have an implementation in package 'de.stinner.anmeldetool.domain.services'") {
         @Override
         public void check(JavaClass item, ConditionEvents events) {
-            var classes = new ClassFileImporter().importPackages("de.stinner.anmeldetool.domain.service");
+            var classes = new ClassFileImporter().importPackages("de.stinner.anmeldetool.domain.services");
 
             boolean conditionMet = classes.stream().map(JavaClass::getInterfaces).flatMap(Set::stream).anyMatch(i -> i.getName().equals(item.getName()));
 
-            events.add(new SimpleConditionEvent(item, conditionMet, item.getName() + " should have an implementation in package 'de.stinner.anmeldetool.domain.service'"));
+            events.add(new SimpleConditionEvent(item, conditionMet, item.getName() + " should have an implementation in package 'de.stinner.anmeldetool.domain.services'"));
         }
     };
     @ArchTest

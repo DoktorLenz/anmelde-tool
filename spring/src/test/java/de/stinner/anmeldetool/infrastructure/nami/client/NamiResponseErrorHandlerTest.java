@@ -21,7 +21,7 @@ class NamiResponseErrorHandlerTest {
     }
 
     @Nested
-    class HasErrorMethod {
+    class HasErrorMethodTest {
 
         @SneakyThrows
         @Test
@@ -57,7 +57,7 @@ class NamiResponseErrorHandlerTest {
     }
 
     @Nested
-    class HandleErrorMethod {
+    class HandleErrorMethodTest {
 
         @Test
         void throwNamiExceptionInHandleError() {

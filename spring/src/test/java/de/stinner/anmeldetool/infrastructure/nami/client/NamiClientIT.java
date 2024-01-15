@@ -64,7 +64,7 @@ class NamiClientIT extends BaseIntegrationTest {
     }
 
     @Nested
-    class NamiImportFailureTests {
+    class NamiImportFailureIT extends BaseIntegrationTest {
 
         @Test
         void body_isNull_then_throw_NamiException() {
@@ -135,7 +135,7 @@ class NamiClientIT extends BaseIntegrationTest {
     }
 
     @Nested
-    class NamiLoginFailureTests {
+    class NamiLoginFailureIT extends BaseIntegrationTest {
 
         @Test
         void loginIs5xx_then_throw_NamiException() {
@@ -232,7 +232,7 @@ class NamiClientIT extends BaseIntegrationTest {
 
     @Nested
     @ExtendWith(OutputCaptureExtension.class)
-    class NamiLogoutFailureTests {
+    class NamiLogoutFailureIT extends BaseIntegrationTest {
         @Test
         void logoutCookieNotExpired_then_log_warning(CapturedOutput output) {
             NamiClientWiremockConfigurator.INSTANCE

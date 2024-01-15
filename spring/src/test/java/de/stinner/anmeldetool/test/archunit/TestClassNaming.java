@@ -10,7 +10,7 @@ import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import de.stinner.anmeldetool.base.BaseControllerTest;
+import de.stinner.anmeldetool.base.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -27,7 +27,7 @@ class TestClassNaming {
     @ArchTest
     static final ArchRule INTEGRATION_TESTS =
             classes()
-                    .that().areAssignableTo(BaseControllerTest.class)
+                    .that().areAssignableTo(BaseIntegrationTest.class)
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().haveSimpleNameEndingWith("IT");
     private static final DescribedPredicate<JavaClass> haveAMethodAnnotatedWithTest = new DescribedPredicate<>(
@@ -80,7 +80,7 @@ class TestClassNaming {
     static final ArchRule UNIT_TESTS =
             classes()
                     .that(haveAMethodAnnotatedWithTest)
-                    .and().areNotAssignableTo(BaseControllerTest.class)
+                    .and().areNotAssignableTo(BaseIntegrationTest.class)
                     .and().resideOutsideOfPackage("de.stinner.anmeldetool.test.archunit")
                     .should().haveSimpleNameEndingWith("Test");
 

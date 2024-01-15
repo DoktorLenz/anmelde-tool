@@ -339,9 +339,65 @@
                         </preConfiguredRules>
                         <configurableRules>
                             <configurableRule>
-                                <rule>de.stinner.anmeldetool.test.archunit.ArchUnitMainTests</rule>
+                                <rule>de.stinner.anmeldetool.test.archunit.ControllerTest</rule>
                                 <applyOn>
-                                    <packageName>de.stinner.anmeldetool.test</packageName>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.DtoTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.EntityTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.JpaTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.LayerTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.PortsTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.RepositoryTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.ServiceTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
                                     <!-- scope can be "main" or "test" -->
                                     <scope>main</scope>
                                 </applyOn>
@@ -349,7 +405,7 @@
                             <configurableRule>
                                 <rule>de.stinner.anmeldetool.test.archunit.TestClassNaming</rule>
                                 <applyOn>
-                                    <packageName>de.stinner.anmeldetool.test</packageName>
+                                    <packageName>de.stinner.anmeldetool</packageName>
                                     <!-- scope can be "main" or "test" -->
                                     <scope>test</scope>
                                 </applyOn>
