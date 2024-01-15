@@ -56,7 +56,7 @@ describe('NamiMembersService', () => {
 
     service.fetchNamiMembers(namiFetchDetails).subscribe();
 
-    const req = httpMock.expectOne('/api/v1/nami/member-fetch');
+    const req = httpMock.expectOne('/api/v1/usermanagement/trigger-import');
 
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(namiFetchDetails);
