@@ -8,6 +8,6 @@
     "karmaTestExplorer.karmaConfFilePath": "./angular/karma.conf.js",
     "karmaTestExplorer.testFramework": "jasmine",
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": "explicit"
     }
 }

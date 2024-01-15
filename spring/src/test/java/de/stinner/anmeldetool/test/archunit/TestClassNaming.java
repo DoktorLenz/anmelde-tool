@@ -6,10 +6,11 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaMethod;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import de.stinner.anmeldetool.base.BaseControllerTest;
+import de.stinner.anmeldetool.base.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,14 +20,14 @@ import java.util.stream.Collectors;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @SuppressWarnings("unused")
-@AnalyzeClasses(packages = "de.stinner.anmeldetool")
+@AnalyzeClasses(packages = "de.stinner.anmeldetool", importOptions = ImportOption.OnlyIncludeTests.class)
 class TestClassNaming {
 
 
     @ArchTest
     static final ArchRule INTEGRATION_TESTS =
             classes()
-                    .that().areAssignableTo(BaseControllerTest.class)
+                    .that().areAssignableTo(BaseIntegrationTest.class)
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().haveSimpleNameEndingWith("IT");
     private static final DescribedPredicate<JavaClass> haveAMethodAnnotatedWithTest = new DescribedPredicate<>(
@@ -34,17 +35,17 @@ class TestClassNaming {
         @Override
         public boolean test(JavaClass input) {
 
-            return isTestClass(input);
+            return isTestInClass(input);
 
         }
 
-        private boolean isTestClass(JavaClass input) {
+        private boolean isTestInClass(JavaClass input) {
             // Getting Inner Classes using Java Core
 
             Class<?>[] innerClasses = input.reflect().getDeclaredClasses();
 
             if (innerClasses.length == 0) {
-                return isThereAtLeastOneMethodAnnotedWithTest(input);
+                return isThereAtLeastOneMethodAnnotatedWithTest(input);
 
             } else {
 
@@ -53,7 +54,7 @@ class TestClassNaming {
                 JavaClasses javaInnerClasses = new ClassFileImporter().importClasses(List.of(innerClasses));
 
                 Set<JavaClass> testClasses = javaInnerClasses.stream()
-                        .filter(this::isThereAtLeastOneMethodAnnotedWithTest).collect(Collectors.toSet());
+                        .filter(this::isThereAtLeastOneMethodAnnotatedWithTest).collect(Collectors.toSet());
 
                 return !testClasses.isEmpty();
 
@@ -61,16 +62,16 @@ class TestClassNaming {
 
         }
 
-        private boolean isThereAtLeastOneMethodAnnotedWithTest(JavaClass javaClass) {
+        private boolean isThereAtLeastOneMethodAnnotatedWithTest(JavaClass javaClass) {
 
-            // Check if the list of methods annoted with @Test is not empty
+            // Check if the list of methods annotated with @Test is not empty
 
-            return !javaClass.getMethods().stream().filter(this::isAnnotedWithTest).collect(Collectors.toSet())
+            return !javaClass.getMethods().stream().filter(this::isAnnotatedWithTest).collect(Collectors.toSet())
                     .isEmpty();
 
         }
 
-        private boolean isAnnotedWithTest(JavaMethod method) {
+        private boolean isAnnotatedWithTest(JavaMethod method) {
 
             return method.isAnnotatedWith(Test.class);
         }
@@ -79,7 +80,7 @@ class TestClassNaming {
     static final ArchRule UNIT_TESTS =
             classes()
                     .that(haveAMethodAnnotatedWithTest)
-                    .and().areNotAssignableTo(BaseControllerTest.class)
+                    .and().areNotAssignableTo(BaseIntegrationTest.class)
                     .and().resideOutsideOfPackage("de.stinner.anmeldetool.test.archunit")
                     .should().haveSimpleNameEndingWith("Test");
 
