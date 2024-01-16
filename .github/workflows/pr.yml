@@ -40,7 +40,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Dependencies
         run: npm ci
@@ -74,7 +74,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Dependencies
         run: npm ci
@@ -117,7 +117,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Dependencies
         run: npm ci
@@ -148,9 +148,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
-          java-version: $JAVA_VERSION
-          distribution: $JAVA_DISTRIBUTION
-          cache: $JAVA_CACHE
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: ${{ env.JAVA_CACHE }}
 
       - name: Cache Maven packages
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
@@ -177,9 +177,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
-          java-version: $JAVA_VERSION
-          distribution: $JAVA_DISTRIBUTION
-          cache: $JAVA_CACHE
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: ${{ env.JAVA_CACHE }}
 
       - name: Cache Maven packages
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
@@ -225,9 +225,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
-          java-version: $JAVA_VERSION
-          distribution: $JAVA_DISTRIBUTION
-          cache: $JAVA_CACHE
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: ${{ env.JAVA_CACHE }}
 
       - name: Cache Maven packages
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
@@ -270,9 +270,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
-          java-version: $JAVA_VERSION
-          distribution: $JAVA_DISTRIBUTION
-          cache: $JAVA_CACHE
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: ${{ env.JAVA_CACHE }}
 
       - name: Cache Maven packages
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
