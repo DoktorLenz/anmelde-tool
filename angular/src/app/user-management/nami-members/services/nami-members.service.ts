@@ -16,6 +16,6 @@ export class NamiMembersService {
   }
 
   public fetchNamiMembers(namiFetchDetails: NamiFetchDetails): Observable<void> {
-    return this.http.post<void>('/api/v1/nami/member-fetch', namiFetchDetails);
+    return this.http.post<void>('/api/v1/usermanagement/trigger-import', namiFetchDetails);
   }
 }

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.3</version>
+        <version>3.1.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.stinner</groupId>
@@ -18,14 +18,14 @@
         <java.version>17</java.version>
 
         <org.postgres.jdbc-driver.version>42.6.0</org.postgres.jdbc-driver.version>
-        <org.lombok.version>1.18.28</org.lombok.version>
+        <org.lombok.version>1.18.30</org.lombok.version>
         <hibernate.jpamodelgen.version>6.2.0.Final</hibernate.jpamodelgen.version>
-        <org.liquibase.version>4.23.2</org.liquibase.version>
-        <io.hypersistence.version>3.5.2</io.hypersistence.version>
-        <org.springframework.security.test.version>6.1.4</org.springframework.security.test.version>
+        <org.liquibase.version>4.24.0</org.liquibase.version>
+        <io.hypersistence.version>3.6.0</io.hypersistence.version>
+        <org.springframework.security.test.version>6.1.5</org.springframework.security.test.version>
         <org.mockito.version>5.2.0</org.mockito.version>
-        <org.testcontainers.version>1.19.0</org.testcontainers.version>
-        <org.jacoco.version>0.8.10</org.jacoco.version>
+        <org.testcontainers.version>1.19.1</org.testcontainers.version>
+        <org.jacoco.version>0.8.11</org.jacoco.version>
         <org.apache.httpcomponents.client5.version>5.2.1</org.apache.httpcomponents.client5.version>
 
         <org.springdoc-openapi-starter-webmvc-ui.version>2.2.0</org.springdoc-openapi-starter-webmvc-ui.version>
@@ -339,9 +339,65 @@
                         </preConfiguredRules>
                         <configurableRules>
                             <configurableRule>
-                                <rule>de.stinner.anmeldetool.test.archunit.ArchUnitMainTests</rule>
+                                <rule>de.stinner.anmeldetool.test.archunit.ControllerTest</rule>
                                 <applyOn>
-                                    <packageName>de.stinner.anmeldetool.test</packageName>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.DtoTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.EntityTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.JpaTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.LayerTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.PortsTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.RepositoryTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
+                                    <!-- scope can be "main" or "test" -->
+                                    <scope>main</scope>
+                                </applyOn>
+                            </configurableRule>
+                            <configurableRule>
+                                <rule>de.stinner.anmeldetool.test.archunit.ServiceTest</rule>
+                                <applyOn>
+                                    <packageName>de.stinner.anmeldetool</packageName>
                                     <!-- scope can be "main" or "test" -->
                                     <scope>main</scope>
                                 </applyOn>
@@ -349,7 +405,7 @@
                             <configurableRule>
                                 <rule>de.stinner.anmeldetool.test.archunit.TestClassNaming</rule>
                                 <applyOn>
-                                    <packageName>de.stinner.anmeldetool.test</packageName>
+                                    <packageName>de.stinner.anmeldetool</packageName>
                                     <!-- scope can be "main" or "test" -->
                                     <scope>test</scope>
                                 </applyOn>
