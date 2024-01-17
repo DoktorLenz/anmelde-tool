@@ -50,7 +50,7 @@ describe('LocalStorageService', () => {
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith(
       'scoutventure.' + LocalStorageKey.USER_DATA,
-      JSON.stringify(userData)
+      JSON.stringify(userData),
     );
   });
 });
