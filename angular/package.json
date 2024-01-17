@@ -1,11 +1,11 @@
 {
-  "name": "anmelde-tool-frontend",
+  "name": "scoutventure-spa",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build --source-map=true --named-chunks=true",
-    "sme": "source-map-explorer ./dist/anmelde-tool-frontend/**/*.js",
+    "sme": "source-map-explorer ./dist/scoutventure-spa/**/*.js",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
     "test": "ng test",

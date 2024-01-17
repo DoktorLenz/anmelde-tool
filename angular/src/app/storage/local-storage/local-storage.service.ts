@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageKey } from './local-storage-key.enum';
 import { UserData } from 'src/app/auth/models/user-data';
+import { LocalStorageKey } from './local-storage-key.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-
-  private prefix = 'anmelde-tool';
+  private prefix = 'scoutventure';
 
   //#region UserData
   public get userData(): UserData {

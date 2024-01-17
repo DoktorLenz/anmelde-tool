@@ -31,9 +31,9 @@ services:
       context: ../..
       dockerfile: docker/spring/Dockerfile
     environment:
-      - anmelde-tool.baseUrl=http://localhost
-      - anmelde-tool.db.url=db
-      - anmelde-tool.db.port=5432
+      - scoutventure.baseUrl=http://localhost
+      - scoutventure.db.url=db
+      - scoutventure.db.port=5432
     restart: unless-stopped
     ports:
       - "38080:38080"
