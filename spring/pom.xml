@@ -46,6 +46,8 @@
         <!-- Sonar-->
         <sonar.organization>doktorlenz</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>dev.stinner.scoutventure:backend</sonar.projectKey>
+        <sonar.projectName>ScoutVenture Backend</sonar.projectName>
     </properties>
 
     <dependencies>

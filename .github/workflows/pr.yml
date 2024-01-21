@@ -202,7 +202,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dev.stinner.scoutventure:backend -Dsonar.projectName="ScoutVenture Backend"
+        run: mvn jacoco:prepare-agent surefire:test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3
