@@ -341,7 +341,7 @@
                         </preConfiguredRules>
                         <configurableRules>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.ControllerTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.ControllerTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -349,7 +349,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.DtoTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.DtoTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -357,7 +357,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.EntityTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.EntityTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -365,7 +365,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.JpaTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.JpaTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -373,7 +373,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.LayerTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.LayerTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -381,7 +381,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.PortsTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.PortsTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -389,7 +389,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.RepositoryTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.RepositoryTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -397,7 +397,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.ServiceTest</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.ServiceTest</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
@@ -405,7 +405,7 @@
                                 </applyOn>
                             </configurableRule>
                             <configurableRule>
-                                <rule>archunit.test.dev.stinner.scoutventure.TestClassNaming</rule>
+                                <rule>dev.stinner.scoutventure.test.archunit.TestClassNaming</rule>
                                 <applyOn>
                                     <packageName>dev.stinner.scoutventure</packageName>
                                     <!-- scope can be "main" or "test" -->
