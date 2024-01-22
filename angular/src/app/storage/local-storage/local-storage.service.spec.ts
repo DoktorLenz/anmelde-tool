@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LocalStorageService } from './local-storage.service';
-import { UserData } from 'src/app/auth/models/user-data';
 import { Role } from 'src/app/auth/models/role.enum';
+import { UserData } from 'src/app/auth/models/user-data';
 import { LocalStorageKey } from './local-storage-key.enum';
+import { LocalStorageService } from './local-storage.service';
 
 describe('LocalStorageService', () => {
   let service: LocalStorageService;
@@ -48,7 +48,9 @@ describe('LocalStorageService', () => {
 
     service.userData = userData;
 
-    expect(window.localStorage.setItem)
-      .toHaveBeenCalledWith('anmelde-tool.' + LocalStorageKey.USER_DATA, JSON.stringify(userData));
+    expect(window.localStorage.setItem).toHaveBeenCalledWith(
+      'scoutventure.' + LocalStorageKey.USER_DATA,
+      JSON.stringify(userData),
+    );
   });
 });

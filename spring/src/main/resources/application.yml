@@ -4,12 +4,12 @@ server:
 
 spring:
   application:
-    name: "ANMELDE_TOOL_BACKEND"
+    name: "ScoutVenture API and IAM"
 
   datasource:
-    url: jdbc:postgresql://${anmelde-tool.db.url}:${anmelde-tool.db.port}/${anmelde-tool.db.db-name}?useSSL=${anmelde-tool.db.useSSL}&serverTimezone=Europe/Berlin
-    username: ${anmelde-tool.db.username}
-    password: ${anmelde-tool.db.password}
+    url: jdbc:postgresql://${scoutventure.db.url}:${scoutventure.db.port}/${scoutventure.db.db-name}?useSSL=${scoutventure.db.useSSL}&serverTimezone=Europe/Berlin
+    username: ${scoutventure.db.username}
+    password: ${scoutventure.db.password}
 
   liquibase:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
@@ -18,10 +18,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${anmelde-tool.oauth2.issuer-uri}
+          issuer-uri: ${scoutventure.oauth2.issuer-uri}
 
 
-anmelde-tool:
+scoutventure:
   baseUrl: "http://localhost:4200"
   oauth2:
     issuer-uri: "http://localhost:8080"
@@ -36,9 +36,9 @@ anmelde-tool:
     url: localhost
     port: 5432
     useSSL: false
-    username: "anmelde_tool"
-    password: "anmelde_tool"
-    db-name: "anmelde_tool"
+    username: "scoutventure"
+    password: "scoutventure"
+    db-name: "scoutventure"
   nami:
     uri: "https://nami.dpsg.de"
   logging:

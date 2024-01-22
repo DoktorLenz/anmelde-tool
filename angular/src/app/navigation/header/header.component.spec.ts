@@ -1,26 +1,23 @@
-import { HeaderComponent } from './header.component';
-import { MockBuilder, MockRender, ngMocks } from 'ng-mocks';
-import { NavigationService } from '../navigation.service';
-import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { screen } from '@testing-library/angular';
-import userEvent from '@testing-library/user-event';
-import { MenubarModule } from 'primeng/menubar';
-import { ButtonModule } from 'primeng/button';
+import { userEvent } from '@testing-library/user-event';
+import { MockBuilder, MockRender, ngMocks } from 'ng-mocks';
 import { AvatarModule } from 'primeng/avatar';
-import { NavigationModule } from '../navigation.module';
+import { ButtonModule } from 'primeng/button';
+import { MenubarModule } from 'primeng/menubar';
+import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { LayoutDirectivesModule } from 'src/app/layout/directives/layout-directives.module';
-
+import { NavigationModule } from '../navigation.module';
+import { NavigationService } from '../navigation.service';
+import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
   beforeEach(() => {
-    return (
-      MockBuilder(HeaderComponent, NavigationModule)
-        .mock(NavigationService)
-        .keep(MenubarModule)
-        .keep(ButtonModule)
-        .keep(AvatarModule)
-        .keep(LayoutDirectivesModule)
-    );
+    return MockBuilder(HeaderComponent, NavigationModule)
+      .mock(NavigationService)
+      .keep(MenubarModule)
+      .keep(ButtonModule)
+      .keep(AvatarModule)
+      .keep(LayoutDirectivesModule);
   });
 
   it('should create', () => {

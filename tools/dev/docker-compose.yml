@@ -3,7 +3,6 @@
 #
 version: "3.9"
 services:
-
   mail_hog:
     container_name: mailhog_dev
     build:
@@ -18,17 +17,17 @@ services:
     container_name: database_dev
     image: postgres:15.5-alpine@sha256:ddaa3615f15a3d0ba9ef5f9af398d093fcce511fea1187049444fcd09626c21a
     environment:
-      - POSTGRES_USER=anmelde_tool
-      - POSTGRES_PASSWORD=anmelde_tool
-      - POSTGRES_DB=anmelde_tool
+      - POSTGRES_USER=scoutventure
+      - POSTGRES_PASSWORD=scoutventure
+      - POSTGRES_DB=scoutventure
     restart: unless-stopped
     ports:
       - "5432:5432"
 
   zitadel:
     container_name: zitadel_dev
-    restart: 'always'
-    image: 'ghcr.io/zitadel/zitadel:v2.43.5@sha256:3272a9e9def31d4e3d742d6a9e362b9c37637444ffa97a68a63736916b083852'
+    restart: "always"
+    image: "ghcr.io/zitadel/zitadel:v2.43.5@sha256:3272a9e9def31d4e3d742d6a9e362b9c37637444ffa97a68a63736916b083852"
     command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
     environment:
       - ZITADEL_LOG_LEVEL=debug
@@ -36,25 +35,25 @@ services:
       - ZITADEL_DATABASE_COCKROACH_HOST=crdb
     depends_on:
       crdb:
-        condition: 'service_healthy'
+        condition: "service_healthy"
     ports:
-      - '8080:8080'
+      - "8080:8080"
 
   crdb:
     container_name: cockroach_dev
-    restart: 'always'
+    restart: "always"
     build:
       context: ../..
       dockerfile: docker/cockroach/Dockerfile
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health?ready=1"]
-      interval: '10s'
-      timeout: '30s'
+      interval: "10s"
+      timeout: "30s"
       retries: 5
-      start_period: '20s'
+      start_period: "20s"
     volumes:
       - "../../docker/cockroach/data.tar.gz:/cockroach/data.tar.gz:rw"
       - "../../docker/cockroach/dump.sh:/cockroach/dump.sh:ro"
     ports:
-      - '9090:8080'
-      - '26257:26257'
+      - "9090:8080"
+      - "26257:26257"

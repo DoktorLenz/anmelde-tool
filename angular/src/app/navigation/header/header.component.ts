@@ -1,15 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NavigationService } from '../navigation.service';
-import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
+import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
+import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'at-header',
+  selector: 'sv-header',
   templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-
   protected Breakpoint = Breakpoint;
 
   protected NumberComparator = NumberComparator;

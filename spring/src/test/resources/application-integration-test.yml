@@ -5,15 +5,15 @@ spring:
   # Set proper path to tc-database
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:postgresql:14.0:///anmelde_tool?serverTimezone=Europe/Berlin?TC_DAEMON=true?user=anmelde_tool
-    username: anmelde_tool
+    url: jdbc:tc:postgresql:14.0:///scoutventure?serverTimezone=Europe/Berlin?TC_DAEMON=true?user=scoutventure
+    username: scoutventure
 
   # Liquibase-config for Tests
   liquibase:
     change-log: "classpath:/db/liquibase-changelog_testdata.xml"
     drop-first: true
 
-anmelde-tool:
+scoutventure:
   oauth2:
     issuer-uri: "https://oidc-provider.test"
     clientId: "1234567890@client"
