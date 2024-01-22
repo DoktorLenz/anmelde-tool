@@ -1,18 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "cypress/tsconfig.json"
-        ]
+        "project": ["tsconfig.json", "cypress/tsconfig.json"]
       },
       "plugins": [
         "deprecation",
@@ -54,36 +47,24 @@
           "error",
           {
             "type": "element",
-            "prefix": "at",
+            "prefix": "sv",
             "style": "kebab-case"
           }
         ],
         "import/no-extraneous-dependencies": [
           "error",
           {
-            "devDependencies": [
-              "src/**/*.spec.ts"
-            ]
+            "devDependencies": ["src/**/*.spec.ts"]
           }
         ]
       }
     },
     {
-      "files": [
-        "cypress/**/*.ts",
-        "cypress.config.ts"
-      ],
+      "files": ["cypress/**/*.ts", "cypress.config.ts"],
       "parserOptions": {
-        "project": [
-          "cypress/tsconfig.json"
-        ]
+        "project": ["cypress/tsconfig.json"]
       },
-      "plugins": [
-        "deprecation",
-        "import",
-        "cypress",
-        "testing-library"
-      ],
+      "plugins": ["deprecation", "import", "cypress", "testing-library"],
       "env": {
         "jasmine": true
       },
@@ -102,10 +83,7 @@
         "import/no-extraneous-dependencies": [
           "error",
           {
-            "devDependencies": [
-              "cypress/**/*.ts",
-              "cypress.config.ts"
-            ]
+            "devDependencies": ["cypress/**/*.ts", "cypress.config.ts"]
           }
         ],
         "testing-library/prefer-screen-queries": "off",
@@ -113,12 +91,8 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {
         "max-len": [
           "error",
