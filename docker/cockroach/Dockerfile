@@ -1,4 +1,4 @@
-FROM cockroachdb/cockroach:v23.1.13@sha256:24c67d8e5bfc843289f2250e2e46d54b0c5dc89683d90dc37319c355f0c34839
+FROM cockroachdb/cockroach:v23.1.14@sha256:4d02d0a7dc02a5e1a2ba0dcd06a878d97693532cf0a0b0a32ee7d44521b5e958
 
 ADD ./docker/cockroach/data.tar.gz /cockroach
 
