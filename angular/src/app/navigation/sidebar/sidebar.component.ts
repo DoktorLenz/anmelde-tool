@@ -1,24 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { EventType, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { NavigationService } from '../navigation.service';
 import { Observable, filter } from 'rxjs';
+import { Role } from 'src/app/auth/models/role.enum';
+import { UserData } from 'src/app/auth/models/user-data';
+import { UserDataService } from 'src/app/auth/services/userdata/user-data.service';
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
-import { UserDataService } from 'src/app/auth/services/userdata/user-data.service';
-import { UserData } from 'src/app/auth/models/user-data';
-import { Role } from 'src/app/auth/models/role.enum';
 import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
 import { UserManagementRoute } from 'src/app/lib/routes/user-management-route.enum';
-import { EventType, Router } from '@angular/router';
+import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'at-sidebar',
+  selector: 'sv-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-
   private userMenuItems: MenuItem[] = [
     {
       label: 'Home',
@@ -79,7 +78,8 @@ export class SidebarComponent {
             routerEvent.type === EventType.NavigationStart ||
             routerEvent.type === EventType.NavigationSkipped,
         ),
-      ).subscribe(() => {
+      )
+      .subscribe(() => {
         this.sidebarVisibleChange(false);
       });
   }
