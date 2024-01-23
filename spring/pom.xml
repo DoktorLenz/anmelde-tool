@@ -30,7 +30,6 @@
 
         <org.springdoc-openapi-starter-webmvc-ui.version>2.3.0</org.springdoc-openapi-starter-webmvc-ui.version>
 
-        <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.jsoup.version>1.17.2</org.jsoup.version>
         <org.hamcrest.version>2.2</org.hamcrest.version>
         <io.rest-assured.version>5.4.0</io.rest-assured.version>
@@ -41,6 +40,9 @@
         <archunit.version>1.2.1</archunit.version>
         <arch-unit-maven-plugin.version>4.0.0</arch-unit-maven-plugin.version>
 
+        <!-- Embedded Keycloak server-->
+        <org.keycloak.version>23.0.4</org.keycloak.version>
+        <org.jboss.resteasy.jackson2-provider.version>6.2.4.Final</org.jboss.resteasy.jackson2-provider.version>
         <!-- non-dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Sonar-->
@@ -141,6 +143,38 @@
             <version>${org.springdoc-openapi-starter-webmvc-ui.version}</version>
         </dependency>
 
+        <!-- Embedded Keycloak server -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
+            <version>${org.jboss.resteasy.jackson2-provider.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-dependencies-server-all</artifactId>
+            <version>${org.keycloak.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-crypto-default</artifactId>
+            <version>${org.keycloak.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-services</artifactId>
+            <version>${org.keycloak.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-rest-admin-ui-ext</artifactId>
+            <version>${org.keycloak.version}</version>
+        </dependency>
+
         <!--Test-dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -229,6 +263,12 @@
                 <configuration>
                     <mainClass>dev.stinner.scoutventure.ScoutVentureApplication</mainClass>
                     <layout>JAR</layout>
+                    <requiresUnpack>
+                        <dependency>
+                            <groupId>org.keycloak</groupId>
+                            <artifactId>keycloak-model-jpa</artifactId>
+                        </dependency>
+                    </requiresUnpack>
                 </configuration>
             </plugin>
 
