@@ -32,6 +32,8 @@ scoutventure:
     # The user with the superuser-sub will have full API access
     # The superuser-sub will be taken from the oauth2 jwt (subject) therefore it is none fungible
     superuser-sub: "215485842947375111"
+  keycloak:
+    enabled: true
   db:
     url: localhost
     port: 5432
@@ -59,8 +61,17 @@ management:
   endpoints:
     web:
       base-path: /actuator
+
 springdoc:
   api-docs:
     path: /api/api-docs
   swagger-ui:
     path: /api/swagger/swagger.html
+
+keycloak:
+  server:
+    contextPath: /api/v1/keycloak
+    adminUser:
+      username: admin
+      password: admin
+    realmImportFile: scoutventure-realm.json
