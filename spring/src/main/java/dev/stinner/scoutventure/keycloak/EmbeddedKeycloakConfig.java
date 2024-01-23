@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.naming.*;
 import javax.naming.spi.NamingManager;
@@ -18,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SpringBootApplication
-//@ConditionalOnProperty(name = "scoutventure.keycloak.enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(name = "scoutventure.keycloak.enabled", havingValue = "true", matchIfMissing = false)
 public class EmbeddedKeycloakConfig {
 
     @Bean
@@ -80,7 +79,7 @@ public class EmbeddedKeycloakConfig {
     @Bean("fixedThreadPool")
     public ExecutorService fixedThreadPool() { return Executors.newFixedThreadPool(5); }
 
-//    @Bean
-//    @ConditionalOnMissingBean(name = "springBootPlatform")
-//    protected SimplePlatformProvider springBootPlatform() { return (SimplePlatformProvider) Platform.getPlatform(); }
+    @Bean
+    @ConditionalOnMissingBean(name = "springBootPlatform")
+    protected SimplePlatformProvider springBootPlatform() { return (SimplePlatformProvider) Platform.getPlatform(); }
 }
