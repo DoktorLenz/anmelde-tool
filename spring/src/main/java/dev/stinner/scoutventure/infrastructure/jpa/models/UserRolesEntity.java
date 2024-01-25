@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -31,8 +32,8 @@ public class UserRolesEntity {
     @Column(nullable = false, updatable = false)
     private String subject;
 
-    @Type(ListArrayType.class)
-    private List<String> roles = new ArrayList<>();
+//    @Type(ListArrayType.class)
+    private String[] roles = new String[0];
 
     public UserRolesEntity(String subject) {
         this.subject = subject;
@@ -41,22 +42,15 @@ public class UserRolesEntity {
     public static UserRolesEntity fromDomain(UserRoles domain) {
         return new UserRolesEntity(
                 domain.getSubject(),
-                domain.getRoles()
+                domain.getRoles().toArray(new String[0])
+
         );
     }
 
     public UserRoles toDomain() {
         return new UserRoles(
                 subject,
-                roles
+                Arrays.stream(roles).toList()
         );
-    }
-
-    public List<String> getRoles() {
-        return this.roles.isEmpty() ? new ArrayList<>() : this.roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles.isEmpty() ? new ArrayList<>() : roles;
     }
 }

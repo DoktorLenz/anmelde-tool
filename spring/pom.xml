@@ -43,6 +43,7 @@
         <!-- Embedded Keycloak server-->
         <org.keycloak.version>23.0.4</org.keycloak.version>
         <org.jboss.resteasy.jackson2-provider.version>6.2.4.Final</org.jboss.resteasy.jackson2-provider.version>
+
         <!-- non-dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Sonar-->
@@ -125,7 +126,7 @@
 
         <dependency>
             <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-62</artifactId>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
             <version>${io.hypersistence.version}</version>
         </dependency>
 

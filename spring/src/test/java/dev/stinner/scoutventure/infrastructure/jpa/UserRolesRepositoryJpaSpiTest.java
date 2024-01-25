@@ -35,7 +35,7 @@ class UserRolesRepositoryJpaSpiTest {
 
     @Test
     void when_knownUser_then_loadFromDb() {
-        UserRolesEntity entityInDb = new UserRolesEntity(subject, List.of(Role.VERIFIED));
+        UserRolesEntity entityInDb = new UserRolesEntity(subject, new String[]{Role.VERIFIED});
 
         UserRolesJpaRepository repository = mock(UserRolesJpaRepository.class);
         when(repository.findById(anyString())).thenReturn(Optional.of(entityInDb));

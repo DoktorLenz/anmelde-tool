@@ -81,5 +81,7 @@ public class EmbeddedKeycloakConfig {
 
     @Bean
     @ConditionalOnMissingBean(name = "springBootPlatform")
-    protected SimplePlatformProvider springBootPlatform() { return (SimplePlatformProvider) Platform.getPlatform(); }
+    protected SimplePlatformProvider springBootPlatform() {
+        return (SimplePlatformProvider) Platform.getPlatform();
+    }
 }

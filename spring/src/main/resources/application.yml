@@ -5,7 +5,8 @@ server:
 spring:
   application:
     name: "ScoutVenture API and IAM"
-
+  jpa:
+    defer-datasource-initialization: true
   datasource:
     url: jdbc:postgresql://${scoutventure.db.url}:${scoutventure.db.port}/${scoutventure.db.db-name}?useSSL=${scoutventure.db.useSSL}&serverTimezone=Europe/Berlin
     username: ${scoutventure.db.username}
@@ -69,9 +70,20 @@ springdoc:
     path: /api/swagger/swagger.html
 
 keycloak:
+  log-level: TRACE
   server:
+    log-level: TRACE
     contextPath: /api/v1/keycloak
     adminUser:
       username: admin
       password: admin
     realmImportFile: scoutventure-realm.json
+
+logging:
+  level:
+#    root: trace
+    org:
+      springframework:
+        jdbc: trace
+      hibernate: trace
+      keycloak: trace
