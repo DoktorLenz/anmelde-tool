@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SpringBootApplication
-@ConditionalOnProperty(name = "scoutventure.keycloak.enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(name = "sv.keycloak.enabled", havingValue = "true", matchIfMissing = false)
 public class EmbeddedKeycloakConfig {
 
     @Bean

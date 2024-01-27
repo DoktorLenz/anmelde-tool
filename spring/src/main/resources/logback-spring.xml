@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <springProperty scope="context" name="LOG_DIRECTORY" source="scoutventure.logging.directory"/>
-    <springProperty scope="context" name="LOG_FILE_SIZE_LIMIT" source="scoutventure.logging.file.size-limit"/>
+    <springProperty scope="context" name="LOG_DIRECTORY" source="sv.logging.directory"/>
+    <springProperty scope="context" name="LOG_FILE_SIZE_LIMIT" source="sv.logging.file.size-limit"/>
 
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>

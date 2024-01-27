@@ -6,14 +6,17 @@ spring:
   application:
     name: "ScoutVenture API and IAM"
   jpa:
-    defer-datasource-initialization: true
+    defer-datasource-initialization: false
   datasource:
-    url: jdbc:postgresql://${scoutventure.db.url}:${scoutventure.db.port}/${scoutventure.db.db-name}?useSSL=${scoutventure.db.useSSL}&serverTimezone=Europe/Berlin
-    username: ${scoutventure.db.username}
-    password: ${scoutventure.db.password}
+    scoutventure:
+      url: jdbc:postgresql://${sv.db.url}:${sv.db.port}/${sv.db.db-name}?useSSL=${sv.db.useSSL}&serverTimezone=${sv.db.tz}
+      username: ${sv.db.username}
+      password: ${sv.db.password}
+    keycloak:
+      url: jdbc:postgresql://${sv.keycloak.db.url}:${sv.keycloak.db.port}/${sv.keycloak.db.db-name}?useSSL=${sv.keycloak.db.useSSL}&serverTimezone=${sv.keycloak.db.tz}
+      username: ${sv.keycloak.db.username}
+      password: ${sv.keycloak.db.password}
 
-  liquibase:
-    change-log: "classpath:/db/liquibase-changelog_testdata.xml"
 
   security:
     oauth2:
@@ -21,11 +24,78 @@ spring:
         jwt:
           issuer-uri: ${scoutventure.oauth2.issuer-uri}
 
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /actuator
+  endpoint:
+    health:
+      enabled: ${sv.monitoring.actuators.enabled}
+      probes:
+        enabled: ${sv.monitoring.actuators.enabled}
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+keycloak:
+  server:
+    contextPath: /api/v1/keycloak
+    adminUser:
+      username: ${sv.keycloak.adminUser.username}
+      password: ${sv.keycloak.adminUser.password}
+    realmImportFile: scoutventure-realm.json
+
+
+sv:
+  # Base Settings
+  uri: "http://localhost:"
+  nami:
+    url: "https://nami.dpsg.de"
+  # Database Settings
+  db:
+    url: localhost
+    port: 5432
+    useSSL: false
+    username: scoutventure
+    password: scoutventure
+    db-name: scoutventure
+    tz: Europe/Berlin
+  # Security Settings
+  keycloak:
+    enabled: true
+    adminUser:
+      username: admin
+      password: admin
+    db:
+      url: localhost
+      port: 15432
+      useSSL: false
+      username: scoutventure
+      password: scoutventure
+      db-name: scoutventure_kc
+      tz: Europe/Berlin
+
+  # Monitoring
+  monitoring:
+    actuators:
+      enabled: true
+
+  # Other non-configurable settings
+  liquibase:
+    change-log: "classpath:/db/liquibase-changelog_testdata.xml"
+
+  logging:
+    file:
+      size-limit: 5MB
+    directory: logs
 
 scoutventure:
   baseUrl: "http://localhost:4200"
   oauth2:
-    issuer-uri: "http://localhost:8080"
+    issuer-uri: "http://localhost:38080/api/v1/keycloak/realms/master"
     clientId: "215538524160589831@anmelde-tool"
     secure-routes:
       - "/api"
@@ -33,57 +103,10 @@ scoutventure:
     # The user with the superuser-sub will have full API access
     # The superuser-sub will be taken from the oauth2 jwt (subject) therefore it is none fungible
     superuser-sub: "215485842947375111"
-  keycloak:
-    enabled: true
-  db:
-    url: localhost
-    port: 5432
-    useSSL: false
-    username: "scoutventure"
-    password: "scoutventure"
-    db-name: "scoutventure"
-  nami:
-    uri: "https://nami.dpsg.de"
-  logging:
-    file:
-      size-limit: 5MB
-    directory: logs
 
-management:
-  endpoint:
-    health:
-      probes:
-        enabled: true
-  health:
-    livenessState:
-      enabled: true
-    readinessState:
-      enabled: true
-  endpoints:
-    web:
-      base-path: /actuator
 
 springdoc:
   api-docs:
     path: /api/api-docs
   swagger-ui:
     path: /api/swagger/swagger.html
-
-keycloak:
-  log-level: TRACE
-  server:
-    log-level: TRACE
-    contextPath: /api/v1/keycloak
-    adminUser:
-      username: admin
-      password: admin
-    realmImportFile: scoutventure-realm.json
-
-logging:
-  level:
-#    root: trace
-    org:
-      springframework:
-        jdbc: trace
-      hibernate: trace
-      keycloak: trace

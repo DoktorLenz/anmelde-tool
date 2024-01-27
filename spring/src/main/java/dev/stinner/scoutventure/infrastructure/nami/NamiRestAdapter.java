@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NamiRestAdapter implements NamiAdapter {
 
-    @Value("${scoutventure.nami.uri}")
+    @Value("${sv.nami.url}")
     private String namiUri;
 
     @Override
