@@ -1,15 +1,15 @@
 package dev.stinner.scoutventure.keycloak;
 
+import dev.stinner.scoutventure.keycloak.KeycloakServerProperties.AdminUser;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.Config;
+import org.keycloak.exportimport.ExportImportManager;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.services.managers.ApplianceBootstrap;
 import org.keycloak.services.managers.RealmManager;
 import org.keycloak.services.resources.KeycloakApplication;
 import org.keycloak.services.util.JsonConfigProviderFactory;
-import org.keycloak.exportimport.ExportImportManager;
-import dev.stinner.scoutventure.keycloak.KeycloakServerProperties.AdminUser;
 import org.keycloak.util.JsonSerialization;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
