@@ -187,6 +187,7 @@
   },
   "connectionsJpa": {
     "default": {
+      "dataSource": "keycloak/datasource",
       "url": "${keycloak.connectionsJpa.url:jdbc:h2:mem:test;DB_CLOSE_DELAY=-1}",
       "driver": "${keycloak.connectionsJpa.driver:org.h2.Driver}",
       "driverDialect": "${keycloak.connectionsJpa.driverDialect:}",
