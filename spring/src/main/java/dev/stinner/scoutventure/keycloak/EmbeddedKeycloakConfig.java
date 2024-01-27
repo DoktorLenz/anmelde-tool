@@ -3,9 +3,11 @@ package dev.stinner.scoutventure.keycloak;
 import org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher;
 import org.jboss.resteasy.plugins.server.servlet.ResteasyContextParameters;
 import org.keycloak.platform.Platform;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -16,12 +18,15 @@ import javax.sql.DataSource;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = LiquibaseAutoConfiguration.class)
 @ConditionalOnProperty(name = "scoutventure.keycloak.enabled", havingValue = "true", matchIfMissing = false)
 public class EmbeddedKeycloakConfig {
 
     @Bean
-    ServletRegistrationBean<HttpServlet30Dispatcher> keycloakJaxRsApplication(KeycloakServerProperties keycloakServerProperties, DataSource dataSource) throws Exception {
+    ServletRegistrationBean<HttpServlet30Dispatcher> keycloakJaxRsApplication(
+            KeycloakServerProperties keycloakServerProperties,
+            @Qualifier("keycloakDataSource") DataSource dataSource
+    ) throws Exception {
         mockJndiEnvironment(dataSource);
         EmbeddedKeycloakApplication.keycloakServerProperties = keycloakServerProperties;
 
@@ -51,13 +56,15 @@ public class EmbeddedKeycloakConfig {
     }
 
     private void mockJndiEnvironment(DataSource dataSource) throws NamingException {
-        NamingManager.setInitialContextFactoryBuilder((env) -> (environment) -> new InitialContext(){
+        NamingManager.setInitialContextFactoryBuilder((env) -> (environment) -> new InitialContext() {
             @Override
-            public Object lookup(Name name) { return lookup(name.toString()); }
+            public Object lookup(Name name) {
+                return lookup(name.toString());
+            }
 
             @Override
             public Object lookup(String name) {
-                if ("spring/datasource".equals(name)) {
+                if ("keycloak/datasource".equals(name)) {
                     return dataSource;
                 } else if (name.startsWith("java:jboss/ee/concurrency/executor/")) {
                     return fixedThreadPool();
@@ -67,7 +74,9 @@ public class EmbeddedKeycloakConfig {
             }
 
             @Override
-            public NameParser getNameParser(String name) { return CompositeName::new; }
+            public NameParser getNameParser(String name) {
+                return CompositeName::new;
+            }
 
             @Override
             public void close() {
@@ -77,7 +86,9 @@ public class EmbeddedKeycloakConfig {
     }
 
     @Bean("fixedThreadPool")
-    public ExecutorService fixedThreadPool() { return Executors.newFixedThreadPool(5); }
+    public ExecutorService fixedThreadPool() {
+        return Executors.newFixedThreadPool(5);
+    }
 
     @Bean
     @ConditionalOnMissingBean(name = "springBootPlatform")
