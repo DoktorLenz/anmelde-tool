@@ -22,7 +22,7 @@ public class ScoutVentureApplication {
     }
 
     @Bean
-    ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(ServerProperties serverProperties, KeycloakServerProperties keycloakServerProperties){
+    ApplicationListener<ApplicationReadyEvent> onApplicationReadyEventListener(ServerProperties serverProperties, KeycloakServerProperties keycloakServerProperties) {
         return (evt) -> {
             Integer port = serverProperties.getPort();
             String keycloakContextPath = keycloakServerProperties.getContextPath();
