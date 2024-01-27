@@ -24,6 +24,11 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF
         http.csrf(AbstractHttpConfigurer::disable);
+        http.headers(httpSecurityHeadersConfigurer ->
+                httpSecurityHeadersConfigurer.frameOptions(frameOptionsConfig ->
+                        frameOptionsConfig.sameOrigin()
+                )
+        );
 
         // AUTHENTICATION
         http
@@ -49,6 +54,7 @@ public class WebSecurityConfiguration {
                                 RestActuatorEndpoints.READINESS,
                                 RestActuatorEndpoints.LIVENESS,
                                 RestApiEndpoints.V1.CONFIGURATION,
+                                RestApiEndpoints.V1.KEYCLOAK,
                                 RestApiEndpoints.API_DOCS,
                                 RestApiEndpoints.SWAGGER
                         )
