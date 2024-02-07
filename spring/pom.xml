@@ -20,7 +20,7 @@
         <org.postgres.jdbc-driver.version>42.7.1</org.postgres.jdbc-driver.version>
         <org.lombok.version>1.18.30</org.lombok.version>
         <hibernate.jpamodelgen.version>6.2.0.Final</hibernate.jpamodelgen.version>
-        <org.liquibase.version>4.25.1</org.liquibase.version>
+        <org.liquibase.version>4.26.0</org.liquibase.version>
         <io.hypersistence.version>3.7.1</io.hypersistence.version>
         <org.springframework.security.test.version>6.2.1</org.springframework.security.test.version>
         <org.mockito.version>5.2.0</org.mockito.version>
