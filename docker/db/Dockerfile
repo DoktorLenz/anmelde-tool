@@ -1,6 +1,6 @@
 # Image containing a postgres server containing keycloak data prepared for movie-db.
 
-FROM postgres:15.5@sha256:89d430f5f7e680e67f81de534eb459a3b86afd818e3330d9b18d29a6b9ec98cd
+FROM postgres:15.6@sha256:54569911ee29b01ced34f3d9d90723b1c6ac71828eec06598e312b36377d3226
 
 # Default postgres-port
 EXPOSE 5432
