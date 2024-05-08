@@ -24,7 +24,7 @@
         <io.hypersistence.version>3.7.5</io.hypersistence.version>
         <org.springframework.security.test.version>6.2.4</org.springframework.security.test.version>
         <org.mockito.version>5.2.0</org.mockito.version>
-        <org.testcontainers.version>1.19.7</org.testcontainers.version>
+        <org.testcontainers.version>1.19.8</org.testcontainers.version>
         <org.jacoco.version>0.8.12</org.jacoco.version>
         <org.apache.httpcomponents.client5.version>5.3.1</org.apache.httpcomponents.client5.version>
 
