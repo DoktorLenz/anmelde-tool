@@ -1,8 +1,3 @@
 # Anmeldetool
 
-## Prerequisites
-You need an OIDC2/OpenID Connect Provider for this software. 
-
-<span style="color:red">**⚠️DEVELOPMENT ONLY⚠️**</span> \
-There is a docker-compose in `./tools/zitadel` which hosts such a provider on your local system. \
-You still need to configure everything else yourself.
+![Alt](https://repobeats.axiom.co/api/embed/3046a12e61b09e8f22a5835d1bb43fc6a383de9e.svg "Repobeats analytics image")
