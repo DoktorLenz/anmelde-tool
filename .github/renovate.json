@@ -34,24 +34,20 @@
         },
         {
             "groupName": "Angular - Main",
-            "matchPackagePatterns": [
-                "^@angular/",
-                "^@angular-devkit/",
-                "^@angular-eslint/"
-            ],
             "matchPackageNames": [
-                "zone.js"
+                "zone.js",
+                "/^@angular//",
+                "/^@angular-devkit//",
+                "/^@angular-eslint//"
             ]
         },
         {
             "groupName": "Angular - Lint",
             "matchPackageNames": [
                 "@types/eslint",
-                "babel-eslint"
-            ],
-            "matchPackagePrefixes": [
-                "@typescript-eslint/",
-                "eslint"
+                "babel-eslint",
+                "@typescript-eslint/{/,}**",
+                "eslint{/,}**"
             ]
         },
         {
@@ -62,48 +58,44 @@
                 "@types/jasmine",
                 "@types/testing-library__jasmine-dom",
                 "jasmine-core",
-                "cypress"
-            ],
-            "matchPackagePrefixes": [
-                "@cypress/",
-                "@testing-library/",
-                "karma"
+                "cypress",
+                "@cypress/{/,}**",
+                "@testing-library/{/,}**",
+                "karma{/,}**"
             ]
         },
         {
             "groupName": "Spring - Main",
-            "matchPackagePrefixes": [
-                "org.springframework.boot:",
-                "org.projectlombok:"
+            "matchPackageNames": [
+                "org.springframework.boot:{/,}**",
+                "org.projectlombok:{/,}**"
             ]
         },
         {
             "groupName": "Spring - Database",
-            "matchPackagePrefixes": [
-                "org.postgresql:",
-                "org.liquibase:",
-                "io.hypersistence:"
+            "matchPackageNames": [
+                "org.postgresql:{/,}**",
+                "org.liquibase:{/,}**",
+                "io.hypersistence:{/,}**"
             ]
         },
         {
             "groupName": "Spring - Documentation",
-            "matchPackagePrefixes": [
-                "org.springdoc:"
+            "matchPackageNames": [
+                "org.springdoc:{/,}**"
             ]
         },
         {
             "groupName": "Spring - Testing",
             "matchPackageNames": [
                 "org.springframework.security:spring-security-test",
-                "org.springframework.cloud:spring-cloud-contract-wiremock"
-            ],
-            "matchPackagePrefixes": [
-                "org.mockito:",
-                "org.testcontainers:",
-                "org.hamcrest:",
-                "io.rest-assured:",
-                "org.jsoup:",
-                "com.tngtech.archunit:"
+                "org.springframework.cloud:spring-cloud-contract-wiremock",
+                "org.mockito:{/,}**",
+                "org.testcontainers:{/,}**",
+                "org.hamcrest:{/,}**",
+                "io.rest-assured:{/,}**",
+                "org.jsoup:{/,}**",
+                "com.tngtech.archunit:{/,}**"
             ]
         }
     ]
