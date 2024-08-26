@@ -51,7 +51,7 @@ describe('NamiMembersService', () => {
     const httpMock = ngMocks.findInstance(HttpTestingController);
 
     const namiFetchDetails: NamiFetchDetails = {
-      groupId: '1234',
+      groupingId: '1234',
       password: 'testingpassword',
       username: '1234',
     };

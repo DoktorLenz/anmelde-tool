@@ -3,17 +3,7 @@
 #
 version: "3.9"
 services:
-  mail_hog:
-    container_name: mailhog_dev
-    build:
-      context: ../..
-      dockerfile: docker/mailhog/Dockerfile
-    restart: unless-stopped
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-
-  db:
+  backend_db:
     container_name: database_dev
     image: postgres:15.8-alpine@sha256:fa484d844b88ac34811daf3da66af1fd17e34b0e1ff5d1b6f904269c85890dc0
     environment:
@@ -22,38 +12,33 @@ services:
       - POSTGRES_DB=scoutventure
     restart: unless-stopped
     ports:
-      - "5432:5432"
-
-  zitadel:
-    container_name: zitadel_dev
-    restart: "always"
-    image: "ghcr.io/zitadel/zitadel:v2.59.1@sha256:e918efa24622a1aa00b0af9c049da68667a54d0f53fe63175ce57c4a72b74c74"
-    command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
+      - "35432:5432"
+  kc_database:
+    container_name: kc_database
+    image: postgres:16.3-alpine
     environment:
-      - ZITADEL_LOG_LEVEL=debug
-      - ZITADEL_EXTERNALSECURE=false
-      - ZITADEL_DATABASE_COCKROACH_HOST=crdb
-    depends_on:
-      crdb:
-        condition: "service_healthy"
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloak
+      - POSTGRES_DB=keycloak
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+  kc_keycloak:
+    container_name: kc_keycloak
+    image: quay.io/keycloak/keycloak:25.0.4
+    environment:
+      - KEYCLOAK_IMPORT=/opt/keycloak/data/import/realm-scoutventure.json
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://kc_database:5432/keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=keycloak
+    restart: unless-stopped
+    volumes:
+      - ../../docker/keycloak/realm-scoutventure.json:/opt/keycloak/data/import/realm-scoutventure.json
+    command: start-dev --import-realm --verbose
     ports:
       - "8080:8080"
-
-  crdb:
-    container_name: cockroach_dev
-    restart: "always"
-    build:
-      context: ../..
-      dockerfile: docker/cockroach/Dockerfile
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health?ready=1"]
-      interval: "10s"
-      timeout: "30s"
-      retries: 5
-      start_period: "20s"
-    volumes:
-      - "../../docker/cockroach/data.tar.gz:/cockroach/data.tar.gz:rw"
-      - "../../docker/cockroach/dump.sh:/cockroach/dump.sh:ro"
-    ports:
-      - "9090:8080"
-      - "26257:26257"
+    depends_on:
+      - kc_database

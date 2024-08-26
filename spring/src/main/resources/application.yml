@@ -24,17 +24,17 @@ spring:
 scoutventure:
   baseUrl: "http://localhost:4200"
   oauth2:
-    issuer-uri: "http://localhost:8080"
-    clientId: "215538524160589831@anmelde-tool"
+    issuer-uri: "http://localhost:8080/realms/scoutventure"
+    clientId: "d3b85e5bc91c40f2b8ea210b3f36f784@scoutventure-spa"
     secure-routes:
       - "/api"
   oidc:
     # The user with the superuser-sub will have full API access
     # The superuser-sub will be taken from the oauth2 jwt (subject) therefore it is none fungible
-    superuser-sub: "215485842947375111"
+    superuser-sub: "af3d69f5-0adc-40f7-ade6-90905ba3eed2"
   db:
     url: localhost
-    port: 5432
+    port: 35432
     useSSL: false
     username: "scoutventure"
     password: "scoutventure"
