@@ -1,15 +1,15 @@
-import { MockBuilder, ngMocks } from 'ng-mocks';
-import { UserDataService } from './user-data.service';
-import {} from '@angular/common/http';
-import { HttpTestingController } from '@angular/common/http/testing';
-import { AppModule } from 'src/app/app.module';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { EventTypes, OidcClientNotification, PublicEventsService } from 'angular-auth-oidc-client';
+import { MockBuilder, ngMocks } from 'ng-mocks';
 import { EMPTY, Subject } from 'rxjs';
+import { AppModule } from 'src/app/app.module';
+import { LocalStorageService } from 'src/app/storage/local-storage/local-storage.service';
 import { OidcUserData } from '../../models/oidc-user-data';
 import { Role } from '../../models/role.enum';
 import { UserData } from '../../models/user-data';
-import { LocalStorageService } from 'src/app/storage/local-storage/local-storage.service';
-import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
+import { UserDataService } from './user-data.service';
 
 describe('On change of userdata', () => {
 
@@ -32,7 +32,8 @@ describe('On change of userdata', () => {
 
   beforeEach(() =>
     MockBuilder(UserDataService, AppModule)
-      .replace(HttpClientModule, HttpClientTestingModule)
+      .provide(provideHttpClient())
+      .provide(provideHttpClientTesting())
       .mock(PublicEventsService, {
         registerForEvents: jasmine.createSpy().and.returnValue(eventsSubject.asObservable()),
       })
@@ -100,7 +101,8 @@ describe('When hasRole is called', () => {
 
   beforeEach(() =>
     MockBuilder(UserDataService, AppModule)
-      .replace(HttpClientModule, HttpClientTestingModule)
+      .provide(provideHttpClient())
+      .provide(provideHttpClientTesting())
       .mock(PublicEventsService, {
         registerForEvents: jasmine.createSpy().and.returnValue(EMPTY),
       })
