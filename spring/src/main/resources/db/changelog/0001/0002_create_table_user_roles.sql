@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset doktorlenz:#45
+--changeset doktorlenz:#init
 
 CREATE TABLE user_roles
 (

@@ -31,7 +31,7 @@ scoutventure:
   oidc:
     # The user with the superuser-sub will have full API access
     # The superuser-sub will be taken from the oauth2 jwt (subject) therefore it is none fungible
-    superuser-sub: "44ceb6ed-8b4f-4ad4-b945-8fc7f7281599"
+    superuser-sub: "af3d69f5-0adc-40f7-ade6-90905ba3eed2"
   db:
     url: localhost
     port: 35432

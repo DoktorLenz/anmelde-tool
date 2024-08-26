@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset doktorlenz:#47
+--changeset doktorlenz:#init
 
 CREATE TABLE nami_members
 (
@@ -7,6 +7,6 @@ CREATE TABLE nami_members
     firstname     varchar(50) not null,
     lastname      varchar(50) not null,
     date_of_birth date        not null,
-    rank          rank        null,
-    gender        gender      null
+    rank          varchar(50) null,
+    gender        varchar(50) null
 );

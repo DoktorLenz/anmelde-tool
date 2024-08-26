@@ -38,7 +38,7 @@ export class NamiMembersComponent implements OnInit {
     this.gridLoading = true;
     this.namiFetchDialogVisible = false;
     this.namiMembersService.fetchNamiMembers(
-      { username: this.username, password: this.password, groupId: this.groupId },
+      { username: this.username, password: this.password, groupingId: this.groupId },
     )
       .subscribe(() => {
         this.refreshList();
