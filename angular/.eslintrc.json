@@ -49,12 +49,6 @@
             "prefix": "sv",
             "style": "kebab-case"
           }
-        ],
-        "import/no-extraneous-dependencies": [
-          "error",
-          {
-            "devDependencies": ["src/**/*.spec.ts"]
-          }
         ]
       }
     },
