@@ -1,11 +1,10 @@
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AuthInterceptor, AuthModule, StsConfigHttpLoader, StsConfigLoader }
-  from 'angular-auth-oidc-client';
+import { AuthInterceptor, AuthModule, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
 import { map } from 'rxjs';
-import { Configuration } from './models/configuration';
-import { BaseRoute } from '../lib/routes/base-route.enum';
 import { AuthRoute } from '../lib/routes/auth-route.enum';
+import { BaseRoute } from '../lib/routes/base-route.enum';
+import { Configuration } from './models/configuration';
 
 export const httpLoaderFactory = (httpClient: HttpClient) => {
   const config$ = httpClient.get<Configuration>('/api/v1/configuration').pipe(
