@@ -32,7 +32,7 @@
 
         <org.jboss.resteasy.version>4.7.4.Final</org.jboss.resteasy.version>
         <org.jsoup.version>1.18.1</org.jsoup.version>
-        <org.hamcrest.version>2.2</org.hamcrest.version>
+        <org.hamcrest.version>3.0</org.hamcrest.version>
         <io.rest-assured.version>5.5.0</io.rest-assured.version>
         <org.surefire.plugin.version>3.2.5</org.surefire.plugin.version>
         <org.failsafe.plugin.version>3.4.0</org.failsafe.plugin.version>
