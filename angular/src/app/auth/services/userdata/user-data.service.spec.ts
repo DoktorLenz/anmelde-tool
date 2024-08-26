@@ -1,7 +1,7 @@
 import { MockBuilder, ngMocks } from 'ng-mocks';
 import { UserDataService } from './user-data.service';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {} from '@angular/common/http';
+import { HttpTestingController } from '@angular/common/http/testing';
 import { AppModule } from 'src/app/app.module';
 import { EventTypes, OidcClientNotification, PublicEventsService } from 'angular-auth-oidc-client';
 import { EMPTY, Subject } from 'rxjs';

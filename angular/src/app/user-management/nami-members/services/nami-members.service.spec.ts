@@ -1,7 +1,7 @@
 import { NamiMembersService } from './nami-members.service';
 import { MockBuilder, ngMocks } from 'ng-mocks';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {} from '@angular/common/http';
+import { HttpTestingController } from '@angular/common/http/testing';
 import { NamiMember } from '../model/nami-member';
 import { Gender } from 'src/app/lib/models/gender.enum';
 import { Rank } from 'src/app/lib/models/rank.enum';
