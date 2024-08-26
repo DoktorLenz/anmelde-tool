@@ -1,16 +1,18 @@
-import { NamiMembersService } from './nami-members.service';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { MockBuilder, ngMocks } from 'ng-mocks';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { NamiMember } from '../model/nami-member';
 import { Gender } from 'src/app/lib/models/gender.enum';
 import { Rank } from 'src/app/lib/models/rank.enum';
 import { NamiFetchDetails } from '../model/nami-fetch-details';
+import { NamiMember } from '../model/nami-member';
+import { NamiMembersService } from './nami-members.service';
 
 describe('NamiMembersService', () => {
 
   beforeEach(() =>
-    MockBuilder(NamiMembersService).replace(HttpClientModule, HttpClientTestingModule),
+    MockBuilder(NamiMembersService)
+      .provide(provideHttpClient())
+      .provide(provideHttpClientTesting()),
   );
 
   it('should be created', () => {
