@@ -5,7 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["angular/tsconfig.json", "angular/cypress/tsconfig.json"]
+        "project": ["tsconfig.json", "cypress/tsconfig.json"]
       },
       "plugins": ["jasmine", "cypress", "testing-library"],
       "env": {
@@ -24,7 +24,7 @@
         "max-len": [
           "error",
           {
-            "code": 110
+            "code": 120
           }
         ],
         "@angular-eslint/directive-selector": [
@@ -74,7 +74,7 @@
         "max-len": [
           "error",
           {
-            "code": 110
+            "code": 120
           }
         ]
       }

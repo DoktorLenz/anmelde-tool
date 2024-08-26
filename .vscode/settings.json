@@ -1,13 +1,12 @@
 {
-    "eslint.enable": true,
-    "eslint.format.enable": true,
-    "karmaTestExplorer.enableExtension": true,
-    "karmaTestExplorer.projectWorkspaces": [
-        "./angular"
-    ],
-    "karmaTestExplorer.karmaConfFilePath": "./angular/karma.conf.js",
-    "karmaTestExplorer.testFramework": "jasmine",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    }
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.workingDirectories": ["./angular"],
+  "karmaTestExplorer.enableExtension": true,
+  "karmaTestExplorer.projectWorkspaces": ["./angular"],
+  "karmaTestExplorer.karmaConfFilePath": "./angular/karma.conf.js",
+  "karmaTestExplorer.testFramework": "jasmine",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }
