@@ -15,10 +15,9 @@ spring:
 
 scoutventure:
   oauth2:
-    issuer-uri: "https://oidc-provider.test"
-    clientId: "1234567890@client"
-    secure-routes:
-      - "/api"
-      - "https://example.com"
+    serverUrl: "https://oidc-provider.test"
+    realm: "scoutventure"
+    frontend:
+      clientId: "1234567890@client"
   nami:
     uri: "http://localhost:43500"

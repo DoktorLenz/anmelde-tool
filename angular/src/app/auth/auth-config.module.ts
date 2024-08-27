@@ -13,7 +13,7 @@ export const httpLoaderFactory = (httpClient: HttpClient) => {
       redirectUrl: `${window.location.origin}/${BaseRoute.AUTH}/${AuthRoute.CALLBACK}`,
       postLogoutRedirectUri: window.location.origin,
       clientId: config.oauth2Configuration.clientId,
-      secureRoutes: config.oauth2Configuration.secureRoutes,
+      secureRoutes: ["/api"],
       scope: 'openid profile offline_access',
       responseType: 'code',
       silentRenew: true,

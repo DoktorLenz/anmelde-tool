@@ -2,8 +2,8 @@ package dev.stinner.scoutventure.application.rest.controllers;
 
 import dev.stinner.scoutventure.application.rest.RestApiEndpoints;
 import dev.stinner.scoutventure.application.rest.models.ClientConfigurationDto;
-import dev.stinner.scoutventure.application.rest.models.OAuth2ConfigurationDto;
-import dev.stinner.scoutventure.application.rest.security.OAuth2Configuration;
+import dev.stinner.scoutventure.application.rest.models.OAuth2FrontendConfigurationDto;
+import dev.stinner.scoutventure.application.rest.security.OAuth2FrontendConfiguration;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ClientConfigurationController {
 
-    private final OAuth2Configuration oAuth2Configuration;
+    private final OAuth2FrontendConfiguration oAuth2Configuration;
 
     @ApiResponse(
             responseCode = "200",
@@ -31,7 +31,7 @@ public class ClientConfigurationController {
     )
     @GetMapping(RestApiEndpoints.V1.CONFIGURATION)
     public ResponseEntity<ClientConfigurationDto> getConfiguration() {
-        OAuth2ConfigurationDto oAuth2ConfigurationDto = OAuth2ConfigurationDto.of(oAuth2Configuration);
+        OAuth2FrontendConfigurationDto oAuth2ConfigurationDto = OAuth2FrontendConfigurationDto.of(oAuth2Configuration);
         ClientConfigurationDto dto = new ClientConfigurationDto(oAuth2ConfigurationDto);
 
         return ResponseEntity.ok(dto);

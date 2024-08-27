@@ -1,33 +1,26 @@
 package dev.stinner.scoutventure.application.rest.models;
 
-import dev.stinner.scoutventure.application.rest.security.OAuth2Configuration;
+import dev.stinner.scoutventure.application.rest.security.OAuth2FrontendConfiguration;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OAuth2ConfigurationDto {
+public class OAuth2FrontendConfigurationDto {
 
     @NotBlank
     // Same as issuer-uri
     private String authority;
 
-    @NotEmpty
-    private List<@NotBlank String> secureRoutes;
-
     @NotBlank
     private String clientId;
 
-    public static OAuth2ConfigurationDto of(final OAuth2Configuration oAuth2Configuration) {
-        return new OAuth2ConfigurationDto(
+    public static OAuth2FrontendConfigurationDto of(final OAuth2FrontendConfiguration oAuth2Configuration) {
+        return new OAuth2FrontendConfigurationDto(
                 oAuth2Configuration.getIssuerUri(),
-                oAuth2Configuration.getSecureRoutes(),
                 oAuth2Configuration.getClientId()
         );
     }
