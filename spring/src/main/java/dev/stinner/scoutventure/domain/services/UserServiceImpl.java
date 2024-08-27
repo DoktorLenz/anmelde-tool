@@ -1,9 +1,12 @@
 package dev.stinner.scoutventure.domain.services;
 
+import dev.stinner.scoutventure.domain.models.User;
 import dev.stinner.scoutventure.domain.ports.api.UserService;
+import dev.stinner.scoutventure.domain.ports.spi.IamAdapter;
 import dev.stinner.scoutventure.domain.ports.spi.UserRolesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRolesRepository userRolesRepository;
+    private final IamAdapter iamAdapter;
 
     /**
      * Gets roles for a user (subject)
@@ -23,5 +27,14 @@ public class UserServiceImpl implements UserService {
      */
     public List<String> getRolesForSubject(String subject) {
         return userRolesRepository.findBySubject(subject).getRoles();
+    }
+
+    /**
+     * Synchronises users of the IaM with the internal users
+     */
+    @Scheduled(fixedRate = 120 * 60 * 1000)
+    public void syncIamUsers() {
+        List<User> users = iamAdapter.getUsers();
+        users.isEmpty();
     }
 }
