@@ -24,10 +24,14 @@ spring:
 scoutventure:
   baseUrl: "http://localhost:4200"
   oauth2:
+    provider: "keycloak"
     serverUrl: "http://localhost:8080"
     realm: "scoutventure"
     frontend:
       clientId: "d3b85e5bc91c40f2b8ea210b3f36f784@scoutventure-spa"
+    backend:
+      clientId: "72c5071a605e4c4aad900266fcefdc0e@scoutventure-backend"
+      clientSecret: "pIjsFDKaRXRBfGEjs4OTjiLLRjNEfVii"
   oidc:
     # The user with the superuser-sub will have full API access
     # The superuser-sub will be taken from the oauth2 jwt (subject) therefore it is none fungible
