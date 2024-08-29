@@ -4,6 +4,7 @@ import dev.stinner.scoutventure.application.rest.security.Role;
 import dev.stinner.scoutventure.domain.models.UserRoles;
 import dev.stinner.scoutventure.domain.ports.api.UserService;
 import dev.stinner.scoutventure.domain.ports.spi.IamAdapter;
+import dev.stinner.scoutventure.domain.ports.spi.UserRepository;
 import dev.stinner.scoutventure.domain.ports.spi.UserRolesRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,10 +23,11 @@ public class UserServiceImplTest {
         UserRoles expectedUserRoles = new UserRoles(subject, List.of(Role.VERIFIED, Role.ADMIN));
         UserRolesRepository repository = mock(UserRolesRepository.class);
         IamAdapter iamAdapter = mock(IamAdapter.class);
+        UserRepository userRepository = mock(UserRepository.class);
         Mockito.when(repository.findBySubject(subject)).thenReturn(expectedUserRoles);
 
 
-        UserService service = new UserServiceImpl(repository, iamAdapter);
+        UserService service = new UserServiceImpl(repository, iamAdapter, userRepository);
         List<String> roles = service.getRolesForSubject(subject);
 
         assertThat(roles).containsAll(expectedUserRoles.getRoles());
@@ -36,9 +38,10 @@ public class UserServiceImplTest {
         UserRoles expectedUserRoles = new UserRoles(subject, Collections.emptyList());
         UserRolesRepository repository = mock(UserRolesRepository.class);
         IamAdapter iamAdapter = mock(IamAdapter.class);
+        UserRepository userRepository = mock(UserRepository.class);
         Mockito.when(repository.findBySubject(subject)).thenReturn(expectedUserRoles);
 
-        UserService service = new UserServiceImpl(repository, iamAdapter);
+        UserService service = new UserServiceImpl(repository, iamAdapter, userRepository);
         List<String> roles = service.getRolesForSubject(subject);
 
         assertThat(roles).isEmpty();
