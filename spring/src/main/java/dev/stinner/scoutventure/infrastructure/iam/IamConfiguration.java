@@ -31,7 +31,7 @@ public class IamConfiguration {
         if ("keycloak".equalsIgnoreCase(provider)) {
             return keycloakAdapter;
         }
-        throw new IllegalArgumentException("Unknown provider: " + provider);
+        throw new IllegalArgumentException("Unsupported provider: " + provider);
     }
 
 }

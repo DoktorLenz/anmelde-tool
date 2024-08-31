@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "18.2.1",
     "@angular/router": "18.2.1",
     "angular-auth-oidc-client": "18.0.1",
+    "jwt-decode": "^4.0.0",
     "ng-mocks": "14.13.1",
     "primeicons": "7.0.0",
     "primeng": "17.18.9",

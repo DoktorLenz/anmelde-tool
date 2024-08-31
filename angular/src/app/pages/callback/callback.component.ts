@@ -20,7 +20,6 @@ export class CallbackComponent implements OnInit {
           return this.router.navigate([BaseRoute.HOME]);
         }),
       )
-      .subscribe(() => {
-      });
+      .subscribe();
   }
 }
