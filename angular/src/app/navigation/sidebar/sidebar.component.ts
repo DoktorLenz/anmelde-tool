@@ -60,12 +60,12 @@ export class SidebarComponent {
   constructor(
     private readonly navigationService: NavigationService,
     private readonly userDataService: UserDataService,
-    private readonly router: Router,
+    private readonly router: Router
   ) {
     this.userDataService.userData$.subscribe({
       next: (userData: UserData) => {
         this.menuItems = [...this.userMenuItems];
-        if (userData.authorities?.find((role) => role === Role.ADMIN)) {
+        if (userData.authorities?.find(role => role === Role.ADMIN)) {
           this.menuItems.push(...this.adminMenuItems);
         }
       },
@@ -74,10 +74,10 @@ export class SidebarComponent {
     this.router.events
       .pipe(
         filter(
-          (routerEvent) =>
+          routerEvent =>
             routerEvent.type === EventType.NavigationStart ||
-            routerEvent.type === EventType.NavigationSkipped,
-        ),
+            routerEvent.type === EventType.NavigationSkipped
+        )
       )
       .subscribe(() => {
         this.sidebarVisibleChange(false);

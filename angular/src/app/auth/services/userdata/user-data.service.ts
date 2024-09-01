@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EventTypes, OidcClientNotification, OidcSecurityService, PublicEventsService } from 'angular-auth-oidc-client';
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import {
+  EventTypes,
+  OidcClientNotification,
+  OidcSecurityService,
+  PublicEventsService,
+} from 'angular-auth-oidc-client';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 import { LocalStorageService } from 'src/app/storage/local-storage/local-storage.service';
 import { OidcUserData } from '../../models/oidc-user-data';
@@ -12,9 +17,9 @@ import { UserData } from '../../models/user-data';
   providedIn: 'root',
 })
 export class UserDataService {
-
-  private _userDataSubject: BehaviorSubject<UserData> =
-    new BehaviorSubject(this.localStorageService.userData);
+  private _userDataSubject: BehaviorSubject<UserData> = new BehaviorSubject(
+    this.localStorageService.userData
+  );
 
   public userData$: Observable<UserData> = this._userDataSubject.asObservable();
 
@@ -33,7 +38,7 @@ export class UserDataService {
     this.eventService
       .registerForEvents()
       .pipe(
-        filter((notification) => notification.type === EventTypes.UserDataChanged),
+        filter(notification => notification.type === EventTypes.UserDataChanged)
       )
       .subscribe({
         next: (notification: OidcClientNotification<OidcUserData>) => {
@@ -41,11 +46,10 @@ export class UserDataService {
 
           const accessToken = this.authService.getAccessToken();
 
-          accessToken.subscribe((token) => {
+          accessToken.subscribe(token => {
             const roles = this.getRolesFromJwt(token).map(() => Role.ADMIN);
-            this.updateUserData({...notification, authorities: roles})
+            this.updateUserData({ ...notification, authorities: roles });
           });
-
         },
       });
   }
@@ -53,17 +57,19 @@ export class UserDataService {
   private getRolesFromJwt(token: string): string[] {
     interface JwtPayloadExtension extends JwtPayload {
       realm_access?: {
-        roles?: string[]
-      }
+        roles?: string[];
+      };
     }
     return jwtDecode<JwtPayloadExtension>(token).realm_access?.roles ?? [];
   }
 
   public hasRole(role: Role): Observable<boolean> {
     return this.userData$.pipe(
-      map((userData) => {
-        return userData.authorities?.find((authority) => authority === role) ? true : false;
-      }),
+      map(userData => {
+        return userData.authorities?.find(authority => authority === role) ?
+            true
+          : false;
+      })
     );
   }
 }

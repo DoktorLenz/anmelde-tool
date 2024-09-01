@@ -19,13 +19,16 @@ const routes: Routes = [
   },
   {
     path: BaseRoute.HOME,
-    loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule),
+    loadChildren: () =>
+      import('./pages/main/main.module').then(m => m.MainModule),
     canActivate: [AutoLoginPartialRoutesGuard],
   },
   {
     path: BaseRoute.USER_MANAGEMENT,
-    loadChildren: () => import('./pages/user-management/user-management.module')
-      .then(m => m.UserManagementModule),
+    loadChildren: () =>
+      import('./pages/user-management/user-management.module').then(
+        m => m.UserManagementModule
+      ),
     canActivate: [AutoLoginPartialRoutesGuard, hasRoleGuard(Role.ADMIN)],
   },
 ];
@@ -34,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

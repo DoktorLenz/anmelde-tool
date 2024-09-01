@@ -13,10 +13,7 @@ import { TagModule } from 'primeng/tag';
 import { PipesModule } from 'src/app/lib/pipes/pipes.module';
 
 @NgModule({
-  declarations: [
-    NamiMembersComponent,
-    OverviewComponent,
-  ],
+  declarations: [NamiMembersComponent, OverviewComponent],
   imports: [
     CommonModule,
     UserManagementRoutingModule,
@@ -30,4 +27,4 @@ import { PipesModule } from 'src/app/lib/pipes/pipes.module';
     PipesModule,
   ],
 })
-export class UserManagementModule { }
+export class UserManagementModule {}

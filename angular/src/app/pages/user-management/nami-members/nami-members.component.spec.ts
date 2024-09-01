@@ -13,7 +13,9 @@ describe('NamiMembersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NamiMembersComponent],
       providers: [
-        MockProvider(NamiMembersService, { getNamiMembers: jasmine.createSpy().and.returnValue(NEVER) }),
+        MockProvider(NamiMembersService, {
+          getNamiMembers: jasmine.createSpy().and.returnValue(NEVER),
+        }),
       ],
     });
     fixture = TestBed.createComponent(NamiMembersComponent);

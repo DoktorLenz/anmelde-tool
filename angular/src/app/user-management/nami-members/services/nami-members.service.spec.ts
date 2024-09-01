@@ -1,5 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { MockBuilder, ngMocks } from 'ng-mocks';
 import { Gender } from 'src/app/lib/models/gender.enum';
 import { Rank } from 'src/app/lib/models/rank.enum';
@@ -8,11 +11,10 @@ import { NamiMember } from '../model/nami-member';
 import { NamiMembersService } from './nami-members.service';
 
 describe('NamiMembersService', () => {
-
   beforeEach(() =>
     MockBuilder(NamiMembersService)
       .provide(provideHttpClient())
-      .provide(provideHttpClientTesting()),
+      .provide(provideHttpClientTesting())
   );
 
   it('should be created', () => {

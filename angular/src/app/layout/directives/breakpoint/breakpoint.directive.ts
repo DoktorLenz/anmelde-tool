@@ -1,4 +1,11 @@
-import { Directive, HostListener, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  HostListener,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 import { Breakpoint } from './breakpoint.enum';
 import { ComparatorFn } from './comparator';
 
@@ -6,7 +13,6 @@ import { ComparatorFn } from './comparator';
   selector: '[breakpoint]',
 })
 export class BreakpointDirective implements OnInit {
-
   @Input()
   public set breakpoint(breakpoint: Breakpoint) {
     this._breakpoint = breakpoint;
@@ -17,7 +23,6 @@ export class BreakpointDirective implements OnInit {
     this._comparatorFn = comparatorFn;
   }
 
-
   private _breakpoint: Breakpoint = Breakpoint.NONE;
 
   private _comparatorFn: ComparatorFn<number> = () => false;
@@ -26,10 +31,8 @@ export class BreakpointDirective implements OnInit {
 
   constructor(
     private readonly _templateRef: TemplateRef<unknown>,
-    private readonly _viewContainer: ViewContainerRef,
-  ) {
-
-  }
+    private readonly _viewContainer: ViewContainerRef
+  ) {}
 
   @HostListener('window:resize')
   public onResize(): void {
@@ -52,5 +55,4 @@ export class BreakpointDirective implements OnInit {
       this._viewContainer.clear();
     }
   }
-
 }

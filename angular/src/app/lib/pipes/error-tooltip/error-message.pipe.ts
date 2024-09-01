@@ -5,10 +5,10 @@ import { ValidationErrors } from '@angular/forms';
   name: 'errorMessage',
 })
 export class ErrorMessagePipe implements PipeTransform {
-
   transform(errors: ValidationErrors | null): string {
-    const errorMessages = Object.entries(errors ?? [])
-      .map(([property]) => this.getErrorMessage(property));
+    const errorMessages = Object.entries(errors ?? []).map(([property]) =>
+      this.getErrorMessage(property)
+    );
 
     return errorMessages.join(', ');
   }
@@ -25,5 +25,4 @@ export class ErrorMessagePipe implements PipeTransform {
         return `unknown error "${error}"`;
     }
   }
-
 }

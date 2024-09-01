@@ -1,4 +1,10 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 import { UserDataService } from '../../services/userdata/user-data.service';
 import { Role } from '../../models/role.enum';
 
@@ -7,7 +13,6 @@ import { Role } from '../../models/role.enum';
   selector: '[hasRole]',
 })
 export class HasRoleDirective implements OnInit {
-
   private _requiredRole!: Role;
 
   private _isHidden = true;
@@ -15,9 +20,8 @@ export class HasRoleDirective implements OnInit {
   constructor(
     private readonly templateRef: TemplateRef<unknown>,
     private readonly viewContainer: ViewContainerRef,
-    private readonly userDataService: UserDataService,
-  ) { }
-
+    private readonly userDataService: UserDataService
+  ) {}
 
   ngOnInit(): void {
     this.userDataService.userData$.subscribe(() => {

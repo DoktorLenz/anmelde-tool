@@ -8,11 +8,10 @@ import { TestBed } from '@angular/core/testing';
 
 describe('User does not have required role', () => {
   beforeEach(() =>
-    MockBuilder(HasRoleDirective)
-      .mock(UserDataService, {
-        userData$: EMPTY,
-        hasRole: jasmine.createSpy().and.returnValue(of(false)),
-      }),
+    MockBuilder(HasRoleDirective).mock(UserDataService, {
+      userData$: EMPTY,
+      hasRole: jasmine.createSpy().and.returnValue(of(false)),
+    })
   );
 
   it('hides an element', () => {
@@ -24,7 +23,7 @@ describe('User does not have required role', () => {
       `,
       {
         requiredRole: Role.ADMIN,
-      },
+      }
     );
 
     expect(view.nativeElement.innerText).not.toContain('content');
@@ -33,11 +32,10 @@ describe('User does not have required role', () => {
 
 describe('User does have required role', () => {
   beforeEach(() =>
-    MockBuilder(HasRoleDirective)
-      .mock(UserDataService, {
-        userData$: EMPTY,
-        hasRole: jasmine.createSpy().and.returnValue(of(true)),
-      }),
+    MockBuilder(HasRoleDirective).mock(UserDataService, {
+      userData$: EMPTY,
+      hasRole: jasmine.createSpy().and.returnValue(of(true)),
+    })
   );
 
   it('shows an element', () => {
@@ -49,13 +47,12 @@ describe('User does have required role', () => {
       `,
       {
         requiredRole: Role.ADMIN,
-      },
+      }
     );
 
     expect(view.nativeElement.innerText).toContain('content');
   });
 });
-
 
 describe('User does not have required role initially but then receives this role', () => {
   const userWithoutRoles: UserData = {
@@ -69,11 +66,10 @@ describe('User does not have required role initially but then receives this role
   const userDataSubject = new BehaviorSubject(userWithoutRoles);
 
   beforeEach(() =>
-    MockBuilder(HasRoleDirective)
-      .mock(UserDataService, {
-        userData$: userDataSubject.asObservable(),
-        hasRole: jasmine.createSpy().and.returnValue(of(false)),
-      }),
+    MockBuilder(HasRoleDirective).mock(UserDataService, {
+      userData$: userDataSubject.asObservable(),
+      hasRole: jasmine.createSpy().and.returnValue(of(false)),
+    })
   );
 
   it('should hide element first and the show it once the roles are sufficient', () => {
@@ -85,7 +81,7 @@ describe('User does not have required role initially but then receives this role
       `,
       {
         requiredRole: Role.ADMIN,
-      },
+      }
     );
 
     const userDataService = TestBed.inject(UserDataService);

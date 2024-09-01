@@ -10,15 +10,16 @@ import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
 export class CallbackComponent implements OnInit {
   constructor(
     private readonly securityService: OidcSecurityService,
-    private readonly router: Router,
+    private readonly router: Router
   ) {}
 
   public ngOnInit(): void {
-    this.securityService.checkAuth()
+    this.securityService
+      .checkAuth()
       .pipe(
         switchMap(() => {
           return this.router.navigate([BaseRoute.HOME]);
-        }),
+        })
       )
       .subscribe();
   }

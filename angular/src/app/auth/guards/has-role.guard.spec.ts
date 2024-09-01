@@ -18,7 +18,11 @@ class MockComponent {}
 const routes: Routes = [
   { path: '', redirectTo: 'previousPath', pathMatch: 'full' },
   { path: 'previousPath', component: PrevComponent },
-  { path: 'currentPath', component: MockComponent, canActivate: [hasRoleGuard(Role.ADMIN)] },
+  {
+    path: 'currentPath',
+    component: MockComponent,
+    canActivate: [hasRoleGuard(Role.ADMIN)],
+  },
 ];
 
 describe('User does not have required role', () => {

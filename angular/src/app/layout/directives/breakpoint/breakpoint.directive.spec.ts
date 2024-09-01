@@ -7,10 +7,13 @@ describe('Breakpoint directive with Comparator SmallerThan', () => {
   beforeEach(() => MockBuilder(BreakpointDirective));
 
   it('should show element when screen is not large', () => {
-    const view = MockRender('<div *breakpoint="breakpoint; comparator comp">content</div>', {
-      breakpoint: Breakpoint.LARGE,
-      comp: NumberComparator.less,
-    });
+    const view = MockRender(
+      '<div *breakpoint="breakpoint; comparator comp">content</div>',
+      {
+        breakpoint: Breakpoint.LARGE,
+        comp: NumberComparator.less,
+      }
+    );
 
     spyOnProperty(window, 'innerWidth').and.returnValue(Breakpoint.LARGE - 1);
 
@@ -20,10 +23,13 @@ describe('Breakpoint directive with Comparator SmallerThan', () => {
   });
 
   it('should hide element when screen is large', () => {
-    const view = MockRender('<div *breakpoint="breakpoint; comparator comp">content</div>', {
-      breakpoint: Breakpoint.LARGE,
-      comp: NumberComparator.less,
-    });
+    const view = MockRender(
+      '<div *breakpoint="breakpoint; comparator comp">content</div>',
+      {
+        breakpoint: Breakpoint.LARGE,
+        comp: NumberComparator.less,
+      }
+    );
 
     spyOnProperty(window, 'innerWidth').and.returnValue(Breakpoint.LARGE);
 
@@ -32,7 +38,6 @@ describe('Breakpoint directive with Comparator SmallerThan', () => {
     expect(view.nativeElement.innerHTML).not.toContain('content');
   });
 });
-
 
 describe('Breakpoint directive with not comparator', () => {
   beforeEach(() => MockBuilder(BreakpointDirective));

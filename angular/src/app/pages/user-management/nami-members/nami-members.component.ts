@@ -6,7 +6,6 @@ import { NamiMembersService } from 'src/app/user-management/nami-members/service
   templateUrl: './nami-members.component.html',
 })
 export class NamiMembersComponent implements OnInit {
-
   protected namiMembers: NamiMember[] = [];
 
   protected namiFetchDialogVisible = false;
@@ -19,8 +18,7 @@ export class NamiMembersComponent implements OnInit {
 
   protected groupId = '';
 
-  constructor(private readonly namiMembersService: NamiMembersService) {
-  }
+  constructor(private readonly namiMembersService: NamiMembersService) {}
 
   ngOnInit(): void {
     this.refreshList();
@@ -28,7 +26,7 @@ export class NamiMembersComponent implements OnInit {
 
   protected refreshList(): void {
     this.gridLoading = true;
-    this.namiMembersService.getNamiMembers().subscribe((namiMembers) => {
+    this.namiMembersService.getNamiMembers().subscribe(namiMembers => {
       this.namiMembers = namiMembers;
       this.gridLoading = false;
     });
@@ -37,9 +35,12 @@ export class NamiMembersComponent implements OnInit {
   protected startNamiImport(): void {
     this.gridLoading = true;
     this.namiFetchDialogVisible = false;
-    this.namiMembersService.fetchNamiMembers(
-      { username: this.username, password: this.password, groupingId: this.groupId },
-    )
+    this.namiMembersService
+      .fetchNamiMembers({
+        username: this.username,
+        password: this.password,
+        groupingId: this.groupId,
+      })
       .subscribe(() => {
         this.refreshList();
       });

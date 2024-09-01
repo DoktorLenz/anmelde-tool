@@ -1,24 +1,13 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json",
-          "cypress/tsconfig.json"
-        ]
+        "project": ["tsconfig.json", "cypress/tsconfig.json"]
       },
-      "plugins": [
-        "jasmine",
-        "cypress",
-        "testing-library"
-      ],
+      "plugins": ["jasmine", "cypress", "testing-library"],
       "env": {
         "jasmine": true
       },
@@ -56,19 +45,11 @@
       }
     },
     {
-      "files": [
-        "cypress/**/*.ts",
-        "cypress.config.ts"
-      ],
+      "files": ["cypress/**/*.ts", "cypress.config.ts"],
       "parserOptions": {
-        "project": [
-          "cypress/tsconfig.json"
-        ]
+        "project": ["cypress/tsconfig.json"]
       },
-      "plugins": [
-        "cypress",
-        "testing-library"
-      ],
+      "plugins": ["cypress", "testing-library"],
       "env": {
         "jasmine": true
       },
@@ -87,12 +68,8 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {
         "max-len": [
           "error",
@@ -103,12 +80,8 @@
       }
     },
     {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "plugin:@ngrx/all"
-      ]
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/all"]
     }
   ]
 }
