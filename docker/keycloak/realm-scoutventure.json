@@ -62,6 +62,15 @@
         "attributes": {}
       },
       {
+        "id": "3326e6af-f892-4e0d-a3f2-89d8033e05dc",
+        "name": "scoutventure-admin",
+        "description": "Admin Role",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "0e527667-a15d-4ec2-bef1-513636b0c59c",
+        "attributes": {}
+      },
+      {
         "id": "5da352ae-59fa-40e5-8964-122c83f64722",
         "name": "uma_authorization",
         "description": "${role_uma_authorization}",
@@ -74,6 +83,15 @@
         "id": "1c981a98-e693-4c29-8b1f-1a2700f65751",
         "name": "offline_access",
         "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "0e527667-a15d-4ec2-bef1-513636b0c59c",
+        "attributes": {}
+      },
+      {
+        "id": "acfa1790-0893-4667-b711-c6800cfb2ba3",
+        "name": "scoutventure-verified",
+        "description": "Role accepted user",
         "composite": false,
         "clientRole": false,
         "containerId": "0e527667-a15d-4ec2-bef1-513636b0c59c",
@@ -390,7 +408,30 @@
       "d3b85e5bc91c40f2b8ea210b3f36f784@scoutventure-spa": []
     }
   },
-  "groups": [],
+  "groups": [
+    {
+      "id": "fc8c4328-0882-41e7-b26f-b5faffcc55bf",
+      "name": "scoutventure-administrators",
+      "path": "/scoutventure-administrators",
+      "subGroups": [],
+      "attributes": {},
+      "realmRoles": [
+        "default-roles-scoutventure",
+        "scoutventure-admin",
+        "scoutventure-verified"
+      ],
+      "clientRoles": {}
+    },
+    {
+      "id": "65fde498-8c64-4d91-944a-6708cf3598b1",
+      "name": "scoutventure-members",
+      "path": "/scoutventure-members",
+      "subGroups": [],
+      "attributes": {},
+      "realmRoles": ["default-roles-scoutventure", "scoutventure-verified"],
+      "clientRoles": {}
+    }
+  ],
   "defaultRole": {
     "id": "1bd465cc-bd43-47b5-b3c2-a1b8b624e170",
     "name": "default-roles-scoutventure",
@@ -498,6 +539,7 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1724972305",
         "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
         "display.on.consent.screen": "false",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
@@ -514,8 +556,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "client_id",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "client_id",
             "jsonType.label": "String"
@@ -529,8 +572,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientHost",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientHost",
             "jsonType.label": "String"
@@ -544,8 +588,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientAddress",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientAddress",
             "jsonType.label": "String"
@@ -1579,14 +1624,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-usermodel-attribute-mapper",
-            "saml-user-property-mapper",
-            "oidc-full-name-mapper",
             "oidc-usermodel-property-mapper",
+            "saml-role-list-mapper",
+            "oidc-full-name-mapper",
             "oidc-address-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "saml-role-list-mapper",
-            "saml-user-attribute-mapper"
+            "saml-user-attribute-mapper",
+            "saml-user-property-mapper",
+            "oidc-usermodel-attribute-mapper"
           ]
         }
       },
@@ -1598,14 +1643,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-usermodel-property-mapper",
-            "saml-role-list-mapper",
             "oidc-full-name-mapper",
             "saml-user-attribute-mapper",
+            "oidc-usermodel-property-mapper",
+            "saml-user-property-mapper",
             "oidc-sha256-pairwise-sub-mapper",
             "oidc-address-mapper",
             "oidc-usermodel-attribute-mapper",
-            "saml-user-property-mapper"
+            "saml-role-list-mapper"
           ]
         }
       }

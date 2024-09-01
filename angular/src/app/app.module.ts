@@ -13,7 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
 import { AuthConfigModule } from './auth/auth-config.module';
-import { AuthDirectivesModule } from './auth/directives/auth-directives.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { metaReducers, reducers } from './reducers';
 
@@ -25,7 +24,6 @@ import { metaReducers, reducers } from './reducers';
     BrowserAnimationsModule,
     AppRoutingModule,
     AuthConfigModule,
-    AuthDirectivesModule,
     NavigationModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects]),

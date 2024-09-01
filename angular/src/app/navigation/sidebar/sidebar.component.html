@@ -13,5 +13,12 @@
 </div>
 
 <ng-template #navigationContent>
-  <p-panelMenu [model]="menuItems"></p-panelMenu>
+  <p-panelMenu
+    *ngIf="isVerified$ | async"
+    [model]="userMenuItems">
+  </p-panelMenu>
+  <p-panelMenu
+    *ngIf="isAdmin$ | async"
+    [model]="adminMenuItems">
+  </p-panelMenu>
 </ng-template>
