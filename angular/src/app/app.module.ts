@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
   withXsrfConfiguration,
 } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AppEffects } from './app.effects';
 import { AuthConfigModule } from './auth/auth-config.module';
 import { AuthDirectivesModule } from './auth/directives/auth-directives.module';
 import { NavigationModule } from './navigation/navigation.module';
-import { StoreModule } from '@ngrx/store';
+import { metaReducers, reducers } from './reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +27,9 @@ import { StoreModule } from '@ngrx/store';
     AuthConfigModule,
     AuthDirectivesModule,
     NavigationModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AppEffects]),
+    // ngDevMode ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     provideHttpClient(
