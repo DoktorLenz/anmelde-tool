@@ -8,6 +8,7 @@ import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from
 import { AuthConfigModule } from './auth/auth-config.module';
 import { AuthDirectivesModule } from './auth/directives/auth-directives.module';
 import { NavigationModule } from './navigation/navigation.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -17,7 +18,8 @@ import { NavigationModule } from './navigation/navigation.module';
         AppRoutingModule,
         AuthConfigModule,
         AuthDirectivesModule,
-        NavigationModule], providers: [provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
+        NavigationModule,
+        StoreModule.forRoot({}, {})], providers: [provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
             cookieName: 'XSRF-TOKEN',
             headerName: 'X-XSRF-TOKEN',
         }))] })

@@ -1,6 +1,11 @@
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AuthInterceptor, AuthModule, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
+import {
+  AuthInterceptor,
+  AuthModule,
+  StsConfigHttpLoader,
+  StsConfigLoader,
+} from 'angular-auth-oidc-client';
 import { map } from 'rxjs';
 import { AuthRoute } from '../lib/routes/auth-route.enum';
 import { BaseRoute } from '../lib/routes/base-route.enum';
@@ -13,27 +18,28 @@ export const httpLoaderFactory = (httpClient: HttpClient) => {
       redirectUrl: `${window.location.origin}/${BaseRoute.AUTH}/${AuthRoute.CALLBACK}`,
       postLogoutRedirectUri: window.location.origin,
       clientId: config.oauth2Configuration.clientId,
-      secureRoutes: ["/api"],
+      secureRoutes: ['/api'],
       scope: 'openid profile offline_access',
       responseType: 'code',
       silentRenew: true,
       useRefreshToken: true,
       renewTimeBeforeTokenExpiresInSeconds: 30,
-    })),
+    }))
   );
 
   return new StsConfigHttpLoader(config$);
 };
 
-
 @NgModule({
-  imports: [AuthModule.forRoot({
-    loader: {
-      provide: StsConfigLoader,
-      useFactory: httpLoaderFactory,
-      deps: [HttpClient],
-    },
-  })],
+  imports: [
+    AuthModule.forRoot({
+      loader: {
+        provide: StsConfigLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
+  ],
   exports: [AuthModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
