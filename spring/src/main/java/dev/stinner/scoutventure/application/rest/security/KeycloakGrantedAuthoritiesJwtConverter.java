@@ -12,8 +12,6 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Configuration
@@ -36,9 +34,9 @@ public class KeycloakGrantedAuthoritiesJwtConverter implements Converter<Jwt, Jw
                     .toList();
         }
 
-        return Optional.ofNullable(realmRoles).map(roles -> roles.stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toSet()))
-                .orElse(Collections.emptySet());
+        if (realmRoles != null) {
+            return realmRoles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).toList();
+        }
+        return Collections.emptyList();
     }
 }

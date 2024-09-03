@@ -32,7 +32,7 @@ public class UserManagementController {
     private final UserService userService;
 
 
-    @RolesAllowed(Role.ADMIN)
+    @RolesAllowed({Role.ADMIN})
     @GetMapping(RestApiEndpoints.V1.Usermanagement.USERS)
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.getAllUsers()
@@ -43,7 +43,7 @@ public class UserManagementController {
         return ResponseEntity.ok(users);
     }
 
-    @RolesAllowed(Role.ADMIN)
+    @RolesAllowed({Role.ADMIN})
     @GetMapping(RestApiEndpoints.V1.Usermanagement.NAMI_MEMBERS)
     public ResponseEntity<List<NamiMemberDto>> getNamiMembers() {
         List<NamiMemberDto> namiMembers = namiMemberService.getNamiMembers()
