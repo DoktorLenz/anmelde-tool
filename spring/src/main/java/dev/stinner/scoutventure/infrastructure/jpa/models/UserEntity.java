@@ -39,4 +39,8 @@ public class UserEntity {
                 user.getEmail()
         );
     }
+
+    public User toDomain() {
+        return new User(this.subject, this.firstname, this.lastname, this.username, this.email);
+    }
 }

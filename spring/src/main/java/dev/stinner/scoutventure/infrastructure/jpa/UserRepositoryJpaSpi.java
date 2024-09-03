@@ -17,6 +17,10 @@ public class UserRepositoryJpaSpi implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
 
+    public List<User> getAllUsers() {
+        return userJpaRepository.findAll().stream().map(UserEntity::toDomain).toList();
+    }
+
     @Transactional
     @Override
     public void saveAllAndFlush(List<User> users) {

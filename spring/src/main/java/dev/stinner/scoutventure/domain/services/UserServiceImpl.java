@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
     private final IamAdapter iamAdapter;
     private final UserRepository userRepository;
 
+
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
     /**
      * Gets roles for a user (subject)
      *

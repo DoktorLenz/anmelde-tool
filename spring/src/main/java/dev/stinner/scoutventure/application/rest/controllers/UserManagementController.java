@@ -3,10 +3,12 @@ package dev.stinner.scoutventure.application.rest.controllers;
 import dev.stinner.scoutventure.application.rest.RestApiEndpoints;
 import dev.stinner.scoutventure.application.rest.models.NamiImportDetailsDto;
 import dev.stinner.scoutventure.application.rest.models.NamiMemberDto;
+import dev.stinner.scoutventure.application.rest.models.UserDto;
 import dev.stinner.scoutventure.application.rest.security.Role;
 import dev.stinner.scoutventure.domain.error.ErrorMessages;
 import dev.stinner.scoutventure.domain.error.ErrorResponse;
 import dev.stinner.scoutventure.domain.ports.api.NamiMemberService;
+import dev.stinner.scoutventure.domain.ports.api.UserService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,7 +29,21 @@ import java.util.List;
 public class UserManagementController {
 
     private final NamiMemberService namiMemberService;
+    private final UserService userService;
 
+
+    @RolesAllowed(Role.ADMIN)
+    @GetMapping(RestApiEndpoints.V1.Usermanagement.USERS)
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = userService.getAllUsers()
+                .stream()
+                .map(UserDto::fromDomain)
+                .toList();
+
+        return ResponseEntity.ok(users);
+    }
+
+    @RolesAllowed(Role.ADMIN)
     @GetMapping(RestApiEndpoints.V1.Usermanagement.NAMI_MEMBERS)
     public ResponseEntity<List<NamiMemberDto>> getNamiMembers() {
         List<NamiMemberDto> namiMembers = namiMemberService.getNamiMembers()
