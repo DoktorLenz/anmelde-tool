@@ -33,7 +33,6 @@ export class CallbackComponent implements OnInit {
               const roles = this.getRolesFromJwt(token).map(
                 role => role as Role
               );
-              console.warn(roles);
               this.store.dispatch(setRoles({ roles }));
             },
           });
