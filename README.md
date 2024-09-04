@@ -15,27 +15,36 @@ Die Konfiguration von ScoutVenture kann über Startparameter oder Umgebungsvaria
 Folgend sind die gruppierten Parameter erläutert. <br/>
 
 **Allgemeine Konfiguration**
-| Parameter     | Beschreibung      | Default                |
-| ------------- | ----------------- | ---------------------- |
-| `sv.uri`      | URI zur Anwendung | -                      |
-| `sv.nami.url` | Url zu DPSG NaMi  | `https://nami.dpsg.de` |
+| Parameter               | Beschreibung      | Default                |
+| ----------------------- | ----------------- | ---------------------- |
+| `scoutventure.uri`      | URI zur Anwendung | -                      |
+| `scoutventure.nami.url` | Url zu DPSG NaMi  | `https://nami.dpsg.de` |
 
 **Datenbank**
-| Parameter        | Beschreibung                | Default         |
-| ---------------- | --------------------------- | --------------- |
-| `sv.db.url`      | Url der Datenbank           | `localhost`     |
-| `sv.db.port`     | Port der Datenbank          | `5432`          |
-| `sv.db.username` | Nutzername der Datenbank    | `scoutventure`  |
-| `sv.db.password` | Passwort der Datenbank      | `scoutventure`  |
-| `sv.db.db-name`  | Datenbankname der Datenbank | `scoutventure`  |
-| `sv.db.tz`       | Zeitzone der Datenbank      | `Europe/Berlin` |
+| Parameter                  | Beschreibung                | Default         |
+| -------------------------- | --------------------------- | --------------- |
+| `scoutventure.db.url`      | Url der Datenbank           | `localhost`     |
+| `scoutventure.db.port`     | Port der Datenbank          | `5432`          |
+| `scoutventure.db.username` | Nutzername der Datenbank    | `scoutventure`  |
+| `scoutventure.db.password` | Passwort der Datenbank      | `scoutventure`  |
+| `scoutventure.db.db-name`  | Datenbankname der Datenbank | `scoutventure`  |
+| `scoutventure.db.tz`       | Zeitzone der Datenbank      | `Europe/Berlin` |
+
+**OAuth2**
+| Parameter                                 | Beschreibung                   | Default |
+| ----------------------------------------- | ------------------------------ | ------- |
+| `scoutventure.oauth.serverUrl`            | Url des OAuth2 Servers         | -       |
+| `scoutventure.oauth.realm`                | Realm des OAuth2 Servers       | -       |
+| `scoutventure.oauth.frontend.clientId`    | Id des Clients für Frontend    | -       |
+| `scoutventure.oauth.backend.clientId`     | Id des Clients für Backend     | -       |
+| `scoutventure.oauth.backend.clientSecret` | Secret des Clients für Backend | -       |
 
 **Überwachung**
-| Parameter                         | Beschreibung                     | Default |
-| --------------------------------- | -------------------------------- | ------- |
-| `sv.logging.directory`            | Ablageort der Log-Datei          | `logs`  |
-| `sv.logging.file.size-limit`      | Max-Größe einer Log-Datei        | `5MB`   |
-| `sv.monitoring.actuators.enabled` | Gibt Überwachungs-Endpunkte frei | `true`  |
+| Parameter                                   | Beschreibung                     | Default |
+| ------------------------------------------- | -------------------------------- | ------- |
+| `scoutventure.logging.directory`            | Ablageort der Log-Datei          | `logs`  |
+| `scoutventure.logging.file.size-limit`      | Max-Größe einer Log-Datei        | `5MB`   |
+| `scoutventure.monitoring.actuators.enabled` | Gibt Überwachungs-Endpunkte frei | `true`  |
 
 ### Informationen zur Überwachung
 

@@ -9,16 +9,16 @@
     height: 100%;
     overflow: hidden;
 
-    >* {
+    > * {
       // flex-grow: 1;
       overflow: auto;
     }
 
-    >.app-sidebar {
+    > .app-sidebar {
       flex-shrink: 0;
     }
 
-    >.app-router-outlet {
+    > .app-router-outlet {
       flex-grow: 1;
     }
   }

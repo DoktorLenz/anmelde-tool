@@ -13,14 +13,8 @@ import { PanelModule } from 'primeng/panel';
 import { LayoutDirectivesModule } from '../layout/directives/layout-directives.module';
 import { ImageModule } from 'primeng/image';
 
-
-
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-  ],
+  declarations: [HeaderComponent, FooterComponent, SidebarComponent],
   imports: [
     CommonModule,
     PanelMenuModule,
@@ -32,13 +26,7 @@ import { ImageModule } from 'primeng/image';
     LayoutDirectivesModule,
     ImageModule,
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-  ],
-  providers: [
-    NavigationService,
-  ],
+  exports: [HeaderComponent, FooterComponent, SidebarComponent],
+  providers: [NavigationService],
 })
-export class NavigationModule { }
+export class NavigationModule {}

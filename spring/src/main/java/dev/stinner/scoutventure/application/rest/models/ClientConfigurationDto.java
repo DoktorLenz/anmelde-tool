@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class ClientConfigurationDto {
     @NotNull
-    private OAuth2ConfigurationDto oauth2Configuration;
+    private OAuth2FrontendConfigurationDto oauth2Configuration;
 }

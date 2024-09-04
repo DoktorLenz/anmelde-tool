@@ -6,7 +6,6 @@ import { Rank } from '../../models/rank.enum';
   pure: true,
 })
 export class RankColorClassPipe implements PipeTransform {
-
   transform(rank: Rank): string {
     switch (rank) {
       case Rank.WOELFLING:
@@ -21,5 +20,4 @@ export class RankColorClassPipe implements PipeTransform {
         return '';
     }
   }
-
 }

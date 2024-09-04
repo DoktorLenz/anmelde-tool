@@ -12,6 +12,5 @@ class SimpleComparator<T extends number | string> {
   readonly equals: ComparatorFn<T> = (a: T, b: T) => a === b;
 }
 
-
 export const NumberComparator = new SimpleComparator<number>();
 export const StringComparator = new SimpleComparator<string>();

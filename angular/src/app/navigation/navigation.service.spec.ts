@@ -3,7 +3,6 @@ import { NavigationService } from './navigation.service';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 
 describe('NavigationService sidebarVisible$', () => {
-
   ngMocks.faster();
   beforeEach(() => MockBuilder(NavigationService));
 

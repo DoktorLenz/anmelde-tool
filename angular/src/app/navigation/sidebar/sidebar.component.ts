@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { EventType, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
-import { Observable, filter } from 'rxjs';
-import { Role } from 'src/app/auth/models/role.enum';
-import { UserData } from 'src/app/auth/models/user-data';
-import { UserDataService } from 'src/app/auth/services/userdata/user-data.service';
+import { filter, Observable } from 'rxjs';
+import { authFeature } from 'src/app/auth/reducers';
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
 import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
@@ -18,7 +17,7 @@ import { NavigationService } from '../navigation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  private userMenuItems: MenuItem[] = [
+  protected userMenuItems: MenuItem[] = [
     {
       label: 'Home',
       icon: 'pi pi-home',
@@ -26,7 +25,7 @@ export class SidebarComponent {
     },
   ];
 
-  private adminMenuItems: MenuItem[] = [
+  protected adminMenuItems: MenuItem[] = [
     {
       label: 'Nutzerverwaltung',
       icon: 'pi pi-users',
@@ -43,8 +42,6 @@ export class SidebarComponent {
     },
   ];
 
-  protected menuItems: MenuItem[] = [];
-
   protected get sidebarVisible$(): Observable<boolean> {
     return this.navigationService.sidebarVisible$;
   }
@@ -57,27 +54,30 @@ export class SidebarComponent {
 
   protected NumberComparator = NumberComparator;
 
+  protected isAdmin$ = this.store.select(authFeature.isAdmin);
+  protected isVerified$ = this.store.select(authFeature.isVerified);
+
   constructor(
     private readonly navigationService: NavigationService,
-    private readonly userDataService: UserDataService,
     private readonly router: Router,
+    private readonly store: Store
   ) {
-    this.userDataService.userData$.subscribe({
-      next: (userData: UserData) => {
-        this.menuItems = [...this.userMenuItems];
-        if (userData.authorities?.find((role) => role === Role.ADMIN)) {
-          this.menuItems.push(...this.adminMenuItems);
-        }
-      },
-    });
+    // this.userDataService.userData$.subscribe({
+    //   next: (userData: UserData) => {
+    //     this.menuItems = [...this.userMenuItems];
+    //     if (userData.authorities?.find(role => role === Role.ADMIN)) {
+    //       this.menuItems.push(...this.adminMenuItems);
+    //     }
+    //   },
+    // });
 
     this.router.events
       .pipe(
         filter(
-          (routerEvent) =>
+          routerEvent =>
             routerEvent.type === EventType.NavigationStart ||
-            routerEvent.type === EventType.NavigationSkipped,
-        ),
+            routerEvent.type === EventType.NavigationSkipped
+        )
       )
       .subscribe(() => {
         this.sidebarVisibleChange(false);
