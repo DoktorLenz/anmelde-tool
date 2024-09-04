@@ -1,9 +1,9 @@
 <p-table
-  [value]="namiMembers"
+  [value]="(namiMembers$ | async) ?? []"
   styleClass="p-datatable-striped"
   [scrollable]="true"
   scrollHeight="flex"
-  [loading]="gridLoading">
+  [loading]="loadingNamiMembers$ | async">
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       NaMi-Mitglieder
@@ -26,9 +26,17 @@
         Vorname <p-sortIcon field="firstname"></p-sortIcon>
       </th>
       <th
+        id="lastname-header"
+        pSortableColumn="lastname">
+        Nachname <p-sortIcon field="lastname"></p-sortIcon>
+      </th>
+      <th
         id="rank-header"
         pSortableColumn="rank">
         Stufe <p-sortIcon field="rank"></p-sortIcon>
+      </th>
+      <th id="legal-guardian-header">
+        Erziehungsberechtigte <p-sortIcon field="rank"></p-sortIcon>
       </th>
     </tr>
   </ng-template>
@@ -37,11 +45,34 @@
     let-namiMember>
     <tr>
       <td>{{ namiMember.firstname }}</td>
+      <td>{{ namiMember.lastname }}</td>
       <td>
         <p-tag
           *ngIf="namiMember.rank"
           [styleClass]="namiMember.rank | rankColorClass"
           [value]="namiMember.rank"></p-tag>
+      </td>
+      <td class="flex flex-row align-items-center">
+        <span>
+          @for (
+            legalGuardian of namiMember.legalGuardians;
+            track legalGuardian.id;
+            let lastGuardian = $last
+          ) {
+            @if (lastGuardian) {
+              {{ legalGuardian.firstname }} {{ legalGuardian.lastname }}
+            } @else {
+              {{ legalGuardian.firstname }} {{ legalGuardian.lastname }},
+            }
+          }
+        </span>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-text"
+          (click)="onEditLegalGuardian(namiMember)"></button>
       </td>
     </tr>
   </ng-template>
@@ -77,4 +108,16 @@
       label="Import Starten"
       (onClick)="startNamiImport()"></p-button>
   </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="legalGuardianDialogVisible"
+  [draggable]="false"
+  [resizable]="false"
+  [modal]="true">
+  <ng-template pTemplate="header">Erziehungsberechtigte zuweisen</ng-template>
+  <p-dropdown
+    [filter]="true"
+    [appendTo]="'body'"></p-dropdown>
+  <ng-template pTemplate="footer"></ng-template>
 </p-dialog>

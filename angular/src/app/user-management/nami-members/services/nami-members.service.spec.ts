@@ -6,8 +6,8 @@ import {
 import { MockBuilder, ngMocks } from 'ng-mocks';
 import { Gender } from 'src/app/lib/models/gender.enum';
 import { Rank } from 'src/app/lib/models/rank.enum';
-import { NamiFetchDetails } from '../model/nami-fetch-details';
-import { NamiMember } from '../model/nami-member';
+import { NamiFetchDetails } from '../../../pages/user-management/nami-members/model/nami-fetch-details';
+import { NamiMember } from '../../../pages/user-management/nami-members/model/nami-member';
 import { NamiMembersService } from './nami-members.service';
 
 describe('NamiMembersService', () => {
