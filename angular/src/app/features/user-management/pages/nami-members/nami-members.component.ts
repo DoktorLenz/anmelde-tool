@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { NamiMember } from '../../models/nami-member';
 import { userManagementFeature } from '../../ngrx';
 import * as UserManagementActions from '../../ngrx/user-management.actions';
-import { NamiMembersService } from '../../services/nami-members.service';
 
 @Component({
   templateUrl: './nami-members.component.html',
@@ -25,13 +24,10 @@ export class NamiMembersComponent implements OnInit {
 
   protected memberId: number | null = null;
 
-  constructor(
-    private readonly namiMembersService: NamiMembersService,
-    private readonly store: Store
-  ) {}
+  constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(UserManagementActions.loadNamiMembersInitiate());
+    this.refreshList();
   }
 
   protected namiMembers$: Observable<NamiMember[]> = this.store.select(
@@ -47,17 +43,14 @@ export class NamiMembersComponent implements OnInit {
   }
 
   protected startNamiImport(): void {
-    this.gridLoading = true;
     this.namiFetchDialogVisible = false;
-    this.namiMembersService
-      .fetchNamiMembers({
+    this.store.dispatch(
+      UserManagementActions.namiImportInitiate({
         username: this.username,
         password: this.password,
         groupingId: this.groupId,
       })
-      .subscribe(() => {
-        this.refreshList();
-      });
+    );
   }
 
   protected onEditLegalGuardian(member: NamiMember): void {

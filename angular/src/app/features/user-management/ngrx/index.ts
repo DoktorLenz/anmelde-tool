@@ -20,6 +20,7 @@ export const userManagementFeature = createFeature({
     initialState,
     on(
       UserManagementActions.loadNamiMembersInitiate,
+      UserManagementActions.namiImportInitiate,
       (state): UserManagementState => ({
         ...state,
         loadingNamiMembers: true,

@@ -11,7 +11,10 @@ export const loadNamiMembers = createEffect(
     namiMembersService = inject(NamiMembersService)
   ) => {
     return actions$.pipe(
-      ofType(UserManagementActions.loadNamiMembersInitiate),
+      ofType(
+        UserManagementActions.loadNamiMembersInitiate,
+        UserManagementActions.namiImportSuccess
+      ),
       exhaustMap(() =>
         namiMembersService
           .getNamiMembers()
@@ -20,6 +23,27 @@ export const loadNamiMembers = createEffect(
               UserManagementActions.loadNamiMembersSuccess({ namiMembers })
             )
           )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const importNamiMembers = createEffect(
+  (
+    actions$ = inject(Actions),
+    namiMembersService = inject(NamiMembersService)
+  ) => {
+    return actions$.pipe(
+      ofType(UserManagementActions.namiImportInitiate),
+      exhaustMap(action =>
+        namiMembersService
+          .fetchNamiMembers({
+            username: action.username,
+            password: action.password,
+            groupingId: action.groupingId,
+          })
+          .pipe(map(() => UserManagementActions.namiImportSuccess()))
       )
     );
   },
