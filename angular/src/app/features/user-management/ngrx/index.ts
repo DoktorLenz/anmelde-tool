@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { NamiMember } from '../nami-members/model/nami-member';
-import * as UserManagementActions from '../user-management.actions';
+import { NamiMember } from '../models/nami-member';
+import * as UserManagementActions from './user-management.actions';
 
 export const userManagementFeatureKey = 'usermanagement';
 

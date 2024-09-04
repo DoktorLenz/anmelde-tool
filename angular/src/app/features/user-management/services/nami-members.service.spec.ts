@@ -4,10 +4,10 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { MockBuilder, ngMocks } from 'ng-mocks';
-import { Gender } from 'src/app/lib/models/gender.enum';
-import { Rank } from 'src/app/lib/models/rank.enum';
-import { NamiFetchDetails } from '../../../pages/user-management/nami-members/model/nami-fetch-details';
-import { NamiMember } from '../../../pages/user-management/nami-members/model/nami-member';
+import { Gender } from '../../../lib/models/gender.enum';
+import { Rank } from '../../../lib/models/rank.enum';
+import { NamiFetchDetails } from '../models/nami-fetch-details';
+import { NamiMember } from '../models/nami-member';
 import { NamiMembersService } from './nami-members.service';
 
 describe('NamiMembersService', () => {
@@ -33,6 +33,7 @@ describe('NamiMembersService', () => {
         gender: Gender.MALE,
         memberId: 0,
         rank: Rank.ROVER,
+        legalGuardians: [],
       },
     ];
 

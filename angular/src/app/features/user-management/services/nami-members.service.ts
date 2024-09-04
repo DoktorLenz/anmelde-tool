@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NamiFetchDetails } from '../../../pages/user-management/nami-members/model/nami-fetch-details';
-import { NamiMember } from '../../../pages/user-management/nami-members/model/nami-member';
+import { NamiFetchDetails } from '../models/nami-fetch-details';
+import { NamiMember } from '../models/nami-member';
 
 @Injectable({
   providedIn: 'root',

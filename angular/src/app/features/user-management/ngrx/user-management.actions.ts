@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { NamiMember } from './nami-members/model/nami-member';
+import { NamiMember } from '../models/nami-member';
 
 export const loadNamiMembersInitiate = createAction(
   '[UserManagement] LoadNamiMembers initiate'

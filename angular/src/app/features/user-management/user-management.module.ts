@@ -13,16 +13,16 @@ import { PasswordModule } from 'primeng/password';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { PipesModule } from 'src/app/lib/pipes/pipes.module';
-import { NamiMembersComponent } from './nami-members/nami-members.component';
-import { OverviewComponent } from './overview/overview.component';
-import * as fromUserManagement from './reducers';
+import { userManagementFeature } from './ngrx';
+import * as UserManagementEffects from './ngrx/user-management.effects';
+import { NamiMembersComponent } from './pages/nami-members/nami-members.component';
+import { OverviewComponent } from './pages/overview/overview.component';
 import { UserManagementRoutingModule } from './user-management-routing.module';
-import * as userManagementEffects from './user-management.effects';
 @NgModule({
   declarations: [NamiMembersComponent, OverviewComponent],
   imports: [
-    StoreModule.forFeature(fromUserManagement.userManagementFeature),
-    EffectsModule.forFeature(userManagementEffects),
+    StoreModule.forFeature(userManagementFeature),
+    EffectsModule.forFeature(UserManagementEffects),
     CommonModule,
     UserManagementRoutingModule,
     TableModule,

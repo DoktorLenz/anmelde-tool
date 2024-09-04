@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { NamiMembersService } from 'src/app/user-management/nami-members/services/nami-members.service';
-import { userManagementFeature } from '../reducers';
-import * as UserManagementActions from '../user-management.actions';
-import { NamiMember } from './model/nami-member';
+import { NamiMember } from '../../models/nami-member';
+import { userManagementFeature } from '../../ngrx';
+import * as UserManagementActions from '../../ngrx/user-management.actions';
+import { NamiMembersService } from '../../services/nami-members.service';
 
 @Component({
   templateUrl: './nami-members.component.html',
