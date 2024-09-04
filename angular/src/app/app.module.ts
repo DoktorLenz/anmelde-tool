@@ -11,7 +11,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppEffects } from './app.effects';
 import { AuthConfigModule } from './auth/auth-config.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { metaReducers, reducers } from './reducers';
@@ -26,7 +25,7 @@ import { metaReducers, reducers } from './reducers';
     AuthConfigModule,
     NavigationModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot(),
     // ngDevMode ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
