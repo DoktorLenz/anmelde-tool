@@ -35,9 +35,7 @@
         pSortableColumn="rank">
         Stufe <p-sortIcon field="rank"></p-sortIcon>
       </th>
-      <th id="legal-guardian-header">
-        Erziehungsberechtigte <p-sortIcon field="rank"></p-sortIcon>
-      </th>
+      <th id="user-assignment-header">Nutzerzuordnung</th>
     </tr>
   </ng-template>
   <ng-template
@@ -55,14 +53,14 @@
       <td class="flex flex-row align-items-center">
         <span>
           @for (
-            legalGuardian of namiMember.legalGuardians;
-            track legalGuardian.id;
-            let lastGuardian = $last
+            userAssignment of namiMember.userAssignments;
+            track userAssignment.id;
+            let lastUserAssignment = $last
           ) {
-            @if (lastGuardian) {
-              {{ legalGuardian.firstname }} {{ legalGuardian.lastname }}
+            @if (lastUserAssignment) {
+              {{ userAssignment.firstname }} {{ userAssignment.lastname }}
             } @else {
-              {{ legalGuardian.firstname }} {{ legalGuardian.lastname }},
+              {{ userAssignment.firstname }} {{ userAssignment.lastname }},
             }
           }
         </span>
@@ -72,12 +70,12 @@
           type="button"
           icon="pi pi-pencil"
           class="p-button-rounded p-button-text"
-          (click)="onEditLegalGuardian(namiMember)"></button>
+          (click)="onEditUserAssignments(namiMember)"></button>
       </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
-    Insgesamt: {{ namiMembers.length }}
+    Insgesamt: {{ ((namiMembers$ | async) ?? []).length }}
   </ng-template>
 </p-table>
 
@@ -111,11 +109,11 @@
 </p-dialog>
 
 <p-dialog
-  [(visible)]="legalGuardianDialogVisible"
+  [(visible)]="userAssignmentsDialogVisible"
   [draggable]="false"
   [resizable]="false"
   [modal]="true">
-  <ng-template pTemplate="header">Erziehungsberechtigte zuweisen</ng-template>
+  <ng-template pTemplate="header">Nutzer zuordnen</ng-template>
   <p-dropdown
     [filter]="true"
     [appendTo]="'body'"></p-dropdown>

@@ -12,7 +12,7 @@ export class NamiMembersComponent implements OnInit {
   protected namiMembers: NamiMember[] = [];
 
   protected namiFetchDialogVisible = false;
-  protected legalGuardianDialogVisible = false;
+  protected userAssignmentsDialogVisible = false;
 
   protected gridLoading = true;
 
@@ -53,8 +53,8 @@ export class NamiMembersComponent implements OnInit {
     );
   }
 
-  protected onEditLegalGuardian(member: NamiMember): void {
+  protected onEditUserAssignments(member: NamiMember): void {
     this.memberId = member.memberId;
-    this.legalGuardianDialogVisible = true;
+    this.userAssignmentsDialogVisible = true;
   }
 }

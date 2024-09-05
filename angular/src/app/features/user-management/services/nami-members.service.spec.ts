@@ -33,7 +33,7 @@ describe('NamiMembersService', () => {
         gender: Gender.MALE,
         memberId: 0,
         rank: Rank.ROVER,
-        legalGuardians: [],
+        userAssignments: [],
       },
     ];
 

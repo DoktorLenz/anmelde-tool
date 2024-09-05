@@ -1,4 +1,4 @@
-export interface LegalGuardian {
+export interface UserAssignment {
   id: string;
   firstname: string;
   lastname: string;
