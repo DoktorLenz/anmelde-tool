@@ -5,7 +5,6 @@ import dev.stinner.scoutventure.domain.models.UserRoles;
 import dev.stinner.scoutventure.domain.ports.api.UserService;
 import dev.stinner.scoutventure.domain.ports.spi.IamAdapter;
 import dev.stinner.scoutventure.domain.ports.spi.UserRepository;
-import dev.stinner.scoutventure.domain.ports.spi.UserRolesRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

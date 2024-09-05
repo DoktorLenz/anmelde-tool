@@ -2,7 +2,6 @@ package dev.stinner.scoutventure.infrastructure.jpa;
 
 import dev.stinner.scoutventure.application.rest.security.Role;
 import dev.stinner.scoutventure.domain.models.UserRoles;
-import dev.stinner.scoutventure.infrastructure.jpa.models.UserRolesEntity;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
