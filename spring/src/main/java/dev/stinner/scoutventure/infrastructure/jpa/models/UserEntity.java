@@ -3,7 +3,9 @@ package dev.stinner.scoutventure.infrastructure.jpa.models;
 import dev.stinner.scoutventure.domain.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
@@ -11,6 +13,8 @@ import java.util.Set;
 @Table(name = "iam_users")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class UserEntity {
 
     /**

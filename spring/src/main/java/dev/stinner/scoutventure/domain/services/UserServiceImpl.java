@@ -30,6 +30,6 @@ public class UserServiceImpl implements UserService {
     @Scheduled(fixedRate = 120 * 60 * 1000)
     public void syncIamUsers() {
         List<User> users = iamAdapter.getUsers();
-        userRepository.saveAllAndFlush(users);
+        userRepository.updateUsers(users);
     }
 }
