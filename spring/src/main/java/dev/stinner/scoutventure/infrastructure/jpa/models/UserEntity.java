@@ -1,12 +1,11 @@
 package dev.stinner.scoutventure.infrastructure.jpa.models;
 
 import dev.stinner.scoutventure.domain.models.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "iam_users")
@@ -30,13 +29,18 @@ public class UserEntity {
 
     private String email;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "iam_users_nami_members_mapping", joinColumns = @JoinColumn(name = "subject"), inverseJoinColumns = @JoinColumn(name = "member_id"))
+    private Set<NamiMemberEntity> AssignedNamiMembers;
+
     public static UserEntity fromDomain(User user) {
         return new UserEntity(
                 user.getSubject(),
                 user.getFirstname(),
                 user.getLastname(),
                 user.getUsername(),
-                user.getEmail()
+                user.getEmail(),
+                Set.of()
         );
     }
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,6 +33,10 @@ public class NamiMemberEntity {
     @Enumerated(EnumType.STRING)
     private GenderEntity gender;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "iam_users_nami_members_mapping", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "subject"))
+    private Set<UserEntity> UserAssignments;
+
     public static NamiMemberEntity fromNamiMember(NamiMember namiMember) {
         return new NamiMemberEntity(
                 namiMember.getMemberId(),
@@ -39,7 +44,8 @@ public class NamiMemberEntity {
                 namiMember.getLastname(),
                 namiMember.getDateOfBirth(),
                 RankEntity.fromDomain(namiMember.getRank()),
-                GenderEntity.fromDomain(namiMember.getGender())
+                GenderEntity.fromDomain(namiMember.getGender()),
+                Set.of()
         );
     }
 
