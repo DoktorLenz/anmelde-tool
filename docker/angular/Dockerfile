@@ -1,4 +1,4 @@
-FROM nginx:1.27.1-alpine@sha256:c04c18adc2a407740a397c8407c011fc6c90026a9b65cceddef7ae5484360158
+FROM nginx:1.27.3-alpine@sha256:41523187cf7d7a2f2677a80609d9caa14388bf5c1fbca9c410ba3de602aaaab4
 
 ENV CONFIG=e2e
 
