@@ -20,7 +20,7 @@ jobs:
         working-directory: ./spring
 
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Extract tag name without 'v' prefix and set as env variable
         run: |
@@ -28,7 +28,7 @@ jobs:
           echo "VERSION=${VERSION}" >> ${GITHUB_ENV}
 
       - name: Set up JDK 17
-        uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018 # v4
+        uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4
         with:
           java-version: "17"
           distribution: "temurin"
@@ -38,7 +38,7 @@ jobs:
         run: mvn clean package -DskipTests -Dversion=${{env.VERSION}}
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
         with:
           name: ${{env.ARTIFACT_NAME}}
           path: ./spring/target/*.jar
@@ -52,7 +52,7 @@ jobs:
         working-directory: .
 
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Extract tag name without 'v' prefix and set as env variable
         run: |
