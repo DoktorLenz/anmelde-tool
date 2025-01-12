@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ClientConfigurationControllerIT extends BaseControllerTest {
 
     @Test
-    void when_getConfiguration_then_ResoinseEntity_with_200_and_propper_content_returned() {
+    void when_getConfiguration_then_ResponseEntity_with_200_and_propper_content_returned() {
         ClientConfigurationDto dto = given().when().get(RestApiEndpoints.V1.CONFIGURATION)
                 .then().status(HttpStatus.OK)
                 .extract().as(ClientConfigurationDto.class);

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { MultiSelectChangeEvent } from 'primeng/multiselect';
 import { Observable } from 'rxjs';
 import { NamiMember } from '../../models/nami-member';
+import { User } from '../../models/user';
 import { userManagementFeature } from '../../ngrx';
 import * as UserManagementActions from '../../ngrx/user-management.actions';
 
@@ -9,10 +11,7 @@ import * as UserManagementActions from '../../ngrx/user-management.actions';
   templateUrl: './nami-members.component.html',
 })
 export class NamiMembersComponent implements OnInit {
-  protected namiMembers: NamiMember[] = [];
-
   protected namiFetchDialogVisible = false;
-  protected userAssignmentsDialogVisible = false;
 
   protected gridLoading = true;
 
@@ -22,11 +21,10 @@ export class NamiMembersComponent implements OnInit {
 
   protected groupId = '';
 
-  protected memberId: number | null = null;
-
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
+    this.store.dispatch(UserManagementActions.loadUsersInititate());
     this.refreshList();
   }
 
@@ -36,6 +34,14 @@ export class NamiMembersComponent implements OnInit {
 
   protected loadingNamiMembers$: Observable<boolean> = this.store.select(
     userManagementFeature.selectLoadingNamiMembers
+  );
+
+  protected users$: Observable<User[]> = this.store.select(
+    userManagementFeature.selectUsers
+  );
+
+  protected loadingUsers$: Observable<boolean> = this.store.select(
+    userManagementFeature.selectLoadingUsers
   );
 
   protected refreshList(): void {
@@ -53,8 +59,34 @@ export class NamiMembersComponent implements OnInit {
     );
   }
 
-  protected onEditUserAssignments(member: NamiMember): void {
-    this.memberId = member.memberId;
-    this.userAssignmentsDialogVisible = true;
+  protected removeUserAssignment(namiMember: NamiMember, user: User): void {
+    this.store.dispatch(
+      UserManagementActions.updateNamiMemberInitiate({
+        namiMember: {
+          ...namiMember,
+          userAssignments: namiMember.userAssignments.filter(
+            userAssignment => userAssignment.subject !== user.subject
+          ),
+        },
+      })
+    );
+  }
+
+  protected updateUserAssignment(
+    $event: MultiSelectChangeEvent,
+    namiMember: NamiMember
+  ) {
+    this.store.dispatch(
+      UserManagementActions.updateNamiMemberInitiate({
+        namiMember: {
+          ...namiMember,
+          userAssignments: $event.value.map((v: User) => ({
+            subject: v.subject,
+            firstname: v.firstname,
+            lastname: v.lastname,
+          })),
+        },
+      })
+    );
   }
 }

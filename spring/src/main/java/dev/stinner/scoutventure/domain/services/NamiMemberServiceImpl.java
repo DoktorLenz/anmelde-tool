@@ -23,10 +23,20 @@ public class NamiMemberServiceImpl implements NamiMemberService {
         return namiMemberRepository.getNamiMembers();
     }
 
+    @Override
+    public NamiMember getNamiMemberById(Long memberId) {
+        return namiMemberRepository.getNamiMemberById(memberId);
+    }
+
     @Transactional
     @Override
     public void triggerImport(String username, String password, String groupingId) {
         List<NamiMember> namiMembers = namiAdapter.getAllMembersOfGrouping(username, password, groupingId);
         namiMemberRepository.saveNamiMembers(namiMembers);
+    }
+
+    @Override
+    public void updateNamiMember(NamiMember namiMember) {
+        namiMemberRepository.updateNamiMember(namiMember);
     }
 }

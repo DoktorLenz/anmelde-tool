@@ -33,7 +33,7 @@ public class UserEntity {
 
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "iam_users_nami_members_mapping", joinColumns = @JoinColumn(name = "subject"), inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<NamiMemberEntity> AssignedNamiMembers;
 

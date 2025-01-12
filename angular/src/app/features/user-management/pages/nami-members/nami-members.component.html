@@ -51,26 +51,36 @@
           [value]="namiMember.rank"></p-tag>
       </td>
       <td class="flex flex-row align-items-center">
-        <span>
-          @for (
-            userAssignment of namiMember.userAssignments;
-            track userAssignment.id;
-            let lastUserAssignment = $last
-          ) {
-            @if (lastUserAssignment) {
-              {{ userAssignment.firstname }} {{ userAssignment.lastname }}
-            } @else {
-              {{ userAssignment.firstname }} {{ userAssignment.lastname }},
-            }
-          }
-        </span>
-        <button
-          pButton
-          pRipple
-          type="button"
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-text"
-          (click)="onEditUserAssignments(namiMember)"></button>
+        <p-multiSelect
+          [ngModel]="namiMember.userAssignments"
+          [filter]="true"
+          [filterBy]="'firstname,lastname'"
+          [resetFilterOnHide]="true"
+          [dataKey]="'subject'"
+          [options]="(users$ | async) ?? []"
+          [loading]="loadingUsers$ | async"
+          (onChange)="updateUserAssignment($event, namiMember)">
+          <ng-template
+            let-user
+            pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              {{ user.firstname }} {{ user.lastname }}
+            </div>
+          </ng-template>
+          <ng-template
+            let-selectedUsers
+            pTemplate="selectedItems">
+            <p-chip
+              class="p-multiselect-token"
+              *ngFor="let selectedUser of selectedUsers"
+              (onRemove)="removeUserAssignment(namiMember, selectedUser)"
+              [removable]="true">
+              <span class="p-multiselect-token-label">
+                {{ selectedUser.firstname }} {{ selectedUser.lastname }}
+              </span>
+            </p-chip>
+          </ng-template>
+        </p-multiSelect>
       </td>
     </tr>
   </ng-template>
@@ -106,16 +116,4 @@
       label="Import Starten"
       (onClick)="startNamiImport()"></p-button>
   </ng-template>
-</p-dialog>
-
-<p-dialog
-  [(visible)]="userAssignmentsDialogVisible"
-  [draggable]="false"
-  [resizable]="false"
-  [modal]="true">
-  <ng-template pTemplate="header">Nutzer zuordnen</ng-template>
-  <p-dropdown
-    [filter]="true"
-    [appendTo]="'body'"></p-dropdown>
-  <ng-template pTemplate="footer"></ng-template>
 </p-dialog>

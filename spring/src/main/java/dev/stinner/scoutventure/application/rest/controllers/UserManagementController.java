@@ -3,6 +3,7 @@ package dev.stinner.scoutventure.application.rest.controllers;
 import dev.stinner.scoutventure.application.rest.RestApiEndpoints;
 import dev.stinner.scoutventure.application.rest.models.NamiImportDetailsDto;
 import dev.stinner.scoutventure.application.rest.models.NamiMemberDto;
+import dev.stinner.scoutventure.application.rest.models.NamiMemberUpdateDto;
 import dev.stinner.scoutventure.application.rest.models.UserDto;
 import dev.stinner.scoutventure.application.rest.security.Role;
 import dev.stinner.scoutventure.domain.error.ErrorMessages;
@@ -14,18 +15,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class UserManagementController {
 
     private final NamiMemberService namiMemberService;
@@ -52,6 +54,19 @@ public class UserManagementController {
                 .toList();
 
         return ResponseEntity.ok(namiMembers);
+    }
+
+    @RolesAllowed({Role.ADMIN})
+    @PutMapping(RestApiEndpoints.V1.Usermanagement.NAMI_MEMBER)
+    public ResponseEntity<Void> updateNamiMember(@PathVariable Long memberId, @Valid @RequestBody NamiMemberUpdateDto namiMemberUpdateDto) {
+        if (!memberId.equals(namiMemberUpdateDto.getMemberId())) {
+            throw new ConstraintViolationException("MemberId in path does not match memberId in body.", null);
+        }
+        var namiMember = namiMemberService.getNamiMemberById(memberId);
+        var users = userService.getAllUsers();
+        namiMember = namiMemberUpdateDto.applyToDomainModel(namiMember, users);
+        namiMemberService.updateNamiMember(namiMember);
+        return ResponseEntity.noContent().build();
     }
 
     @ApiResponses(value = {

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { NamiMembersService } from '../services/nami-members.service';
+import { UserManagementService } from '../services/user-management.service';
 
 import { exhaustMap, map } from 'rxjs';
 import * as UserManagementActions from './user-management.actions';
@@ -8,7 +8,7 @@ import * as UserManagementActions from './user-management.actions';
 export const loadNamiMembers = createEffect(
   (
     actions$ = inject(Actions),
-    namiMembersService = inject(NamiMembersService)
+    namiMembersService = inject(UserManagementService)
   ) => {
     return actions$.pipe(
       ofType(
@@ -32,7 +32,7 @@ export const loadNamiMembers = createEffect(
 export const importNamiMembers = createEffect(
   (
     actions$ = inject(Actions),
-    namiMembersService = inject(NamiMembersService)
+    namiMembersService = inject(UserManagementService)
   ) => {
     return actions$.pipe(
       ofType(UserManagementActions.namiImportInitiate),
@@ -44,6 +44,40 @@ export const importNamiMembers = createEffect(
             groupingId: action.groupingId,
           })
           .pipe(map(() => UserManagementActions.namiImportSuccess()))
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const loadUsers = createEffect(
+  (
+    actions$ = inject(Actions),
+    namiMembersService = inject(UserManagementService)
+  ) => {
+    return actions$.pipe(
+      ofType(UserManagementActions.loadUsersInititate),
+      exhaustMap(() =>
+        namiMembersService
+          .getUsers()
+          .pipe(map(users => UserManagementActions.loadUsersSuccess({ users })))
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const updateNamiMember = createEffect(
+  (
+    actions$ = inject(Actions),
+    namiMembersService = inject(UserManagementService)
+  ) => {
+    return actions$.pipe(
+      ofType(UserManagementActions.updateNamiMemberInitiate),
+      exhaustMap(action =>
+        namiMembersService
+          .updateNamiMember(action.namiMember)
+          .pipe(map(() => UserManagementActions.updateNamiMemberSuccess()))
       )
     );
   },

@@ -43,7 +43,7 @@ public class UserRepositoryJpaSpi implements UserRepository {
 
         // Users to update (present in both DB and IAM)
         Set<String> usersToUpdate = new HashSet<>(currentUserIds);
-        usersToUpdate.removeAll(fetchedUserIds);
+        usersToUpdate.retainAll(fetchedUserIds);
 
         // handle deletions
         if (!usersToDelete.isEmpty()) {
@@ -60,6 +60,12 @@ public class UserRepositoryJpaSpi implements UserRepository {
         // handle modifications
         List<UserEntity> updatedUsers = fetchedUsers.stream()
                 .filter(user -> usersToUpdate.contains(user.getSubject()))
+                .peek(user -> {
+                    UserEntity existingUser = currentUsers.stream().collect(Collectors.toMap(UserEntity::getSubject, cUser -> cUser)).get(user.getSubject());
+                    if (existingUser != null) {
+                        user.setAssignedNamiMembers(existingUser.getAssignedNamiMembers());
+                    }
+                })
                 .toList();
 
         userJpaRepository.saveAll(updatedUsers);

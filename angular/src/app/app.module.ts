@@ -35,7 +35,6 @@ import { metaReducers, reducers } from './reducers';
       traceLimit: 75,
       connectInZone: true,
     }),
-    // ngDevMode ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     provideHttpClient(

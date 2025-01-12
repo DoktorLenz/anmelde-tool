@@ -34,7 +34,7 @@ public class NamiMemberEntity {
     @Enumerated(EnumType.STRING)
     private GenderEntity gender;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "iam_users_nami_members_mapping", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "subject"))
     private Set<UserEntity> userAssignments;
 
@@ -46,7 +46,7 @@ public class NamiMemberEntity {
                 namiMember.getDateOfBirth(),
                 RankEntity.fromDomain(namiMember.getRank()),
                 GenderEntity.fromDomain(namiMember.getGender()),
-                Set.of()
+                namiMember.getUserAssignments().stream().map(UserEntity::fromDomain).collect(Collectors.toSet())
         );
     }
 

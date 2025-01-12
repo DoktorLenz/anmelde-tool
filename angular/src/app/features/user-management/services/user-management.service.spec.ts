@@ -8,23 +8,23 @@ import { Gender } from '../../../lib/models/gender.enum';
 import { Rank } from '../../../lib/models/rank.enum';
 import { NamiFetchDetails } from '../models/nami-fetch-details';
 import { NamiMember } from '../models/nami-member';
-import { NamiMembersService } from './nami-members.service';
+import { UserManagementService } from './user-management.service';
 
-describe('NamiMembersService', () => {
+describe('UserManagementService', () => {
   beforeEach(() =>
-    MockBuilder(NamiMembersService)
+    MockBuilder(UserManagementService)
       .provide(provideHttpClient())
       .provide(provideHttpClientTesting())
   );
 
   it('should be created', () => {
-    const service = ngMocks.findInstance(NamiMembersService);
+    const service = ngMocks.findInstance(UserManagementService);
 
     expect(service).toBeTruthy();
   });
 
   it('should read all nami members from api', () => {
-    const service = ngMocks.findInstance(NamiMembersService);
+    const service = ngMocks.findInstance(UserManagementService);
     const httpMock = ngMocks.findInstance(HttpTestingController);
     const data: NamiMember[] = [
       {
@@ -50,7 +50,7 @@ describe('NamiMembersService', () => {
   });
 
   it('should send a new fetch job to the api', () => {
-    const service = ngMocks.findInstance(NamiMembersService);
+    const service = ngMocks.findInstance(UserManagementService);
     const httpMock = ngMocks.findInstance(HttpTestingController);
 
     const namiFetchDetails: NamiFetchDetails = {
