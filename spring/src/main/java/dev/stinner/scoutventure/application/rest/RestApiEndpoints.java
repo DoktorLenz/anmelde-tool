@@ -25,7 +25,9 @@ public final class RestApiEndpoints {
         @UtilityClass
         public static class Usermanagement {
             private static final String BASE_USERMANAGEMENT = BASE_V1 + "/usermanagement";
+            public static final String USERS = BASE_USERMANAGEMENT + "/users";
             public static final String NAMI_MEMBERS = BASE_USERMANAGEMENT + "/nami-members";
+            public static final String NAMI_MEMBER = NAMI_MEMBERS + "/{memberId}";
             public static final String TRIGGER_IMPORT = BASE_USERMANAGEMENT + "/trigger-import";
         }
     }

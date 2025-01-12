@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class NavigationService {
-  private _sidebarVisible: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _sidebarVisible: BehaviorSubject<boolean> = new BehaviorSubject(
+    false
+  );
 
   public sidebarVisible$ = this._sidebarVisible.asObservable();
 

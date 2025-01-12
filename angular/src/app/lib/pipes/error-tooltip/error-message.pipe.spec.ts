@@ -18,7 +18,7 @@ describe('ErrorMessagePipe', () => {
 
   it('should return "Erforderlich" if control has required error', () => {
     const control: AbstractControl = MockService(AbstractControl, {
-      errors: { 'required': true },
+      errors: { required: true },
     });
     const view = MockRender('{{ control.errors | errorMessage }}', {
       control: control,
@@ -29,7 +29,7 @@ describe('ErrorMessagePipe', () => {
 
   it('should return "Ungültige E-Mail Adresse" if control has email error', () => {
     const control: AbstractControl = MockService(AbstractControl, {
-      errors: { 'email': true },
+      errors: { email: true },
     });
     const view = MockRender('{{ control.errors | errorMessage }}', {
       control: control,
@@ -46,17 +46,21 @@ describe('ErrorMessagePipe', () => {
       control: control,
     });
 
-    expect(view.nativeElement.innerHTML).toEqual('unknown error "unhandled error"');
+    expect(view.nativeElement.innerHTML).toEqual(
+      'unknown error "unhandled error"'
+    );
   });
 
   it('should join on multiple errors', () => {
     const control: AbstractControl = MockService(AbstractControl, {
-      errors: { 'required': true, 'email': true  },
+      errors: { required: true, email: true },
     });
     const view = MockRender('{{ control.errors | errorMessage }}', {
       control: control,
     });
 
-    expect(view.nativeElement.innerHTML).toEqual('Erforderlich, Ungültige E-Mail Adresse');
+    expect(view.nativeElement.innerHTML).toEqual(
+      'Erforderlich, Ungültige E-Mail Adresse'
+    );
   });
 });

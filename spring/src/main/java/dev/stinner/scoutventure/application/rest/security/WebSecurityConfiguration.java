@@ -3,6 +3,7 @@ package dev.stinner.scoutventure.application.rest.security;
 import dev.stinner.scoutventure.application.rest.RestActuatorEndpoints;
 import dev.stinner.scoutventure.application.rest.RestApiEndpoints;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -17,8 +18,18 @@ import org.springframework.security.web.SecurityFilterChain;
         jsr250Enabled = true // allows use of @RolesAllowed
 )
 public class WebSecurityConfiguration {
+    private final KeycloakGrantedAuthoritiesJwtConverter grantedAuthoritiesJwtConverter;
+    @Value("${scoutventure.oauth2.provider}")
+    private String provider;
 
-    private final GrantedAuthoritiesJwtConverter jwtAuthenticationConverter;
+//    @Bean
+//    @Primary
+//    public Converter<Jwt, JwtAuthenticationToken> grantedAuthoritiesJwtConverter(KeycloakGrantedAuthoritiesJwtConverter keycloakGrantedAuthoritiesJwtConverter) {
+//        if ("keycloak".equalsIgnoreCase(provider)) {
+//            return keycloakGrantedAuthoritiesJwtConverter;
+//        }
+//        throw new IllegalArgumentException("Unsupported provider: " + provider);
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,7 +42,7 @@ public class WebSecurityConfiguration {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
                         httpSecurityOAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> {
-                                    jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
+                                    jwtConfigurer.jwtAuthenticationConverter(grantedAuthoritiesJwtConverter);
                                 }
                         )
                 );

@@ -8,4 +8,8 @@ public interface NamiMemberRepository {
     void saveNamiMembers(List<NamiMember> namiMembers);
 
     List<NamiMember> getNamiMembers();
+
+    NamiMember getNamiMemberById(Long memberId);
+
+    void updateNamiMember(NamiMember namiMember);
 }

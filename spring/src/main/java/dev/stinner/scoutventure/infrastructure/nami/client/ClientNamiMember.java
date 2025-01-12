@@ -6,6 +6,7 @@ import dev.stinner.scoutventure.domain.models.NamiMember;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 public class ClientNamiMember {
@@ -30,7 +31,8 @@ public class ClientNamiMember {
                 lastname,
                 dateOfBirth.toLocalDate(),
                 rank.toDomain(),
-                gender.toDomain()
+                gender.toDomain(),
+                Set.of()
         );
     }
 }
