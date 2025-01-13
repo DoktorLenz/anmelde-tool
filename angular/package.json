@@ -30,7 +30,7 @@
     "@ngrx/entity": "^19.0.0",
     "@ngrx/store": "^19.0.0",
     "@ngrx/store-devtools": "^19.0.0",
-    "angular-auth-oidc-client": "18.0.1",
+    "angular-auth-oidc-client": "19.0.0",
     "jwt-decode": "^4.0.0",
     "ng-mocks": "14.13.1",
     "primeicons": "7.0.0",
