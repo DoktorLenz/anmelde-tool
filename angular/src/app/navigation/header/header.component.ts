@@ -6,6 +6,11 @@ import {
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
 import { NavigationService } from '../navigation.service';
+import { Menubar } from 'primeng/menubar';
+import { PrimeTemplate } from 'primeng/api';
+import { BreakpointDirective } from '../../layout/directives/breakpoint/breakpoint.directive';
+import { Button } from 'primeng/button';
+import { Avatar } from 'primeng/avatar';
 
 @Component({
     selector: 'sv-header',
@@ -13,7 +18,7 @@ import { NavigationService } from '../navigation.service';
     styleUrl: './header.component.scss',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [Menubar, PrimeTemplate, BreakpointDirective, Button, Avatar]
 })
 export class HeaderComponent {
   protected Breakpoint = Breakpoint;

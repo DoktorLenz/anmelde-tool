@@ -9,10 +9,7 @@ import {
 import { Breakpoint } from './breakpoint.enum';
 import { ComparatorFn } from './comparator';
 
-@Directive({
-    selector: '[breakpoint]',
-    standalone: false
-})
+@Directive({ selector: '[breakpoint]' })
 export class BreakpointDirective implements OnInit {
   @Input()
   public set breakpoint(breakpoint: Breakpoint) {

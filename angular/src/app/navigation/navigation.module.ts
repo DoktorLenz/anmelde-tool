@@ -10,12 +10,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { NavigationService } from './navigation.service';
 import { PanelModule } from 'primeng/panel';
-import { LayoutDirectivesModule } from '../layout/directives/layout-directives.module';
+
 import { ImageModule } from 'primeng/image';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SidebarComponent],
-  imports: [
+    imports: [
     CommonModule,
     PanelMenuModule,
     MenubarModule,
@@ -23,10 +22,10 @@ import { ImageModule } from 'primeng/image';
     ButtonModule,
     SidebarModule,
     PanelModule,
-    LayoutDirectivesModule,
     ImageModule,
-  ],
-  exports: [HeaderComponent, FooterComponent, SidebarComponent],
-  providers: [NavigationService],
+    HeaderComponent, FooterComponent, SidebarComponent,
+],
+    exports: [HeaderComponent, FooterComponent, SidebarComponent],
+    providers: [NavigationService],
 })
 export class NavigationModule {}

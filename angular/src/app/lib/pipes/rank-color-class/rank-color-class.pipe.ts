@@ -3,8 +3,7 @@ import { Rank } from '../../models/rank.enum';
 
 @Pipe({
     name: 'rankColorClass',
-    pure: true,
-    standalone: false
+    pure: true
 })
 export class RankColorClassPipe implements PipeTransform {
   transform(rank: Rank): string {

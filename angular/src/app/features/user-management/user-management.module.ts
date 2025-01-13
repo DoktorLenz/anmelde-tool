@@ -13,15 +13,14 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { PasswordModule } from 'primeng/password';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { PipesModule } from 'src/app/lib/pipes/pipes.module';
+
 import { userManagementFeature } from './ngrx';
 import * as UserManagementEffects from './ngrx/user-management.effects';
 import { NamiMembersComponent } from './pages/nami-members/nami-members.component';
 import { OverviewComponent } from './pages/overview/overview.component';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 @NgModule({
-  declarations: [NamiMembersComponent, OverviewComponent],
-  imports: [
+    imports: [
     StoreModule.forFeature(userManagementFeature),
     EffectsModule.forFeature(UserManagementEffects),
     CommonModule,
@@ -33,11 +32,11 @@ import { UserManagementRoutingModule } from './user-management-routing.module';
     PasswordModule,
     FormsModule,
     TagModule,
-    PipesModule,
     DividerModule,
     MultiSelectModule,
     DropdownModule,
     ChipModule,
-  ],
+    NamiMembersComponent, OverviewComponent,
+],
 })
 export class UserManagementModule {}

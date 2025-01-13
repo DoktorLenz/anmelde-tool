@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
 
-@Component({
-    templateUrl: './main.component.html',
-    standalone: false
-})
+@Component({ templateUrl: './main.component.html' })
 export class MainComponent {}

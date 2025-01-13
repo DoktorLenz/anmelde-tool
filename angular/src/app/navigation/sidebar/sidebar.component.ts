@@ -9,13 +9,17 @@ import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparato
 import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
 import { UserManagementRoute } from 'src/app/lib/routes/user-management-route.enum';
 import { NavigationService } from '../navigation.service';
+import { BreakpointDirective } from '../../layout/directives/breakpoint/breakpoint.directive';
+import { NgTemplateOutlet, NgIf, AsyncPipe } from '@angular/common';
+import { Sidebar } from 'primeng/sidebar';
+import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
     selector: 'sv-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [BreakpointDirective, NgTemplateOutlet, Sidebar, NgIf, PanelMenu, AsyncPipe]
 })
 export class SidebarComponent {
   protected userMenuItems: MenuItem[] = [

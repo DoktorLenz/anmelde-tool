@@ -4,12 +4,16 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { setRoles } from './auth/auth.actions';
 import { Role } from './auth/models/role.enum';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidebarComponent } from './navigation/sidebar/sidebar.component';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './navigation/footer/footer.component';
 
 @Component({
     selector: 'sv-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [HeaderComponent, SidebarComponent, RouterOutlet, FooterComponent]
 })
 export class AppComponent {
   title = 'scoutventure-spa';

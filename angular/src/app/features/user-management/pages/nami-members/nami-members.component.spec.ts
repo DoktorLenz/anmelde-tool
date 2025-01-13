@@ -11,13 +11,13 @@ describe('NamiMembersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NamiMembersComponent],
-      providers: [
+    imports: [NamiMembersComponent],
+    providers: [
         MockProvider(NamiMembersService, {
-          getNamiMembers: jasmine.createSpy().and.returnValue(NEVER),
+            getNamiMembers: jasmine.createSpy().and.returnValue(NEVER),
         }),
-      ],
-    });
+    ],
+});
     fixture = TestBed.createComponent(NamiMembersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

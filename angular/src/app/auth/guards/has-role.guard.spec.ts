@@ -11,13 +11,13 @@ import { Component } from '@angular/core';
 
 @Component({
     template: '',
-    standalone: false
+    imports: [RouterTestingModule]
 })
 class PrevComponent {}
 
 @Component({
     template: '',
-    standalone: false
+    imports: [RouterTestingModule]
 })
 class MockComponent {}
 
@@ -34,14 +34,13 @@ const routes: Routes = [
 describe('User does not have required role', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [PrevComponent, MockComponent],
-      providers: [
+    imports: [RouterTestingModule, PrevComponent, MockComponent],
+    providers: [
         MockProvider(UserDataService, {
-          hasRole: jasmine.createSpy().and.returnValue(of(false)),
+            hasRole: jasmine.createSpy().and.returnValue(of(false)),
         }),
-      ],
-    });
+    ],
+});
   });
 
   it('it should route to previous url', fakeAsync(() => {
@@ -62,14 +61,13 @@ describe('User does not have required role', () => {
 describe('User has required role', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [PrevComponent, MockComponent],
-      providers: [
+    imports: [RouterTestingModule, PrevComponent, MockComponent],
+    providers: [
         MockProvider(UserDataService, {
-          hasRole: jasmine.createSpy().and.returnValue(of(true)),
+            hasRole: jasmine.createSpy().and.returnValue(of(true)),
         }),
-      ],
-    });
+    ],
+});
   });
 
   it('it should allow routing', fakeAsync(() => {
