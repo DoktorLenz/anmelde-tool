@@ -6,9 +6,10 @@ import { setRoles } from './auth/auth.actions';
 import { Role } from './auth/models/role.enum';
 
 @Component({
-  selector: 'sv-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'sv-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent {
   title = 'scoutventure-spa';

@@ -8,7 +8,8 @@ import { userManagementFeature } from '../../ngrx';
 import * as UserManagementActions from '../../ngrx/user-management.actions';
 
 @Component({
-  templateUrl: './nami-members.component.html',
+    templateUrl: './nami-members.component.html',
+    standalone: false
 })
 export class NamiMembersComponent implements OnInit {
   protected namiFetchDialogVisible = false;

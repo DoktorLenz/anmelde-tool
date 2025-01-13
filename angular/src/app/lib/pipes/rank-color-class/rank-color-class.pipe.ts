@@ -2,8 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Rank } from '../../models/rank.enum';
 
 @Pipe({
-  name: 'rankColorClass',
-  pure: true,
+    name: 'rankColorClass',
+    pure: true,
+    standalone: false
 })
 export class RankColorClassPipe implements PipeTransform {
   transform(rank: Rank): string {

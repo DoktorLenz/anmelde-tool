@@ -9,10 +9,16 @@ import { TestBed, fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 class PrevComponent {}
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 class MockComponent {}
 
 const routes: Routes = [

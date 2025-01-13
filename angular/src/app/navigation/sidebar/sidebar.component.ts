@@ -11,10 +11,11 @@ import { UserManagementRoute } from 'src/app/lib/routes/user-management-route.en
 import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'sv-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sv-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SidebarComponent {
   protected userMenuItems: MenuItem[] = [

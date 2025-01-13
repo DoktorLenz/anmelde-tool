@@ -8,11 +8,12 @@ import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparato
 import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'sv-header',
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sv-header',
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HeaderComponent {
   protected Breakpoint = Breakpoint;
