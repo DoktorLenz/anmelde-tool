@@ -9,7 +9,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import Aura from '@primeng/themes/aura';
+import Material from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
@@ -45,7 +45,7 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Material,
       },
     }),
   ],
