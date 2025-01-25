@@ -1,26 +1,41 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { MultiSelectChangeEvent, MultiSelect } from 'primeng/multiselect';
+import { PrimeTemplate } from 'primeng/api';
+import { Button } from 'primeng/button';
+import { Chip } from 'primeng/chip';
+import { Dialog } from 'primeng/dialog';
+import { InputText } from 'primeng/inputtext';
+import { MultiSelect, MultiSelectChangeEvent } from 'primeng/multiselect';
+import { Password } from 'primeng/password';
+import { TableModule } from 'primeng/table';
+import { Tag } from 'primeng/tag';
 import { Observable } from 'rxjs';
+import { RankColorClassPipe } from '../../../../lib/pipes/rank-color-class/rank-color-class.pipe';
 import { NamiMember } from '../../models/nami-member';
 import { User } from '../../models/user';
 import { userManagementFeature } from '../../ngrx';
 import * as UserManagementActions from '../../ngrx/user-management.actions';
-import { TableModule } from 'primeng/table';
-import { PrimeTemplate } from 'primeng/api';
-import { Button } from 'primeng/button';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { Tag } from 'primeng/tag';
-import { FormsModule } from '@angular/forms';
-import { Chip } from 'primeng/chip';
-import { Dialog } from 'primeng/dialog';
-import { InputText } from 'primeng/inputtext';
-import { Password } from 'primeng/password';
-import { RankColorClassPipe } from '../../../../lib/pipes/rank-color-class/rank-color-class.pipe';
 
 @Component({
-    templateUrl: './nami-members.component.html',
-    imports: [TableModule, PrimeTemplate, Button, NgIf, Tag, MultiSelect, FormsModule, NgFor, Chip, Dialog, InputText, Password, AsyncPipe, RankColorClassPipe]
+  templateUrl: './nami-members.component.html',
+  imports: [
+    TableModule,
+    PrimeTemplate,
+    Button,
+    NgIf,
+    Tag,
+    MultiSelect,
+    FormsModule,
+    NgFor,
+    Chip,
+    Dialog,
+    InputText,
+    Password,
+    AsyncPipe,
+    RankColorClassPipe,
+  ],
 })
 export class NamiMembersComponent implements OnInit {
   protected namiFetchDialogVisible = false;
