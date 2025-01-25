@@ -9,8 +9,7 @@ import { Role } from 'src/app/auth/models/role.enum';
 import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
 
 @Component({
-    template: '<p>You are logged in. Redirecting...</p>',
-    standalone: false
+  template: '<p>You are logged in. Redirecting...</p>',
 })
 export class CallbackComponent implements OnInit {
   constructor(
