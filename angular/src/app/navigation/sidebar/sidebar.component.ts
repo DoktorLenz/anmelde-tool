@@ -1,13 +1,17 @@
+import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { EventType, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
+import { PanelMenu } from 'primeng/panelmenu';
+import { Sidebar } from 'primeng/sidebar';
 import { filter, Observable } from 'rxjs';
 import { authFeature } from 'src/app/auth/reducers';
 import { Breakpoint } from 'src/app/layout/directives/breakpoint/breakpoint.enum';
 import { NumberComparator } from 'src/app/layout/directives/breakpoint/comparator';
 import { BaseRoute } from 'src/app/lib/routes/base-route.enum';
 import { UserManagementRoute } from 'src/app/lib/routes/user-management-route.enum';
+import { BreakpointDirective } from '../../layout/directives/breakpoint/breakpoint.directive';
 import { NavigationService } from '../navigation.service';
 
 @Component({
@@ -15,6 +19,14 @@ import { NavigationService } from '../navigation.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    BreakpointDirective,
+    NgTemplateOutlet,
+    Sidebar,
+    NgIf,
+    PanelMenu,
+    AsyncPipe,
+  ],
 })
 export class SidebarComponent {
   protected userMenuItems: MenuItem[] = [
@@ -62,15 +74,6 @@ export class SidebarComponent {
     private readonly router: Router,
     private readonly store: Store
   ) {
-    // this.userDataService.userData$.subscribe({
-    //   next: (userData: UserData) => {
-    //     this.menuItems = [...this.userMenuItems];
-    //     if (userData.authorities?.find(role => role === Role.ADMIN)) {
-    //       this.menuItems.push(...this.adminMenuItems);
-    //     }
-    //   },
-    // });
-
     this.router.events
       .pipe(
         filter(

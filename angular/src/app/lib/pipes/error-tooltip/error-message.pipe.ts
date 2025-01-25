@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
-@Pipe({
-  name: 'errorMessage',
-})
+@Pipe({ name: 'errorMessage' })
 export class ErrorMessagePipe implements PipeTransform {
   transform(errors: ValidationErrors | null): string {
     const errorMessages = Object.entries(errors ?? []).map(([property]) =>
