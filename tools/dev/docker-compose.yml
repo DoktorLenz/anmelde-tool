@@ -5,7 +5,7 @@ version: "3.9"
 services:
   backend_db:
     container_name: database_dev
-    image: postgres:15.10-alpine@sha256:fd3abc9557df27613bd5c5e6608fc62fb04dc90c8e79c3322348d600e4b75478
+    image: postgres:15.10-alpine@sha256:93a6166360be8f1d116b7ea97ebb8dea9e2c9c746349e952738bbba72a961d7c
     environment:
       - POSTGRES_USER=scoutventure
       - POSTGRES_PASSWORD=scoutventure
@@ -15,7 +15,7 @@ services:
       - "35432:5432"
   kc_database:
     container_name: kc_database
-    image: postgres:16.6-alpine@sha256:91e75546b4f229fa92cec21a2bf831ba03a1c101fc197daafff657f153e93a39
+    image: postgres:16.6-alpine@sha256:aba1fab94626cf8b0f4549055214239a37e0a690f03f142b7bca05b9ed36c6db
     environment:
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=keycloak
