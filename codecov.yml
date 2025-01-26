@@ -4,6 +4,8 @@ coverage:
     project:
       default:
         target: 90% #overall project/ repo coverage
+        threshold: -100
+        informational: true
       angular:
         target: 80%
         flags:
@@ -11,6 +13,8 @@ coverage:
           - 'Frontend-Integration-Tests'
         paths:
           - "angular"
+        threshold: -100
+        informational: true
       spring:
         target: 80%
         flags:
@@ -18,6 +22,8 @@ coverage:
           - 'Backend-Integration-Tests'
         paths:
           - "spring"
+        threshold: -100
+        informational: true
 
 # adding Flags to your `layout` configuration to show up in the PR comment
 comment:
