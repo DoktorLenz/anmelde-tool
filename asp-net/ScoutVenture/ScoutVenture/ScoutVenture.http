@@ -1,0 +1,6 @@
+@ScoutVenture_HostAddress = http://localhost:5157
+
+GET {{ScoutVenture_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
