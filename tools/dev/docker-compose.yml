@@ -5,7 +5,7 @@ version: "3.9"
 services:
   backend_db:
     container_name: database_dev
-    image: postgres:15.10-alpine@sha256:93a6166360be8f1d116b7ea97ebb8dea9e2c9c746349e952738bbba72a961d7c
+    image: postgres:17.2-alpine@sha256:0bcc5bbbb2aa9c9b4c6505845918c7eb55d783cf5c1f434fac33012579fb149d
     environment:
       - POSTGRES_USER=scoutventure
       - POSTGRES_PASSWORD=scoutventure
@@ -15,7 +15,7 @@ services:
       - "35432:5432"
   kc_database:
     container_name: kc_database
-    image: postgres:16.6-alpine@sha256:aba1fab94626cf8b0f4549055214239a37e0a690f03f142b7bca05b9ed36c6db
+    image: postgres:17.2-alpine@sha256:0bcc5bbbb2aa9c9b4c6505845918c7eb55d783cf5c1f434fac33012579fb149d
     environment:
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=keycloak
@@ -25,7 +25,7 @@ services:
       - "5432:5432"
   kc_keycloak:
     container_name: kc_keycloak
-    image: quay.io/keycloak/keycloak:25.0.6@sha256:82c5b7a110456dbd42b86ea572e728878549954cc8bd03cd65410d75328095d2
+    image: quay.io/keycloak/keycloak:26.1.0@sha256:ac430f92e286fdcbef10bc8ea6e2b2472eae5838dc264221be338f6733453e70
     environment:
       - KEYCLOAK_IMPORT=/opt/keycloak/data/import/realm-scoutventure.json
       - KEYCLOAK_ADMIN=admin
