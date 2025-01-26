@@ -1,4 +1,5 @@
 using ScoutVenture.ApiControllers;
+using ScoutVenture.Extensions;
 
 namespace ScoutVenture
 {
@@ -9,6 +10,7 @@ namespace ScoutVenture
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddKeycloakAuthentication(builder.Configuration);
 
             builder.Services.AddControllers().AddApplicationPart(typeof(WeatherForecastController).Assembly);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,6 +28,7 @@ namespace ScoutVenture
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
@@ -34,3 +37,4 @@ namespace ScoutVenture
         }
     }
 }
+
