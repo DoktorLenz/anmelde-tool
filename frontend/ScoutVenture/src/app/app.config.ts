@@ -678,6 +678,9 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: ScoutVentureTheme,
+        options: {
+          darkModeSelector: '.disable',
+        },
       },
     }),
   ],
