@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ScoutVenture.PostgresAdapter;
 
 namespace ScoutVenture.Extensions
 {
@@ -30,6 +33,22 @@ namespace ScoutVenture.Extensions
             });
 
             return services;
+        }
+
+        public static IServiceCollection AddIdentity(this IServiceCollection services)
+        {
+            services.AddAuthorization();
+            services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+            services.AddIdentityCore<IdentityUser>().AddEntityFrameworkStores<PostgresApplicationDbContext>()
+                .AddApiEndpoints();
+            return services;
+        }
+
+        public static void ApplyMigrations(this IApplicationBuilder app)
+        {
+            using IServiceScope scope = app.ApplicationServices.CreateScope();
+            using PostgresApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<PostgresApplicationDbContext>();
+            dbContext.Database.Migrate();
         }
     }
 }

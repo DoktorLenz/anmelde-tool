@@ -12,33 +12,34 @@ services:
       - POSTGRES_DB=scoutventure
     restart: unless-stopped
     ports:
-      - "35432:5432"
-  kc_database:
-    container_name: kc_database
-    image: postgres:17.2-alpine@sha256:0bcc5bbbb2aa9c9b4c6505845918c7eb55d783cf5c1f434fac33012579fb149d
-    environment:
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=keycloak
-      - POSTGRES_DB=keycloak
-    restart: unless-stopped
-    ports:
       - "5432:5432"
-  kc_keycloak:
-    container_name: kc_keycloak
-    image: quay.io/keycloak/keycloak:26.1.0@sha256:ac430f92e286fdcbef10bc8ea6e2b2472eae5838dc264221be338f6733453e70
-    environment:
-      - KEYCLOAK_IMPORT=/opt/keycloak/data/import/realm-scoutventure.json
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://kc_database:5432/keycloak
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=keycloak
-    restart: unless-stopped
-    volumes:
-      - ../../docker/keycloak/realm-scoutventure.json:/opt/keycloak/data/import/realm-scoutventure.json
-    command: start-dev --import-realm --verbose
-    ports:
-      - "8080:8080"
-    depends_on:
-      - kc_database
+    command: ["postgres", "-c", "log_statement=all"]
+  # kc_database:
+  #   container_name: kc_database
+  #   image: postgres:17.2-alpine@sha256:0bcc5bbbb2aa9c9b4c6505845918c7eb55d783cf5c1f434fac33012579fb149d
+  #   environment:
+  #     - POSTGRES_USER=keycloak
+  #     - POSTGRES_PASSWORD=keycloak
+  #     - POSTGRES_DB=keycloak
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5432:5432"
+  # kc_keycloak:
+  #   container_name: kc_keycloak
+  #   image: quay.io/keycloak/keycloak:26.1.0@sha256:ac430f92e286fdcbef10bc8ea6e2b2472eae5838dc264221be338f6733453e70
+  #   environment:
+  #     - KEYCLOAK_IMPORT=/opt/keycloak/data/import/realm-scoutventure.json
+  #     - KEYCLOAK_ADMIN=admin
+  #     - KEYCLOAK_ADMIN_PASSWORD=admin
+  #     - KC_DB=postgres
+  #     - KC_DB_URL=jdbc:postgresql://kc_database:5432/keycloak
+  #     - KC_DB_USERNAME=keycloak
+  #     - KC_DB_PASSWORD=keycloak
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ../../docker/keycloak/realm-scoutventure.json:/opt/keycloak/data/import/realm-scoutventure.json
+  #   command: start-dev --import-realm --verbose
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - kc_database
