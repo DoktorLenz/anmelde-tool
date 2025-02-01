@@ -8,7 +8,7 @@ module.exports = tseslint.config(
     files: ["**/*.ts"],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
+      ...tseslint.configs.strict,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
     ],
